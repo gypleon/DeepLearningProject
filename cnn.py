@@ -27,28 +27,28 @@ from torch.autograd import Variable
 # parser.add_argument('--log-interval', type=int, default=10, metavar='N',
 #                     help='how many batches to wait before logging training status')
 # args = parser.parse_args()
-# args.cuda = not args.no_cuda and torch.cuda.is_available()
 
-batch_size=64
-test_batch_size_1000
-epochs=10
-lr=0.01
-momentum=0.5
-no_cuda=False
-seed=1
-log_interval=10
+class args:
+    cuda = False
+    batch_size = 64
+    test_batch_size = 1000
+    epochs = 10
+    lr = 0.01
+    momentum = 0.5
+    no_cuda = False
+    seed = 1
+    log_interval = 10
+
+args.cuda = not args.no_cuda and torch.cuda.is_available()
 
 torch.manual_seed(args.seed)
-# TODO
 if args.cuda:
     torch.cuda.manual_seed(args.seed)
 
-
-# TODO
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 # The output of torchvision datasets are PILImage images of range [0, 1].
 # We transform them to Tensors of normalized range [-1, 1]
-transform=transforms.Compose([transforms.ToTensor(),
+transform = transforms.Compose([transforms.ToTensor(),
                               transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
                              ])
 trainset = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
@@ -66,6 +66,7 @@ class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
         # TODO: define your network here
+        
 
     def forward(self, x):
         # TODO
