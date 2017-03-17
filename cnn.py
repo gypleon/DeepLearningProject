@@ -1,5 +1,5 @@
 from __future__ import print_function
-import argparse
+# import argparse
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -9,24 +9,6 @@ from torch.autograd import Variable
 
 # Training settings
 # for terminal use. In notebook, you can't parse arguments
-# parser = argparse.ArgumentParser(description='ELEG5491 A2 Image Classification on CIFAR-10')
-# parser.add_argument('--batch-size', type=int, default=64, metavar='N',
-#                     help='input batch size for training (default: 64)')
-# parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
-#                     help='input batch size for testing (default: 1000)')
-# parser.add_argument('--epochs', type=int, default=10, metavar='N',
-#                     help='number of epochs to train (default: 10)')
-# parser.add_argument('--lr', type=float, default=0.01, metavar='LR',
-#                     help='learning rate (default: 0.01)')
-# parser.add_argument('--momentum', type=float, default=0.5, metavar='M',
-#                     help='SGD momentum (default: 0.5)')
-# parser.add_argument('--no-cuda', action='store_true', default=False,
-#                     help='enables CUDA training')
-# parser.add_argument('--seed', type=int, default=1, metavar='S',
-#                     help='random seed (default: 1)')
-# parser.add_argument('--log-interval', type=int, default=10, metavar='N',
-#                     help='how many batches to wait before logging training status')
-# args = parser.parse_args()
 
 class args:
     cuda = False
@@ -66,11 +48,32 @@ class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
         # TODO: define your network here
+        self.block_conv_1 = nn.Sequential(
+            nn.Conv2d(3, 6, kernel_size=5, stride=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+        self.block_conv_2 = nn.Sequential(
+            nn.Conv2d(6, 16, kernel_size=5, stride=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+        self.fc_1 = nn.Linear(16*25, 120)
+        self.fc_2 = nn.Linear(120, 84)
+        self.fc_3 = nn.Linear(84, 10)
+        self.softmax = nn.Softmax()
         
 
     def forward(self, x):
         # TODO
-        return
+        x = self.block_conv_1(x)
+        x = self.block_conv_2(x)
+        x = x.view(x.size(0), -1)
+        x = self.fc_1(x)
+        x = self.fc_2(x)
+        x = self.fc_3(x)
+        x = self.softmax(x)
+        return x
 
 
 model = Net()
