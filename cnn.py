@@ -71,7 +71,7 @@ class Net(nn.Module):
         # TODO: replace fc using conv
         self.fc_3 = nn.Linear(84, 10)
         self.softmax = nn.LogSoftmax()
-        # initialize parameters
+        # Initialize parameters
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
@@ -98,6 +98,33 @@ class Net(nn.Module):
         x = self.fc_3(x)
         x = self.softmax(x)
         return x
+
+# Feature extractor
+class FeatureExtractor(nn.Module):
+    def __init__(self, model, layer_names):
+        super(FeatureExtractor, self).__init__()
+        self._model = model
+        self._layer_names = set(layer_names)
+
+    def forward(self, x):
+        out = dict()
+        for name, module in _model._modules.iteritems():
+            if isinstance(module, nn.Linear):
+                x = x.view(x.size(0), -1)
+            x = module(x)
+            if name in self._layer_names:
+                out[name] = x
+        return out
+
+
+class VisualizedResult():
+    def __init__(self, model):
+
+    def training_curve(self, num_epoch):
+
+    def conv_filter(self, layer_names):
+        feature_extractor = FeatureExtractor(model, layer_names)
+
 
 
 model = Net()
@@ -147,3 +174,8 @@ for epoch in range(1, args.epochs + 1):
     train(epoch)
     test(epoch)
 
+visual_result = VisualizedResult(model)
+# Visualize training curve
+visual_result.training_curve(args.eposhs)
+# Visualize trained filter on the 1st Conv layer
+visual_result.conv_filter(1)
