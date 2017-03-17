@@ -61,7 +61,7 @@ class Net(nn.Module):
         self.fc_1 = nn.Linear(16*25, 120)
         self.fc_2 = nn.Linear(120, 84)
         self.fc_3 = nn.Linear(84, 10)
-        self.softmax = nn.Softmax()
+        self.softmax = nn.LogSoftmax()
         
 
     def forward(self, x):
