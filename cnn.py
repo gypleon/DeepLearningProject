@@ -58,19 +58,43 @@ class Net(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d(kernel_size=2, stride=2)
         )
-        self.fc_1 = nn.Linear(16*25, 120)
-        self.fc_2 = nn.Linear(120, 84)
+        # TODO: replace fc using conv
+        self.block_fc_1 = nn.Sequential(
+            nn.Linear(16*25, 120),
+            nn.Dropout2d()
+        )
+        # TODO: replace fc using conv
+        self.block_fc_2 = nn.Sequential(
+            nn.Linear(120, 84),
+            nn.Dropout2d()
+        )
+        # TODO: replace fc using conv
         self.fc_3 = nn.Linear(84, 10)
         self.softmax = nn.LogSoftmax()
-        
+        # initialize parameters
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                # m.weight.data.normal_(0, math.sqrt(2. /n))
+                # if m.bias is not None:
+                #     m.bias.zero_()
+            if isinstance(m, nn.BatchNorm2d):
+                m = m
+                # m.weight.data.fill_(1)
+                # m.bias.data.zero_()
+            if isinstance(m, nn.Linear):
+                m = m
+                # m.weight.data.normal_(0, 0.001)
+                # if m.bias is not None:
+                #    m.bias.zero_()
 
     def forward(self, x):
         # TODO
         x = self.block_conv_1(x)
         x = self.block_conv_2(x)
         x = x.view(x.size(0), -1)
-        x = self.fc_1(x)
-        x = self.fc_2(x)
+        x = self.block_fc_1(x)
+        x = self.block_fc_2(x)
         x = self.fc_3(x)
         x = self.softmax(x)
         return x
@@ -80,6 +104,7 @@ model = Net()
 if args.cuda:
     model.cuda()
 
+# TODO: other optimizers
 optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 
 def train(epoch):
