@@ -63,13 +63,15 @@ class Net(nn.Module):
         # TODO: replace fc using conv
         self.block_fc_1 = nn.Sequential(
             nn.Linear(16*25, 120),
-            nn.Dropout2d()
+            nn.Dropout()
         )
+        # self.block_fc_1 = nn.Linear(16*25, 120)
         # TODO: replace fc using conv
         self.block_fc_2 = nn.Sequential(
             nn.Linear(120, 84),
-            nn.Dropout2d()
+            nn.Dropout()
         )
+        # self.block_fc_2 = nn.Linear(120, 84)
         # TODO: replace fc using conv
         self.fc_3 = nn.Linear(84, 10)
         self.softmax = nn.LogSoftmax()
@@ -123,21 +125,34 @@ class VisualizedResult():
     def __init__(self, model):
         self._model = model
     def training_curve(self, epoches, train_loss_records, test_loss_records):
+        fig = plt.figure()
+        ax_train = fig.add_subplot(111)
+        ax_test = fig.add_subplot(111)
         plt.axis([1, epoches, 0, math.ceil(max(train_loss_records + test_loss_records) * 1.2)])
         plt.xlabel('Epoches')
         plt.ylabel('Loss')
         plt.title('Training Curve')
-        plt.plot(range(1, epoches + 1), train_loss_records, 'b-', range(1, epoches + 1), test_loss_records, 'r-')
+        plt.plot(range(1, epoches + 1), train_loss_records, 'b-', label="train loss")
+        plt.plot(range(1, epoches + 1), test_loss_records, 'r-', label="test loss")
+        for xy in zip(range(1, epoches + 1), train_loss_records):
+            ax_train.annotate('%.2f' % xy[1], xy=xy, textcoords='data')
+        for xy in zip(range(1, epoches + 1), test_loss_records):
+            ax_test.annotate('%.2f' % xy[1], xy=xy, textcoords='data')
+        plt.legend(loc='upper right', borderaxespad=0.)
         plt.show()
     def accuracy_curve(self, epoches, accuracy_records):
-        plt.axis([1, epoches, 0, math.ceil(max(accuracy_records) * 1.2)])
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        plt.axis([1, epoches, 0, 100])
         plt.xlabel('Epoches')
         plt.ylabel('Accuracy')
         plt.title('Accuracy Curve')
         plt.plot(range(1, epoches + 1), accuracy_records, '-')
+        for xy in zip(range(1, epoches + 1), accuracy_records):
+            ax.annotate('%s%%' % xy[1], xy=xy, textcoords='data')
         plt.show()
     def conv_filter(self, layer_names):
-        feature_extractor = FeatureExtractor(model, layer_names)
+        feature_extractor = FeatureExtractor(self._model, layer_names)
 
 
 
@@ -202,7 +217,7 @@ for epoch in range(1, args.epochs + 1):
 visual_result = VisualizedResult(model)
 # Visualize training curve
 visual_result.training_curve(args.epochs, train_loss_records, test_loss_records)
-#
+# Visualize test accuracy
 visual_result.accuracy_curve(args.epochs, accuracy_records)
 # Visualize trained filter on the 1st Conv layer
 visual_result.conv_filter(['conv_1'])
