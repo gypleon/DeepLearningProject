@@ -22,6 +22,12 @@ class args:
     no_cuda = False
     seed = 1
     log_interval = 10
+    # if add Dropout
+    with_dropout = True
+    # if initialize weights
+    with_init_weights = True
+    # if add BatchNorm
+    with_batchnorm = False
 
 args.cuda = not args.no_cuda and torch.cuda.is_available()
 
@@ -50,47 +56,66 @@ class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
         # TODO: define your network here
-        self.block_conv_1 = nn.Sequential(
-            nn.Conv2d(3, 6, kernel_size=5, stride=1),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=2)
-        )
-        self.block_conv_2 = nn.Sequential(
-            nn.Conv2d(6, 16, kernel_size=5, stride=1),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=2, stride=2)
-        )
-        # TODO: replace fc using conv
-        self.block_fc_1 = nn.Sequential(
-            nn.Linear(16*25, 120),
-            nn.Dropout()
-        )
-        # self.block_fc_1 = nn.Linear(16*25, 120)
-        # TODO: replace fc using conv
-        self.block_fc_2 = nn.Sequential(
-            nn.Linear(120, 84),
-            nn.Dropout()
-        )
-        # self.block_fc_2 = nn.Linear(120, 84)
+        if with_batchnorm:
+            self.block_conv_1 = nn.Sequential(
+                nn.Conv2d(3, 6, kernel_size=5, stride=1),
+                nn.BatchNorm2d(6),
+                nn.ReLU(),
+                nn.MaxPool2d(kernel_size=2, stride=2)
+            )
+            self.block_conv_2 = nn.Sequential(
+                nn.Conv2d(6, 16, kernel_size=5, stride=1),
+                nn.BatchNorm2d(16),
+                nn.ReLU(),
+                nn.MaxPool2d(kernel_size=2, stride=2)
+            )
+        else:
+            self.block_conv_1 = nn.Sequential(
+                nn.Conv2d(3, 6, kernel_size=5, stride=1),
+                nn.ReLU(),
+                nn.MaxPool2d(kernel_size=2, stride=2)
+            )
+            self.block_conv_2 = nn.Sequential(
+                nn.Conv2d(6, 16, kernel_size=5, stride=1),
+                nn.ReLU(),
+                nn.MaxPool2d(kernel_size=2, stride=2)
+            )
+        if with_dropout:
+            # TODO: replace fc using conv
+            self.block_fc_1 = nn.Sequential(
+                nn.Linear(16*25, 120),
+                nn.BatchNorm1d(120),
+                nn.Dropout()
+            )
+            # TODO: replace fc using conv
+            self.block_fc_2 = nn.Sequential(
+                nn.Linear(120, 84),
+                nn.BatchNorm1d(84),
+                nn.Dropout()
+            )
+        else:
+            self.block_fc_1 = nn.Linear(16*25, 120)
+            self.block_fc_2 = nn.Linear(120, 84)
         # TODO: replace fc using conv
         self.fc_3 = nn.Linear(84, 10)
         self.softmax = nn.LogSoftmax()
         # Initialize parameters
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
-                # m.weight.data.normal_(0, math.sqrt(2. /n))
-                # if m.bias is not None:
-                #     m.bias.zero_()
-            if isinstance(m, nn.BatchNorm2d):
-                m = m
-                # m.weight.data.fill_(1)
-                # m.bias.data.zero_()
-            if isinstance(m, nn.Linear):
-                m = m
-                # m.weight.data.normal_(0, 0.001)
-                # if m.bias is not None:
-                #    m.bias.zero_()
+        if with_init_weights:
+            for m in self.modules():
+                if isinstance(m, nn.Conv2d):
+                    n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                    m.weight.data.normal_(0, math.sqrt(2. /n))
+                    if m.bias is not None:
+                        m.bias.zero_()
+                if isinstance(m, nn.BatchNorm2d):
+                    m = m
+                    m.weight.data.fill_(1)
+                    m.bias.data.zero_()
+                if isinstance(m, nn.Linear):
+                    m = m
+                    m.weight.data.normal_(0, 0.001)
+                    if m.bias is not None:
+                       m.bias.zero_()
 
     def forward(self, x):
         # TODO
