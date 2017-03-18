@@ -1,5 +1,4 @@
 from __future__ import print_function
-# import argparse
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -7,9 +6,12 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.autograd import Variable
 
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+
 # Training settings
 # for terminal use. In notebook, you can't parse arguments
-
 class args:
     cuda = False
     batch_size = 64
@@ -34,11 +36,11 @@ transform = transforms.Compose([transforms.ToTensor(),
                               transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
                              ])
 trainset = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
-train_loader = torch.utils.data.DataLoader(trainset, batch_size=4,
+train_loader = torch.utils.data.DataLoader(trainset, batch_size=args.batch_size,
                                           shuffle=True, num_workers=2)
 
 testset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
-test_loader = torch.utils.data.DataLoader(testset, batch_size=4,
+test_loader = torch.utils.data.DataLoader(testset, batch_size=args.test_batch_size,
                                           shuffle=False, num_workers=2)
 classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
@@ -116,12 +118,24 @@ class FeatureExtractor(nn.Module):
                 out[name] = x
         return out
 
-
+# Vesualize training results and trained filters
 class VisualizedResult():
     def __init__(self, model):
-
-    def training_curve(self, num_epoch):
-
+        self._model = model
+    def training_curve(self, epoches, train_loss_records, test_loss_records):
+        plt.axis([1, epoches, 0, math.ceil(max(train_loss_records + test_loss_records) * 1.2)])
+        plt.xlabel('Epoches')
+        plt.ylabel('Loss')
+        plt.title('Training Curve')
+        plt.plot(range(1, epoches + 1), train_loss_records, 'b-', range(1, epoches + 1), test_loss_records, 'r-')
+        plt.show()
+    def accuracy_curve(self, epoches, accuracy_records):
+        plt.axis([1, epoches, 0, math.ceil(max(accuracy_records) * 1.2)])
+        plt.xlabel('Epoches')
+        plt.ylabel('Accuracy')
+        plt.title('Accuracy Curve')
+        plt.plot(range(1, epoches + 1), accuracy_records, '-')
+        plt.show()
     def conv_filter(self, layer_names):
         feature_extractor = FeatureExtractor(model, layer_names)
 
@@ -134,8 +148,13 @@ if args.cuda:
 # TODO: other optimizers
 optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 
+train_loss_records = list()
+test_loss_records = list()
+accuracy_records = list()
+
 def train(epoch):
     model.train()
+    train_loss = 0
     for batch_idx, (data, target) in enumerate(train_loader):
         if args.cuda:
             data, target = data.cuda(), target.cuda()
@@ -145,10 +164,13 @@ def train(epoch):
         loss = F.nll_loss(output, target)   # is it true to use such a loss over cross-entropy loss? 
         loss.backward()
         optimizer.step()
+        train_loss += loss.data[0]
         if batch_idx % args.log_interval == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.data[0]))
+    # Average training loss for this epoch
+    train_loss_records.append(train_loss / len(train_loader))
 
 def test(epoch):
     model.eval()
@@ -165,9 +187,12 @@ def test(epoch):
 
     test_loss = test_loss
     test_loss /= len(test_loader) # loss function already averages over batch size
+    accuracy = 100. * correct / len(test_loader.dataset)
     print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
         test_loss, correct, len(test_loader.dataset),
-        100. * correct / len(test_loader.dataset)))
+        accuracy))
+    test_loss_records.append(test_loss)
+    accuracy_records.append(accuracy)
 
 
 for epoch in range(1, args.epochs + 1):
@@ -176,6 +201,8 @@ for epoch in range(1, args.epochs + 1):
 
 visual_result = VisualizedResult(model)
 # Visualize training curve
-visual_result.training_curve(args.eposhs)
+visual_result.training_curve(args.epochs, train_loss_records, test_loss_records)
+#
+visual_result.accuracy_curve(args.epochs, accuracy_records)
 # Visualize trained filter on the 1st Conv layer
-visual_result.conv_filter(1)
+visual_result.conv_filter(['conv_1'])
