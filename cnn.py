@@ -9,6 +9,7 @@ from torch.autograd import Variable
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+from collections import OrderedDict
 
 # Training settings
 # for terminal use. In notebook, you can't parse arguments
@@ -16,7 +17,7 @@ class args:
     cuda = False
     batch_size = 64
     test_batch_size = 1000
-    epochs = 10
+    epochs = 3
     lr = 0.01
     momentum = 0.5
     no_cuda = False
@@ -56,9 +57,10 @@ class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
         # TODO: define your network here
-        if with_batchnorm:
+        self.conv_1 = nn.Conv2d(3, 6, kernel_size=5, stride=1)
+        if args.with_batchnorm:
             self.block_conv_1 = nn.Sequential(
-                nn.Conv2d(3, 6, kernel_size=5, stride=1),
+                self.conv_1,
                 nn.BatchNorm2d(6),
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size=2, stride=2)
@@ -71,7 +73,7 @@ class Net(nn.Module):
             )
         else:
             self.block_conv_1 = nn.Sequential(
-                nn.Conv2d(3, 6, kernel_size=5, stride=1),
+                self.conv_1,
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
@@ -80,14 +82,14 @@ class Net(nn.Module):
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
-        if with_dropout:
-            # TODO: replace fc using conv
+        if args.with_dropout:
+            # TODO: replace fc with conv
             self.block_fc_1 = nn.Sequential(
-                nn.Linear(16*25, 120),
+                nn.Linear(16 * 25, 120),
                 nn.BatchNorm1d(120),
                 nn.Dropout()
             )
-            # TODO: replace fc using conv
+            # TODO: replace fc with conv
             self.block_fc_2 = nn.Sequential(
                 nn.Linear(120, 84),
                 nn.BatchNorm1d(84),
@@ -96,26 +98,26 @@ class Net(nn.Module):
         else:
             self.block_fc_1 = nn.Linear(16*25, 120)
             self.block_fc_2 = nn.Linear(120, 84)
-        # TODO: replace fc using conv
+        # TODO: replace fc with conv
         self.fc_3 = nn.Linear(84, 10)
         self.softmax = nn.LogSoftmax()
         # Initialize parameters
-        if with_init_weights:
+        if args.with_init_weights:
             for m in self.modules():
                 if isinstance(m, nn.Conv2d):
                     n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
                     m.weight.data.normal_(0, math.sqrt(2. /n))
                     if m.bias is not None:
-                        m.bias.zero_()
-                if isinstance(m, nn.BatchNorm2d):
+                        m.bias.data.zero_()
+                if isinstance(m, nn.Linear):
+                    n = m.out_features
+                    m.weight.data.normal_(0, math.sqrt(2. /n))
+                    if m.bias is not None:
+                        m.bias.data.zero_()
+                if args.with_batchnorm and (isinstance(m, nn.BatchNorm1d) or isinstance(m, nn.BatchNorm2d)):
                     m = m
                     m.weight.data.fill_(1)
                     m.bias.data.zero_()
-                if isinstance(m, nn.Linear):
-                    m = m
-                    m.weight.data.normal_(0, 0.001)
-                    if m.bias is not None:
-                       m.bias.zero_()
 
     def forward(self, x):
         # TODO
@@ -128,7 +130,7 @@ class Net(nn.Module):
         x = self.softmax(x)
         return x
 
-# Feature extractor
+# Feature extractor for filter visualization
 class FeatureExtractor(nn.Module):
     def __init__(self, model, layer_names):
         super(FeatureExtractor, self).__init__()
@@ -137,7 +139,8 @@ class FeatureExtractor(nn.Module):
 
     def forward(self, x):
         out = dict()
-        for name, module in _model._modules.iteritems():
+        # _modules is an OrderedDict, which replace iteritems() with items() in python3.* 
+        for name, module in self._model._modules.items():
             if isinstance(module, nn.Linear):
                 x = x.view(x.size(0), -1)
             x = module(x)
@@ -177,14 +180,20 @@ class VisualizedResult():
             ax.annotate('%s%%' % xy[1], xy=xy, textcoords='data')
         plt.show()
     def conv_filter(self, layer_names):
+        model.eval()
         feature_extractor = FeatureExtractor(self._model, layer_names)
-
+        for data, target in test_loader:
+            if args.cuda:
+                data = data.cuda()
+            data = Variable(data, volatile=True)
+        out = feature_extractor.forward(data)
+        print(out)
 
 
 model = Net()
 if args.cuda:
     model.cuda()
-
+    
 # TODO: other optimizers
 optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 
