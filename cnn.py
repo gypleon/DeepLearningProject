@@ -17,16 +17,16 @@ class args:
     cuda = False
     batch_size = 64
     test_batch_size = 1000
-    epochs = 3
+    epochs = 10
     lr = 0.01
     momentum = 0.5
     no_cuda = False
     seed = 1
     log_interval = 10
     # if add Dropout
-    with_dropout = True
+    with_dropout = False
     # if initialize weights
-    with_init_weights = True
+    with_init_weights = False
     # if add BatchNorm
     with_batchnorm = False
 
@@ -58,6 +58,11 @@ class Net(nn.Module):
         super(Net, self).__init__()
         # TODO: define your network here
         self.conv_1 = nn.Conv2d(3, 6, kernel_size=5, stride=1)
+        self.conv_2 = nn.Conv2d(6, 16, kernel_size=5, stride=1)
+        # TODO: replace fc with conv
+        self.fc_1 = nn.Linear(16 * 25, 120)
+        self.fc_2 = nn.Linear(120, 84)
+        self.fc_3 = nn.Linear(84, 10)
         if args.with_batchnorm:
             self.block_conv_1 = nn.Sequential(
                 self.conv_1,
@@ -66,7 +71,7 @@ class Net(nn.Module):
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
             self.block_conv_2 = nn.Sequential(
-                nn.Conv2d(6, 16, kernel_size=5, stride=1),
+                self.conv_2,
                 nn.BatchNorm2d(16),
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size=2, stride=2)
@@ -78,28 +83,34 @@ class Net(nn.Module):
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
             self.block_conv_2 = nn.Sequential(
-                nn.Conv2d(6, 16, kernel_size=5, stride=1),
+                self.conv_2,
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
         if args.with_dropout:
-            # TODO: replace fc with conv
-            self.block_fc_1 = nn.Sequential(
-                nn.Linear(16 * 25, 120),
-                nn.BatchNorm1d(120),
-                nn.Dropout()
-            )
-            # TODO: replace fc with conv
-            self.block_fc_2 = nn.Sequential(
-                nn.Linear(120, 84),
-                nn.BatchNorm1d(84),
-                nn.Dropout()
-            )
+            if args.with_batchnorm:
+                self.block_fc_1 = nn.Sequential(
+                    self.fc_1,
+                    nn.BatchNorm1d(120),
+                    nn.Dropout()
+                )
+                self.block_fc_2 = nn.Sequential(
+                    self.fc_2,
+                    nn.BatchNorm1d(84),
+                    nn.Dropout()
+                )
+            else:
+                self.block_fc_1 = nn.Sequential(
+                    self.fc_1,
+                    nn.Dropout()
+                )
+                self.block_fc_2 = nn.Sequential(
+                    self.fc_2,
+                    nn.Dropout()
+                )
         else:
-            self.block_fc_1 = nn.Linear(16*25, 120)
-            self.block_fc_2 = nn.Linear(120, 84)
-        # TODO: replace fc with conv
-        self.fc_3 = nn.Linear(84, 10)
+            self.block_fc_1 = self.fc_1
+            self.block_fc_2 = self.fc_2
         self.softmax = nn.LogSoftmax()
         # Initialize parameters
         if args.with_init_weights:
@@ -109,13 +120,12 @@ class Net(nn.Module):
                     m.weight.data.normal_(0, math.sqrt(2. /n))
                     if m.bias is not None:
                         m.bias.data.zero_()
-                if isinstance(m, nn.Linear):
+                elif isinstance(m, nn.Linear):
                     n = m.out_features
                     m.weight.data.normal_(0, math.sqrt(2. /n))
                     if m.bias is not None:
                         m.bias.data.zero_()
-                if args.with_batchnorm and (isinstance(m, nn.BatchNorm1d) or isinstance(m, nn.BatchNorm2d)):
-                    m = m
+                elif isinstance(m, nn.BatchNorm1d) or isinstance(m, nn.BatchNorm2d):
                     m.weight.data.fill_(1)
                     m.bias.data.zero_()
 
