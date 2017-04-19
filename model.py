@@ -1,6 +1,7 @@
 from __future__ import print_function
 from __future__ import division
 
+import numpy as np
 
 import tensorflow as tf
 
@@ -92,17 +93,15 @@ def tdnn(input_, kernels, kernel_features, scope='TDNN'):
         for kernel_size, kernel_feature_size in zip(kernels, kernel_features):
             reduced_length = max_word_length - kernel_size + 1
 
-            # [batch_size x max_word_length x embed_size x kernel_feature_size]
+            # [(batch_size*num_unroll_steps) x 1 x num_filter_steps x kernel_feature_size]
             conv = conv2d(input_, kernel_feature_size, 1, kernel_size, name="kernel_%d" % kernel_size)
 
-            # [batch_size x 1 x 1 x kernel_feature_size]
+            # [(batch_size*num_unroll_steps) x 1 x 1 x kernel_feature_size]
             pool = tf.nn.max_pool(tf.tanh(conv), [1, 1, reduced_length, 1], [1, 1, 1, 1], 'VALID')
 
             layers.append(tf.squeeze(pool, [1, 2]))
 
         if len(kernels) > 1:
-            # LEON(TODO): concat()
-            # output = tf.concat(1, layers)
             output = tf.concat(layers, 1)
         else:
             output = layers[0]
@@ -110,31 +109,36 @@ def tdnn(input_, kernels, kernel_features, scope='TDNN'):
     return output
 
 
-# LEON: dynamically create cnn layers
+# LEON(TODO): dynamically create cnn layers
 def multi_conv(input_, cnn_layers, scope='CONVS'):
-    # assert len(kernels) == len(kernel_features), 'Kernel and Features must have the same size'
     max_word_length = input_.get_shape()[1]
     embed_size = input_.get_shape()[-1]
     # input_: [batch_size*num_unroll_steps, 1, max_word_length, embed_size]
     input_ = tf.expand_dims(input_, 1)
-    layers = []
+    results = []
     with tf.variable_scope(scope):
-        for layer_i in cnn_layers:
+        for layer_i_name, layer_i in cnn_layers.items():
+            if len(results) > 0:
+                # convert [(b_s*n_u_s) x all_k_f_s] into:
+                # [batch_size*num_unroll_steps, 1, 1, all_kernel_feature_size]
+                input_ = tf.expand_dims(tf.expand_dims(tf.convert_to_tensor(layer_output), 1), 1)
             for filter_type_j in layer_i:
                 reduced_length = max_word_length - filter_type_j[0] + 1
-                # [batch_size x max_word_length x embed_size x kernel_feature_size]
-                conv = conv2d(input_, filter_type_j[1], 1, filter_type_j[0], name="filter_%d" % filter_type_j[0])
-                # [batch_size x 1 x 1 x kernel_feature_size]
+                # [(batch_size*num_unroll_steps) x 1 x num_filter_steps x kernel_feature_size]
+                conv = conv2d(input_, filter_type_j[1], 1, filter_type_j[0], name="%s_filter_%d" % (layer_i_name, filter_type_j[0]))
+                # [(batch_size*num_unroll_steps) x 1 x 1 x kernel_feature_size]
                 pool = tf.nn.max_pool(tf.tanh(conv), [1, 1, reduced_length, 1], [1, 1, 1, 1], 'VALID')
-                # TODO(LEON): height & width are removed?
-                layers.append(tf.squeeze(pool, [1, 2]))
-            if len(kernels) > 1:
-                # LEON(TODO): concat()
-                # output = tf.concat(1, layers)
-                output = tf.concat(layers, 1)
+                # [(batch_size*num_unroll_steps) x kernel_feature_size] foreach in results
+                results.append(tf.squeeze(pool, [1, 2]))
+            if len(layer_i) > 1:
+                # concatenate all pooling results for each word
+                # [(b_s*n_u_s) x all_k_f_s]
+                layer_output = tf.concat(results, 1)
             else:
-                output = layers[0]
-    return output
+                # [(b_s*n_u_s) x all_k_f_s]
+                layer_output = results[0]
+        cnn_output = layer_output
+    return cnn_output
 
 
 def inference_graph(char_vocab_size, word_vocab_size,
@@ -274,52 +278,42 @@ def individual_graph(char_vocab_size, word_vocab_size,
                     max_word_length=65,
                     num_unroll_steps=35,
                     num_highway_layers=2,
-                    cnn_layers=None,
+                    cnn_layer=None,
                     rnn_layers=None,
                     dropout=0.0):
-
-    assert len(kernels) == len(kernel_features), 'Kernel and Features must have the same size'
-
     input_ = tf.placeholder(tf.int32, shape=[batch_size, num_unroll_steps, max_word_length], name="input")
-
     ''' First, embed characters '''
     with tf.variable_scope('Embedding'):
         char_embedding = tf.get_variable('char_embedding', [char_vocab_size, char_embed_size])
-
         clear_char_embedding_padding = tf.scatter_update(char_embedding, [0], tf.constant(0.0, shape=[1, char_embed_size]))
-
         # [batch_size x max_word_length, num_unroll_steps, char_embed_size]
         input_embedded = tf.nn.embedding_lookup(char_embedding, input_)
-
-        # LEON: [batch_size x num_unroll_steps, max_word_length, char_embed_size] ?
         input_embedded = tf.reshape(input_embedded, [-1, max_word_length, char_embed_size])
-
     ''' Second, apply convolutions '''
     # [batch_size x num_unroll_steps, cnn_size]  # where cnn_size=sum(kernel_features)
-    input_cnn = multi_conv(input_embedded, cnn_layers)
-
+    # input_cnn = multi_conv(input_embedded, cnn_layers)
+    input_cnn = tdnn(input_embedded, [kernel[0] for kernel in cnn_layer], [kernel[1] for kernel in cnn_layer])
     ''' Maybe apply Highway '''
     if num_highway_layers > 0:
         input_cnn = highway(input_cnn, input_cnn.get_shape()[-1], num_layers=num_highway_layers)
-
     ''' Finally, do LSTM '''
     with tf.variable_scope('LSTM'):
-        cell = tf.contrib.rnn.BasicLSTMCell(rnn_size, state_is_tuple=True, forget_bias=0.0)
-        if dropout > 0.0:
-            cell = tf.contrib.rnn.DropoutWrapper(cell, output_keep_prob=1.-dropout)
-        if num_rnn_layers > 1:
-            cell = tf.contrib.rnn.MultiRNNCell([cell] * num_rnn_layers, state_is_tuple=True)
-
+        cells = list()
+        for rnn_layer_i in rnn_layers:
+            cell = tf.contrib.rnn.BasicLSTMCell(rnn_layer_i[0], state_is_tuple=True, forget_bias=0.0)
+            if dropout > 0.0:
+                cell = tf.contrib.rnn.DropoutWrapper(cell, output_keep_prob=1.-dropout)
+            cells.append(cell)
+        if len(rnn_layers) > 1:
+            cell = tf.contrib.rnn.MultiRNNCell(cells, state_is_tuple=True)
+        # TODO: connect layers with different size
         initial_rnn_state = cell.zero_state(batch_size, dtype=tf.float32)
-
+        # [batch_size, num_unroll_steps, num_all_cnn_word_features]
         input_cnn = tf.reshape(input_cnn, [batch_size, num_unroll_steps, -1])
-        # TODO(LEON): split(value, num_or_size_splits, axis=0, num=None, name='split')
-        # input_cnn2 = [tf.squeeze(x, [1]) for x in tf.split(1, num_unroll_steps, input_cnn)]
+        # len([ [batch_size, num_all_cnn_features], ... ]) == num_unroll_steps
         input_cnn2 = [tf.squeeze(x, [1]) for x in tf.split(input_cnn, num_unroll_steps, 1)]
-
         outputs, final_rnn_state = tf.contrib.rnn.static_rnn(cell, input_cnn2,
                                          initial_state=initial_rnn_state, dtype=tf.float32)
-
         # linear projection onto output (word) vocab
         logits = []
         with tf.variable_scope('WordEmbedding') as scope:
@@ -327,7 +321,6 @@ def individual_graph(char_vocab_size, word_vocab_size,
                 if idx > 0:
                     scope.reuse_variables()
                 logits.append(linear(output, word_vocab_size))
-
     return adict(
         input = input_,
         clear_char_embedding_padding=clear_char_embedding_padding,
