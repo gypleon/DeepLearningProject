@@ -14,20 +14,28 @@ from data_reader import load_data, DataReader
 
 flags = tf.flags
 
+# system
+flags.DEFINE_integer('num_gpus', 8, 'the number of GPUs in the system')
+
 # data
-flags.DEFINE_string('data_dir',    'data',   'data directory. Should contain train.txt/valid.txt/test.txt with input data')
-flags.DEFINE_string ('evolve_dir', 'evo_history', 'evolution history, information for generations')
+# TODO: mini dataset
+flags.DEFINE_string ('mini_data_dir',   'mini_data',   'data directory. Should contain train.txt/valid.txt/test.txt with input data')
+flags.DEFINE_string ('data_dir',        'data',   'data directory. Should contain train.txt/valid.txt/test.txt with input data')
+flags.DEFINE_string ('population_dir',  'population', 'evolution history, information for generations')
 
 # model params
+flags.DEFINE_integer('char_embed_size', 15,                             'dimensionality of character embeddings')
+flags.DEFINE_float  ('dropout',         0.5,                            'dropout. 0 = no dropout')
 flags.DEFINE_integer('highway_layers',  2,                              'number of highway layers')
 
 # evolution configuration
-flags.DEFINE_integer('population', 10, 'number of individuals of each generation')
-flags.DEFINE_integer('epoch', 30, 'number of individuals of each generation')
-flags.DEFINE_integer('mini_batch_size', 5, 'size of mini-batch for fitness test')
-flags.DEFINE_integer('mini_num_unroll_steps', 5, 'size of mini-timesteps for fitness test')
-flags.DEFINE_float  ('prob_mutation_struct', 0.1, 'probability of mutation for individual structures')
-flags.DEFINE_float  ('prob_mutation_param', 0.1, 'probability of mutation for individual parameters')
+flags.DEFINE_integer('num_winners',             5, 'number of winners of each generation')
+flags.DEFINE_integer('population_size',         30, 'number of individuals of each generation')
+flags.DEFINE_integer('epoch',                   30, 'number of individuals of each generation')
+flags.DEFINE_float  ('learning_threshold',      1.0, 'similarity threshold for teacher selection')
+flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
+flags.DEFINE_float  ('prob_mutation_param',     0.1, 'probability of mutation for individual parameters')
+flags.DEFINE_integer('if_train_winner',         0, '1-train the winner; 0-do not train')
 
 # optimization
 flags.DEFINE_float  ('learning_rate_decay', 0.5,  'learning rate decay')
@@ -57,65 +65,102 @@ class adict(dict, *av, **kav):
 class Individual:
     def __init__(self,
                 id_number,
-                cnn_layer,
-                rnn_layers):
-        # TODO(LEON): if multi cnn layers necessary?
-        # _cnn_layers:      { layer_1, ..., layer_n }
-        # layer_i:          { filter_type_1, ..., filter_type_n } 
-        # filter_type_j:    [ size, number ]
-        # size, number: integer
-        # self._cnn_layers
+                cnn_layer={
+                    "filter_type_1":[1, 50],
+                    "filter_type_2":[2, 100],
+                    "filter_type_3":[3, 150],
+                    "filter_type_4":[4, 200],
+                    "filter_type_5":[5, 200],
+                    "filter_type_6":[6, 200],
+                    "filter_type_7":[7, 200]},
+                rnn_layers={
+                    "layer_1":[650],
+                    "layer_2":[650]},
+                char_embed_size=FLAGS.char_embed_size
+                dropout=FLAGS.dropout):
 
+        self._individual_dir = FLAGS.population_dir + "/individual_%d" % self._id_number
+        if not os.path.exists(self._individual_dir):
+            os.mkdir(self._individual_dir)
+
+        # TODO: generate individual seed
         self._seed = np.random.seed(id_number * 13)
         self._id_number = id_number
+
         # layer_i:          { filter_type_1, ..., filter_type_n } 
         # filter_type_j:    [ size, number ]
         # size, number: integer
         self._cnn_layer = cnn_layer
+
         # _rnn_layers:  { layer_1, ..., layer_n }
         # layer_i:      [ size ]
         self._rnn_layers = rnn_layers
 
         self._knowledge = adict(
-                        char_embed_size = 15,
-                        dropout = 0.5,
+                        char_embed_size = char_embed_size,
+                        dropout = dropout,
                         )
 
-        self._model, self._valid_model = self.create_graph()
+        # create model
+        self._gpu_id = self._id_number % FLAGS.num_gpus
+        self._graph = tf.Graph()
+        self._model, self._valid_model, self._saver = self.create_graph()
 
-        tf.global_variables_initializer().run()
-        session.run(self._model.clear_char_embedding_padding)
-        print('Created and initialized fresh model. Size:', model.model_size())
-
-        summary_writer = tf.summary.FileWriter(FLAGS.evolve_dir, graph=session.graph)
-
-        session.run(
-            tf.assign(self._model.learning_rate, FLAGS.learning_rate),
-        )
+        # initialize model
+        with tf.Session(graph=self._graph, config=tf.ConfigProto(log_device_placement=True)) as session:
+            tf.global_variables_initializer().run()
+            session.run(self._model.clear_char_embedding_padding)
+            print('Created and initialized fresh individual_%d. Size: %d' % (self._id_number, self._model.model_size()))
+            self._summary_writer = tf.summary.FileWriter(self._individual_dir, graph=session.graph)
+            session.run(
+                tf.assign(self._model.learning_rate, FLAGS.learning_rate),
+            )
 
 
     @classmethod
     def create_graph(self):
-        # TODO: at present, all individuals are initialized identically
-        initializer = tf.random_uniform_initializer(-FLAGS.param_init, FLAGS.param_init)
-        with tf.variable_scope("individual_%d" % self._id_number, initializer=initializer):
-            my_model = model.inidividual_graph(
-                                    char_vocab_size=char_vocab.size,
-                                    word_vocab_size=word_vocab.size,
-                                    self._knowledge.char_embed_size,
-                                    batch_size=FLAGS.batch_size,
+        with self._graph.as_default():
+            # TODO: configure GPU
+            with tf.device('/gpu:%d' % self._gpu_id):
+                initializer = tf.random_uniform_initializer(-FLAGS.param_init, FLAGS.param_init)
+                with tf.variable_scope("individual_%d" % self._id_number, initializer=initializer):
+                    my_model = model.individual_graph(
+                                            char_vocab_size=char_vocab.size,
+                                            word_vocab_size=word_vocab.size,
+                                            char_embed_size=self._knowledge.char_embed_size,
+                                            batch_size=FLAGS.batch_size,
+                                            max_word_length=FLAGS.max_word_length,
+                                            num_unroll_steps=FLAGS.num_unroll_steps,
+                                            num_highway_layers=2,
+                                            cnn_layer=self._cnn_layer,
+                                            rnn_layers=self._rnn_layers,
+                                            dropout=self._knowledge.dropout)
+                    my_model.update(model.loss_graph(my_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
+                    my_model.update(model.training_graph(train_model.loss * FLAGS.num_unroll_steps, FLAGS.learning_rate, FLAGS.max_grad_norm))
 
-                                    self._knowledge.dropout
-                                    )
-            my_model.update(model.loss_graph(train_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
-        with tf.variable_scope("individual_%d" % self._id_number, reuse=True):
-            valid_model = 
-            valid_model.update(model.loss_graph(valid_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
+                saver = tf.train.Saver()
 
-        return my_model, valid_model
+                with tf.variable_scope("individual_%d" % self._id_number, reuse=True):
+                    # TODO:
+                    valid_model = model.individual_graph(
+                                            char_vocab_size=char_vocab.size,
+                                            word_vocab_size=word_vocab.size,
+                                            char_embed_size=self._knowledge.char_embed_size,
+                                            batch_size=FLAGS.batch_size,
+                                            max_word_length=FLAGS.max_word_length,
+                                            num_unroll_steps=FLAGS.num_unroll_steps,
+                                            num_highway_layers=2,
+                                            cnn_layer=self._cnn_layer,
+                                            rnn_layers=self._rnn_layers,
+                                        dropout=self._knowledge.dropout)
+                valid_model.update(model.loss_graph(valid_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
+
+        return my_model, valid_model, saver
 
     def update_graph(self):
-        with tf.variable_scope("individual_%d" % self._id_number, initializer=initializer):
+        with self._graph.as_default():
+            initializer = tf.random_uniform_initializer(-FLAGS.param_init, FLAGS.param_init)
+            with tf.variable_scope("individual_%d" % self._id_number, initializer=initializer):
 
 
     def mutation_struct(self):
@@ -131,10 +176,9 @@ class Individual:
                 # len = 1
         # mutate rnn
 
-
     def mutation_param(self):
         # TODO: knowledge should be learned instead
-        self._knowledge.char_embed_size = np.random.randint(20)
+        self._knowledge.char_embed_size = FLAGS.char_embed_size + np.random.randint(-FLAGS.char_embed_size, FLAGS.char_embed_size)
         self._knowledge.dropout = np.random.uniform()
 
     def mutation(self):
@@ -142,18 +186,21 @@ class Individual:
         self.mutation_struct()
         self.mutation_param()
 
-    # train for only one epoch
-    # TODO: other evaluation method?
-    #   solution 1: train a mini dataset
+    # train on mini-dataset
     def fitness(self):
+        word_vocab, char_vocab, word_tensors, char_tensors, max_word_length = load_data(FLAGS.mini_data_dir, FLAGS.max_word_length, eos=FLAGS.EOS)
         train_reader = DataReader(word_tensors['train'], char_tensors['train'], FLAGS.batch_size, FLAGS.num_unroll_steps)
         valid_reader = DataReader(word_tensors['valid'], char_tensors['valid'], FLAGS.batch_size, FLAGS.num_unroll_steps)
-        with tf.variable_scope("Model", initializer=initializer):
-            self.update_graph()
+
+        fitness = 0
+        with tf.Session(graph=self._graph, config=tf.ConfigProto(log_device_placement=True)) as session:
+            with tf.variable_scope("individual_%d" % self._id_number, initializer=initializer):
+                self.update_graph()
+        return fitness
 
     # experience vector
     def experience(self):
-        # TODO: how to model similar experience
+        # TODO: how to model individual experience
         exp = np.array([1, 1])
         return exp
 
@@ -172,20 +219,22 @@ class Individual:
         return
 
 
-class Generation:
+class Population:
     def __init__(self,
-                num_winners = 3,
-                population_size = 10):
+                num_winners = 5,
+                population_size = 30):
+
         self._num_winners = num_winners
         self._population_size = population_size
+
         # Individuals
         self._population = list()
         for i in range(self._population_size):
-            self._population.append(self.generate())
+            self._population.append(self.generate(i))
 
     @classmethod
-    def generate(self):
-        individual = Individual()
+    def generate(self, id_number):
+        individual = Individual(id_number=id_number)
         return individual
 
     def select(self):
@@ -194,10 +243,11 @@ class Generation:
         return winners
 
     def similarity(self, individual_1, individual_2):
-        return np.linalg.norm(individual_1 - individual_2)
+        return np.linalg.norm(individual_1.experience() - individual_2.experience())
 
     def find_teacher(self, leaner):
-        sim = 0
+        sim = FLAGS.learning_threshold
+        teacher_id = -1
         for candidate_id in range(self._num_winners):
             cur_sim = self.similarity(self._population[candidate_id], leaner)
             if cur_sim > sim:
@@ -205,42 +255,44 @@ class Generation:
                 teacher_id = candidate_id
         return teacher_id
 
-    # select and generate
     def evolve(self):
-        # selection
-        self._population = self.select()
-        for i in range(self._population_size - self._num_winners):
-            # add new individual
-            self._population.append(self.generate())
-            # mutation
-            self._population[-1].mutation()
-            # learn knowledge (crossover)
-            teacher_id = find_teacher(self._population[-1])
-            self._population[-1].learn(self._population[teacher_id].teach())
-        # mutation
-        for i in range(self._num_winners):
-            self._population[i].mutation()
+        self.select()
+        for loser_id in range(self._num_winners, self._population_size):
+            teacher_id = find_teacher(self._population[loser_id])
+            if teacher_id >= 0:
+                self._population[loser_id].learn(self._population[teacher_id].teach())
+            else:
+                self._population[loser_id].mutation()
+            self._population[loser_id].update_graph()
 
     def final_winner(self):
         return self.select()[0]
 
 
+def main(_):
+
+    if not os.path.exists(FLAGS.population_dir):
+        os.mkdir(FLAGS.population_dir)
+        print('Created population history directory', FLAGS.population_dir)
+
+    np.random.seed(seed=FLAGS.seed)
+
+    # initialize population
+    population = Population(num_winners=FLAGS.num_winners,
+                            population_size=FLAGS.population)
+
+    # perform evolution
+    for epoch in range(FLAGS.epoch):
+        population.evolve()
+
+    # get result
+    result = population.final_winner()
+    result.save_model()
+
+    # TODO: fully train
+    if FLAGS.if_train_winner == 1:
+        result.train()
+
+
 if __name__ == '__main__':
-    if not os.path.exists(FLAGS.evolve_dir):
-        os.mkdir(FLAGS.evolve_dir)
-        print('Created evolution history directory', FLAGS.evolve_dir)
-
-    word_vocab, char_vocab, word_tensors, char_tensors, max_word_length = load_data(FLAGS.data_dir, FLAGS.max_word_length, eos=FLAGS.EOS)
-
-    with tf.Graph().as_default(), tf.Session() as session:
-
-        tf.set_random_seed(FLAGS.seed)
-        np.random.seed(seed=FLAGS.seed)
-
-        generation = Generation()
-        for epoch in range(FLAGS.epoch):
-            generation.evolve()
-        result = generation.final_winner()
-        result.save_model()
-        if FLAGS.train_winner == 1:
-            result.train()
+    tf.app.run()
