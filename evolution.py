@@ -28,15 +28,15 @@ flags.DEFINE_float  ('dropout',         0.5,                            'dropout
 flags.DEFINE_integer('highway_layers',  2,                              'number of highway layers')
 
 # evolution configuration
-flags.DEFINE_integer('num_winners',             5, 'number of winners of each generation')
-flags.DEFINE_integer('population_size',         30, 'number of individuals of each generation')
-flags.DEFINE_integer('max_evo_epochs',          25, 'max number of evolution iterations')
-flags.DEFINE_float  ('learning_threshold',      1.0, 'similarity threshold for teacher selection')
+flags.DEFINE_integer('num_winners',             3, 'number of winners of each generation')
+flags.DEFINE_integer('population_size',         10, 'number of individuals of each generation')
+flags.DEFINE_integer('max_evo_epochs',          15, 'max number of evolution iterations')
+flags.DEFINE_float  ('learning_threshold',      0.001, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
 flags.DEFINE_float  ('prob_mutation_param',     0.1, 'probability of mutation for individual parameters')
 flags.DEFINE_integer('max_cnn_filter_types',    30, 'max number of cnn filter types')
+flags.DEFINE_integer('max_cnn_type_filters',    300, 'max number of cnn filters for a specific type')
 flags.DEFINE_integer('max_rnn_layers',          3, 'max number of rnn layers')
-flags.DEFINE_integer('max_rnn_layer_units',     1500, 'max number of rnn layer units')
 flags.DEFINE_integer('if_train_winner',         0, '1-train the winner; 0-do not train')
 
 # optimization
@@ -100,50 +100,61 @@ class Individual:
         # layer_i:      [ size ]
         self._rnn_layers = rnn_layers
 
+        # encode network structure
         self._knowledge = adict(
                         char_embed_size = char_embed_size,
                         dropout = dropout,
+                        structure = self.encode_structure()
                         )
-
-        self._exp = self.experience()
-
-        self._char_vocab.size,
-        self._word_vocab.size,
+        self._struct_exp = self.experience(self._knowledge.structure)
 
         # create model
         self._gpu_id = self._id_number % FLAGS.num_gpus
         self._graph = tf.Graph()
-        self._model, self._valid_model, self._saver = self.create_graph()
+        # self._model, self._valid_model, self._saver = self.create_graph()
 
-        # initialize model
-        with tf.Session(graph=self._graph, config=tf.ConfigProto(log_device_placement=True)) as session:
-            tf.global_variables_initializer().run()
-            session.run(self._model.clear_char_embedding_padding)
-            print('Created and initialized fresh individual_%d. Size: %d' % (self._id_number, self._model.model_size()))
-            self._summary_writer = tf.summary.FileWriter(self._individual_dir, graph=session.graph)
-            session.run(
-                tf.assign(self._model.learning_rate, FLAGS.learning_rate),
-            )
+    def __del__(self):
+        self._graph.close()
 
     @property
     def get_exp(self):
-        return self._exp
+        return self._struct_exp
 
     @property
     def get_fitness(self):
         return self._fitness
 
-    # experience vector
     @classmethod
-    def experience(self):
-        # exp_cnn = [0 for i in range(FLAGS.max_cnn_filter_types)]
-        # exp_rnn = [[0 for j in range(FLAGS.max_rnn_layer_units)] for i in range(FLAGS.max_rnn_layers)]
-        exp_cnn = np.zeros([FLAGS.max_cnn_filter_types])
-        exp_cnn = np.array([filter_type[1] for filter_type in self._cnn_layer.values()])
-        exp_rnn = np.array([[layer[0] for layer in self._rnn_layers.values()]])
-        exp = np.array([1, 1])
-        self._exp = exp
-        return self._exp
+    def encode_structure(self):
+        struct_cnn = np.zeros([FLAGS.max_cnn_filter_types], dtype=np.int32)
+        struct_rnn = np.zeros([FLAGS.max_rnn_layers], dtype=np.int32)
+        # vector for CNN
+        for filter_type in self._cnn_layer.values():
+            struct_cnn[filter_type[0]-1] = filter_type[1]
+        # vector for RNN
+        for layer_i, num_units in self._rnn_layers.items():
+            struct_rnn[int(layer_i)-1] = num_units
+        self._knowledge.structure = [copy.deepcopy(struct_cnn), copy.deepcopy(struct_rnn)]
+        return self._knowledge.structure
+
+    def decode_structure(self, knowledge):
+        cnn_layer = {}
+        rnn_layers = {}
+        struct_cnn = knowledge.structure[0]
+        struct_rnn = knowledge.structure[1]
+        for filter_type in range(struct_cnn.shape[0]):
+            if struct_cnn[filter_type] > 0:
+                cnn_layer['%d' % (filter_type+1)] = [filter_type+1, int(struct_cnn[filter_type])]
+        for layer in range(struct_rnn.shape[0]):
+            if struct_rnn[layer] > 0:
+                rnn_layers['%d' % (layer+1)] = [int(struct_rnn[layer])]
+        self._cnn_layer = cnn_layer
+        self._rnn_layers = rnn_layers
+        return self._cnn_layer, self._rnn_layers
+
+    def experience(self, struct):
+        self._struct_exp.append(struct) 
+        return self._struct_exp
 
     def create_graph(self):
         with self._graph.as_default():
@@ -182,14 +193,14 @@ class Individual:
         return my_model, valid_model, saver
 
     # TODO: currently just reconstruct a graph without reusing parameters
-    def update_graph(self):
+    def update_graph(self, word_vocab, char_vocab):
         with self._graph.as_default():
             with tf.device('/gpu:%d' % self._gpu_id):
                 initializer = tf.random_uniform_initializer(-FLAGS.param_init, FLAGS.param_init)
                 with tf.variable_scope("Individual_%d" % self._id_number, initializer=initializer):
                     my_model = model.individual_graph(
-                                            char_vocab_size=self._char_vocab.size,
-                                            word_vocab_size=self._word_vocab.size,
+                                            char_vocab_size=char_vocab.size,
+                                            word_vocab_size=word_vocab.size,
                                             char_embed_size=self._knowledge.char_embed_size,
                                             batch_size=FLAGS.batch_size,
                                             max_word_length=FLAGS.max_word_length,
@@ -205,9 +216,9 @@ class Individual:
 
                 with tf.variable_scope("Individual_%d" % self._id_number, reuse=True):
                     valid_model = model.individual_graph(
-                                            char_vocab_size=self._char_vocab.size,
-                                            word_vocab_size=self._word_vocab.size,
-                                            char_embed_size=self._knowledge.char_embed_size,
+                                            char_vocab_size=char_vocab.size,
+                                            word_vocab_size=word_vocab.size,
+                                            char_embed_size=knowledge.char_embed_size,
                                             batch_size=FLAGS.batch_size,
                                             max_word_length=FLAGS.max_word_length,
                                             num_unroll_steps=FLAGS.num_unroll_steps,
@@ -216,21 +227,29 @@ class Individual:
                                             rnn_layers=self._rnn_layers,
                                             dropout=self._knowledge.dropout)
                     valid_model.update(model.loss_graph(valid_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
-
+        return my_model, valid_model, saver
 
     def mutation_struct(self):
         # mutate cnn
+        # mutate number of filters
+        # TODO: for 
+        # mutate filter types
         num_var_cnn_filter_types = np.random.randint(-1, 2)
+        # add filter type
         if num_var_cnn_filter_types > 0:
             if len(self._cnn_layer) + num_var_cnn_filter_types <= min(FLAGS.max_cnn_filter_types, self._max_word_length):
-                existed_types = list()
-                for filter_type_i in self._cnn_layer:
-                    # existed_types.append(filter_type_i[0])
-                    break
+                available_types = list(set(filter_type for filter_type in range(1, FLAGS.max_cnn_filter_types+1))-set(filter_type[0] for filter_type in self._cnn_layer.values()))
+                new_type = np.random.choice(available_types)
+                num_new_type = np.random.randint(1, FLAGS.max_cnn_type_filters+1)
+                self._cnn_layer[str(new_type)] = num_new_type
+        # remove filter type
         elif num_var_cnn_filter_types < 0:
             if len(self._cnn_layer) + num_var_cnn_filter_types > 0:
         # mutate rnn
-        num_var_cnn_layers = np.random.randint(-1, 2)
+        num_var_rnn_layers = np.random.randint(-1, 2)
+        # refresh knowledge
+        self._knowledge.structure = self.encode_structure()
+        self._struct_exp = self.experience(self._knowledge.structure)
 
     def mutation_param(self):
         # TODO: knowledge should be learned instead
@@ -245,7 +264,17 @@ class Individual:
 
     # train on mini-dataset
     def fitness(self, partition, word_vocab, char_vocab, word_tensors, char_tensors, max_word_length):
-        self.update_graph(word_vocab, char_vocab)
+        self._model, self._valid_model, self._saver = self.update_graph(word_vocab, char_vocab)
+
+        # initialize model
+        with tf.Session(graph=self._graph, config=tf.ConfigProto(log_device_placement=True)) as session:
+            tf.global_variables_initializer().run()
+            session.run(self._model.clear_char_embedding_padding)
+            print('Created and initialized fresh individual_%d. Size: %d' % (self._id_number, self._model.model_size()))
+            self._summary_writer = tf.summary.FileWriter(self._individual_dir, graph=session.graph)
+            session.run(
+                tf.assign(self._model.learning_rate, FLAGS.learning_rate),
+            )
         
         self._max_word_length = max_word_length
 
@@ -331,13 +360,19 @@ class Individual:
         self._fitness = best_valid_loss
         return self._fitness
 
+    def absorb(self, benefits):
+        self._struct
+
     # encode and return evolution knowledge
     def teach(self):
         return self._knowledge
         
     # decode and absorb evolution knowledge
     def learn(self, knowledge):
-        self._knowledge = copy.deepcopy(knowledge)
+        # self._knowledge = copy.deepcopy(knowledge)
+        self._knowledge.char_embed_size = knowledge.char_embed_size
+        self._knowledge.dropout = knowledge.dropout
+        self._knowledge.structure = self.absorb(knowledge.structure)
 
     def save_model(self):
         self._saver
@@ -349,8 +384,8 @@ class Individual:
 
 class Population:
     def __init__(self,
-                num_winners = 5,
-                population_size = 30):
+                num_winners = 3,
+                population_size = 10):
 
         self._num_winners = num_winners
         self._population_size = population_size
@@ -388,7 +423,15 @@ class Population:
         return winners
 
     def similarity(self, individual_1, individual_2):
-        return np.linalg.norm(individual_1.experience() - individual_2.experience())
+        time_discount = 0.9
+        dissim_cnn, dissim_rnn = 0, 0
+        exp1 = individual_1.get_exp()
+        exp2 = individual_2.get_exp()
+        for struct1, struct2 in zip(exp1, exp2):
+            dissim_cnn = time_discount * (dissim_cnn + np.linalg.norm(struct1[0] - struct2[0]))
+            dissim_rnn = time_discount * (dissim_rnn + np.linalg.norm(struct1[1] - struct2[1]))
+        print("Sim %d and %d is: %f" % (individual_1._id_number, individual_2._id_number, 1/(dissim_cnn+dissim_rnn)))
+        return 1 / (dissim_cnn + dissim_rnn)
 
     def find_teacher(self, leaner):
         sim = FLAGS.learning_threshold
@@ -408,7 +451,7 @@ class Population:
                 self._population[loser_id].learn(self._population[teacher_id].teach())
             else:
                 self._population[loser_id].mutation()
-            self._population[loser_id].update_graph()
+            # self._population[loser_id].update_graph()
 
 
 def main(_):
