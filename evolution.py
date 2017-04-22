@@ -9,17 +9,16 @@ import numpy as np
 import tensorflow as tf
 
 import model
-from data_reader import load_data, DataReader
+from data_reader import load_data, load_mini_data, DataReader
 
 
 flags = tf.flags
 
 # system
-flags.DEFINE_integer('num_gpus', 8, 'the number of GPUs in the system')
+flags.DEFINE_integer('num_gpus', 1, 'the number of GPUs in the system')
 
 # data
-# TODO: mini dataset
-flags.DEFINE_string ('mini_data_dir',   'mini_data',   'data directory. Should contain train.txt/valid.txt/test.txt with input data')
+flags.DEFINE_integer('num_partitions',  100,  'total number of partitions for fitness training')
 flags.DEFINE_string ('data_dir',        'data',   'data directory. Should contain train.txt/valid.txt/test.txt with input data')
 flags.DEFINE_string ('population_dir',  'population', 'evolution history, information for generations')
 
@@ -31,10 +30,13 @@ flags.DEFINE_integer('highway_layers',  2,                              'number 
 # evolution configuration
 flags.DEFINE_integer('num_winners',             5, 'number of winners of each generation')
 flags.DEFINE_integer('population_size',         30, 'number of individuals of each generation')
-flags.DEFINE_integer('epoch',                   30, 'number of individuals of each generation')
+flags.DEFINE_integer('max_evo_epochs',          25, 'max number of evolution iterations')
 flags.DEFINE_float  ('learning_threshold',      1.0, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
 flags.DEFINE_float  ('prob_mutation_param',     0.1, 'probability of mutation for individual parameters')
+flags.DEFINE_integer('max_cnn_filter_types',    30, 'max number of cnn filter types')
+flags.DEFINE_integer('max_rnn_layers',          3, 'max number of rnn layers')
+flags.DEFINE_integer('max_rnn_layer_units',     1500, 'max number of rnn layer units')
 flags.DEFINE_integer('if_train_winner',         0, '1-train the winner; 0-do not train')
 
 # optimization
@@ -66,17 +68,17 @@ class Individual:
     def __init__(self,
                 id_number,
                 cnn_layer={
-                    "filter_type_1":[1, 50],
-                    "filter_type_2":[2, 100],
-                    "filter_type_3":[3, 150],
-                    "filter_type_4":[4, 200],
-                    "filter_type_5":[5, 200],
-                    "filter_type_6":[6, 200],
-                    "filter_type_7":[7, 200]},
+                    "1":[1, 50],
+                    "2":[2, 100],
+                    "3":[3, 150],
+                    "4":[4, 200],
+                    "5":[5, 200],
+                    "6":[6, 200],
+                    "7":[7, 200]},
                 rnn_layers={
-                    "layer_1":[650],
-                    "layer_2":[650]},
-                char_embed_size=FLAGS.char_embed_size
+                    "1":[650],
+                    "2":[650]},
+                char_embed_size=FLAGS.char_embed_size,
                 dropout=FLAGS.dropout):
 
         self._individual_dir = FLAGS.population_dir + "/individual_%d" % self._id_number
@@ -86,6 +88,8 @@ class Individual:
         # TODO: generate individual seed
         self._seed = np.random.seed(id_number * 13)
         self._id_number = id_number
+        self._max_word_length = 0
+        self._fitness = 0
 
         # layer_i:          { filter_type_1, ..., filter_type_n } 
         # filter_type_j:    [ size, number ]
@@ -100,6 +104,11 @@ class Individual:
                         char_embed_size = char_embed_size,
                         dropout = dropout,
                         )
+
+        self._exp = self.experience()
+
+        self._char_vocab.size,
+        self._word_vocab.size,
 
         # create model
         self._gpu_id = self._id_number % FLAGS.num_gpus
@@ -116,17 +125,34 @@ class Individual:
                 tf.assign(self._model.learning_rate, FLAGS.learning_rate),
             )
 
+    @property
+    def get_exp(self):
+        return self._exp
 
+    @property
+    def get_fitness(self):
+        return self._fitness
+
+    # experience vector
     @classmethod
+    def experience(self):
+        # exp_cnn = [0 for i in range(FLAGS.max_cnn_filter_types)]
+        # exp_rnn = [[0 for j in range(FLAGS.max_rnn_layer_units)] for i in range(FLAGS.max_rnn_layers)]
+        exp_cnn = np.zeros([FLAGS.max_cnn_filter_types])
+        exp_cnn = np.array([filter_type[1] for filter_type in self._cnn_layer.values()])
+        exp_rnn = np.array([[layer[0] for layer in self._rnn_layers.values()]])
+        exp = np.array([1, 1])
+        self._exp = exp
+        return self._exp
+
     def create_graph(self):
         with self._graph.as_default():
-            # TODO: configure GPU
             with tf.device('/gpu:%d' % self._gpu_id):
                 initializer = tf.random_uniform_initializer(-FLAGS.param_init, FLAGS.param_init)
-                with tf.variable_scope("individual_%d" % self._id_number, initializer=initializer):
+                with tf.variable_scope("Individual_%d" % self._id_number, initializer=initializer):
                     my_model = model.individual_graph(
-                                            char_vocab_size=char_vocab.size,
-                                            word_vocab_size=word_vocab.size,
+                                            char_vocab_size=self._char_vocab.size,
+                                            word_vocab_size=self._word_vocab.size,
                                             char_embed_size=self._knowledge.char_embed_size,
                                             batch_size=FLAGS.batch_size,
                                             max_word_length=FLAGS.max_word_length,
@@ -138,13 +164,12 @@ class Individual:
                     my_model.update(model.loss_graph(my_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
                     my_model.update(model.training_graph(train_model.loss * FLAGS.num_unroll_steps, FLAGS.learning_rate, FLAGS.max_grad_norm))
 
-                saver = tf.train.Saver()
+                saver = tf.train.Saver(max_to_keep=1)
 
-                with tf.variable_scope("individual_%d" % self._id_number, reuse=True):
-                    # TODO:
+                with tf.variable_scope("Individual_%d" % self._id_number, reuse=True):
                     valid_model = model.individual_graph(
-                                            char_vocab_size=char_vocab.size,
-                                            word_vocab_size=word_vocab.size,
+                                            char_vocab_size=self._char_vocab.size,
+                                            word_vocab_size=self._word_vocab.size,
                                             char_embed_size=self._knowledge.char_embed_size,
                                             batch_size=FLAGS.batch_size,
                                             max_word_length=FLAGS.max_word_length,
@@ -152,57 +177,159 @@ class Individual:
                                             num_highway_layers=2,
                                             cnn_layer=self._cnn_layer,
                                             rnn_layers=self._rnn_layers,
-                                        dropout=self._knowledge.dropout)
-                valid_model.update(model.loss_graph(valid_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
-
+                                            dropout=self._knowledge.dropout)
+                    valid_model.update(model.loss_graph(valid_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
         return my_model, valid_model, saver
 
+    # TODO: currently just reconstruct a graph without reusing parameters
     def update_graph(self):
         with self._graph.as_default():
-            initializer = tf.random_uniform_initializer(-FLAGS.param_init, FLAGS.param_init)
-            with tf.variable_scope("individual_%d" % self._id_number, initializer=initializer):
+            with tf.device('/gpu:%d' % self._gpu_id):
+                initializer = tf.random_uniform_initializer(-FLAGS.param_init, FLAGS.param_init)
+                with tf.variable_scope("Individual_%d" % self._id_number, initializer=initializer):
+                    my_model = model.individual_graph(
+                                            char_vocab_size=self._char_vocab.size,
+                                            word_vocab_size=self._word_vocab.size,
+                                            char_embed_size=self._knowledge.char_embed_size,
+                                            batch_size=FLAGS.batch_size,
+                                            max_word_length=FLAGS.max_word_length,
+                                            num_unroll_steps=FLAGS.num_unroll_steps,
+                                            num_highway_layers=2,
+                                            cnn_layer=self._cnn_layer,
+                                            rnn_layers=self._rnn_layers,
+                                            dropout=self._knowledge.dropout)
+                    my_model.update(model.loss_graph(my_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
+                    my_model.update(model.training_graph(train_model.loss * FLAGS.num_unroll_steps, FLAGS.learning_rate, FLAGS.max_grad_norm))
+
+                saver = tf.train.Saver(max_to_keep=1)
+
+                with tf.variable_scope("Individual_%d" % self._id_number, reuse=True):
+                    valid_model = model.individual_graph(
+                                            char_vocab_size=self._char_vocab.size,
+                                            word_vocab_size=self._word_vocab.size,
+                                            char_embed_size=self._knowledge.char_embed_size,
+                                            batch_size=FLAGS.batch_size,
+                                            max_word_length=FLAGS.max_word_length,
+                                            num_unroll_steps=FLAGS.num_unroll_steps,
+                                            num_highway_layers=2,
+                                            cnn_layer=self._cnn_layer,
+                                            rnn_layers=self._rnn_layers,
+                                            dropout=self._knowledge.dropout)
+                    valid_model.update(model.loss_graph(valid_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
 
 
     def mutation_struct(self):
         # mutate cnn
-        num_var_cnn_filters = np.random.randint(-1, 1)
-        if num_var_cnn_filters > 0:
-            for filter in self._cnn_layer:
-                break
-        elif num_var_cnn_filters < 0:
-            if len(self._cnn_layer) > num_var_cnn_filters:
-                break
-            else:
-                # len = 1
+        num_var_cnn_filter_types = np.random.randint(-1, 2)
+        if num_var_cnn_filter_types > 0:
+            if len(self._cnn_layer) + num_var_cnn_filter_types <= min(FLAGS.max_cnn_filter_types, self._max_word_length):
+                existed_types = list()
+                for filter_type_i in self._cnn_layer:
+                    # existed_types.append(filter_type_i[0])
+                    break
+        elif num_var_cnn_filter_types < 0:
+            if len(self._cnn_layer) + num_var_cnn_filter_types > 0:
         # mutate rnn
+        num_var_cnn_layers = np.random.randint(-1, 2)
 
     def mutation_param(self):
         # TODO: knowledge should be learned instead
-        self._knowledge.char_embed_size = FLAGS.char_embed_size + np.random.randint(-FLAGS.char_embed_size, FLAGS.char_embed_size)
+        self._knowledge.char_embed_size = FLAGS.char_embed_size + np.random.randint(-FLAGS.char_embed_size, FLAGS.char_embed_size+1)
         self._knowledge.dropout = np.random.uniform()
 
     def mutation(self):
         for layer_type in self._layers:
+        # TODO: mutate parameters
+        # self.mutation_param()
         self.mutation_struct()
-        self.mutation_param()
 
     # train on mini-dataset
-    def fitness(self):
-        word_vocab, char_vocab, word_tensors, char_tensors, max_word_length = load_data(FLAGS.mini_data_dir, FLAGS.max_word_length, eos=FLAGS.EOS)
+    def fitness(self, partition, word_vocab, char_vocab, word_tensors, char_tensors, max_word_length):
+        self.update_graph(word_vocab, char_vocab)
+        
+        self._max_word_length = max_word_length
+
         train_reader = DataReader(word_tensors['train'], char_tensors['train'], FLAGS.batch_size, FLAGS.num_unroll_steps)
         valid_reader = DataReader(word_tensors['valid'], char_tensors['valid'], FLAGS.batch_size, FLAGS.num_unroll_steps)
 
-        fitness = 0
         with tf.Session(graph=self._graph, config=tf.ConfigProto(log_device_placement=True)) as session:
-            with tf.variable_scope("individual_%d" % self._id_number, initializer=initializer):
-                self.update_graph()
-        return fitness
+            best_valid_loss = None
+            rnn_state = session.run(self._model.initial_rnn_state)
+            for epoch in range(FLAGS.max_epochs):
+                epoch_start_time = time.time()
+                avg_train_loss = 0.0
+                count = 0
+                for x, y in train_reader.iter():
+                    count += 1
+                    start_time = time.time()
+                    loss, _, rnn_state, gradient_norm, step, _ = session.run([
+                        self._model.loss,
+                        self._model.train_op,
+                        self._model.final_rnn_state,
+                        self._model.global_norm,
+                        self._model.global_step,
+                        self._model.clear_char_embedding_padding
+                    ], {
+                        self._model.input  : x,
+                        self._model.targets: y,
+                        self._model.initial_rnn_state: rnn_state
+                    })
+                    avg_train_loss += 0.05 * (loss - avg_train_loss)
+                    time_elapsed = time.time() - start_time
+                    if count % FLAGS.print_every == 0:
+                        print('%6d: %d [%5d/%5d], train_loss/perplexity = %6.8f/%6.7f secs/batch = %.4fs, grad.norm=%6.8f' % (step,
+                                                                epoch, count,
+                                                                train_reader.length,
+                                                                loss, np.exp(loss),
+                                                                time_elapsed,
+                                                                gradient_norm))
+                print('Epoch training time:', time.time()-epoch_start_time)
+                # epoch done: time to evaluate
+                avg_valid_loss = 0.0
+                count = 0
+                rnn_state = session.run(self._valid_model.initial_rnn_state)
+                for x, y in valid_reader.iter():
+                    count += 1
+                    start_time = time.time()
+                    loss, rnn_state = session.run([
+                        self._valid_model.loss,
+                        self._valid_model.final_rnn_state
+                    ], {
+                        self._valid_model.input  : x,
+                        self._valid_model.targets: y,
+                        self._valid_model.initial_rnn_state: rnn_state,
+                    })
+                    if count % FLAGS.print_every == 0:
+                        print("\t> validation loss = %6.8f, perplexity = %6.8f" % (loss, np.exp(loss)))
+                    avg_valid_loss += loss / valid_reader.length
+                print("at the end of epoch:", epoch)
+                print("train loss = %6.8f, perplexity = %6.8f" % (avg_train_loss, np.exp(avg_train_loss)))
+                print("validation loss = %6.8f, perplexity = %6.8f" % (avg_valid_loss, np.exp(avg_valid_loss)))
+                save_as = '%s/epoch%03d_%.4f.model' % (self._individual_dir, epoch, avg_valid_loss)
+                self._saver.save(session, save_as)
+                print('Saved model', save_as)
+                ''' write out summary events '''
+                summary = tf.Summary(value=[
+                    tf.Summary.Value(tag="train_loss", simple_value=avg_train_loss),
+                    tf.Summary.Value(tag="valid_loss", simple_value=avg_valid_loss)
+                ])
+                self._summary_writer.add_summary(summary, step)
+                ''' decide if need to decay learning rate '''
+                if best_valid_loss is not None and np.exp(avg_valid_loss) > np.exp(best_valid_loss) - FLAGS.decay_when:
+                    print('validation perplexity did not improve enough, decay learning rate')
+                    current_learning_rate = session.run(self._model.learning_rate)
+                    print('learning rate was:', current_learning_rate)
+                    current_learning_rate *= FLAGS.learning_rate_decay
+                    if current_learning_rate < 1.e-5:
+                        print('learning rate too small - stopping now')
+                        break
+                    session.run(train_model.learning_rate.assign(current_learning_rate))
+                    print('new learning rate is:', current_learning_rate)
+                else:
+                    best_valid_loss = avg_valid_loss
 
-    # experience vector
-    def experience(self):
-        # TODO: how to model individual experience
-        exp = np.array([1, 1])
-        return exp
+        self._fitness = best_valid_loss
+        return self._fitness
 
     # encode and return evolution knowledge
     def teach(self):
@@ -213,7 +340,8 @@ class Individual:
         self._knowledge = copy.deepcopy(knowledge)
 
     def save_model(self):
-
+        self._saver
+        return
 
     def train(self):
         return
@@ -232,13 +360,30 @@ class Population:
         for i in range(self._population_size):
             self._population.append(self.generate(i))
 
+        self._average_fitness = None
+
+    @property
+    def average_fitness(self):
+        self._average_fitness = 0 
+        for individual in self._population:
+            self._average_fitness += individual.get_fitness()
+        self._average_fitness /= self._population_size
+        return self._average_fitness
+
+    def final_winner(self):
+        return self.select()[0]
+
     @classmethod
     def generate(self, id_number):
         individual = Individual(id_number=id_number)
         return individual
 
     def select(self):
-        self._population.sort(key=lambda individual:individual.fitness(), reverse=True)
+        partition = np.random.randint(1, FLAGS.num_partitions+1)
+        word_vocab, char_vocab, word_tensors, char_tensors, max_word_length = load_mini_data(FLAGS.data_dir, FLAGS.max_word_length, eos=FLAGS.EOS, partition=partition, num_partitions=FLAGS.num_partitions)
+        for individual in self._population:
+            print("Compute individual_%d's fitness: %f" % (i, individual.fitness(word_vocab, char_vocab, word_tensors, char_tensors, max_word_length)))
+        self._population.sort(key=lambda individual:individual.get_fitness())
         winners = self._population[:self._num_winners]
         return winners
 
@@ -265,9 +410,6 @@ class Population:
                 self._population[loser_id].mutation()
             self._population[loser_id].update_graph()
 
-    def final_winner(self):
-        return self.select()[0]
-
 
 def main(_):
 
@@ -282,7 +424,7 @@ def main(_):
                             population_size=FLAGS.population)
 
     # perform evolution
-    for epoch in range(FLAGS.epoch):
+    for epoch in range(FLAGS.max_evo_epochs):
         population.evolve()
 
     # get result

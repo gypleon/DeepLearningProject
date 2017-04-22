@@ -117,6 +117,69 @@ def load_data(data_dir, max_word_length, eos='+'):
     return word_vocab, char_vocab, word_tensors, char_tensors, actual_max_word_length
 
 
+# LEON: for evolution
+def load_mini_data(data_dir, max_word_length, eos='+', partition=1, num_partitions=1):
+    char_vocab = Vocab()
+    char_vocab.feed(' ')  # blank is at index 0 in char vocab
+    char_vocab.feed('{')  # start is at index 1 in char vocab
+    char_vocab.feed('}')  # end   is at index 2 in char vocab
+    word_vocab = Vocab()
+    word_vocab.feed('|')  # <unk> is at index 0 in word vocab
+    actual_max_word_length = 0
+    word_tokens = collections.defaultdict(list)
+    char_tokens = collections.defaultdict(list)
+    for fname in ('train', 'valid', 'test'):
+        print('reading', fname)
+        num_lines = 0
+        with open(os.path.join(data_dir, fname + '.txt'), 'r', 'utf-8') as f:
+            for line in f:
+                num_lines += 1
+        partition_size = num_lines // num_partitions
+        start_line = (partition-1)*partition_size
+        end_line = partition*partition_size
+        with codecs.open(os.path.join(data_dir, fname + '.txt'), 'r', 'utf-8') as f:
+            for i, line in enumerate(f):
+                if i < start_line:
+                    pass
+                elif i >= end_line:
+                    break
+                else:
+                    line = line.strip()
+                    line = line.replace('}', '').replace('{', '').replace('|', '')
+                    line = line.replace('<unk>', ' | ')
+                    if eos:
+                        line = line.replace(eos, '')
+                    for word in line.split():
+                        if len(word) > max_word_length - 2:  # space for 'start' and 'end' chars
+                            word = word[:max_word_length-2]
+                        word_tokens[fname].append(word_vocab.feed(word))
+                        char_array = [char_vocab.feed(c) for c in '{' + word + '}']
+                        char_tokens[fname].append(char_array)
+                        actual_max_word_length = max(actual_max_word_length, len(char_array))
+                    if eos:
+                        word_tokens[fname].append(word_vocab.feed(eos))
+                        char_array = [char_vocab.feed(c) for c in '{' + eos + '}']
+                        char_tokens[fname].append(char_array)
+    assert actual_max_word_length <= max_word_length
+    print()
+    print('actual longest token length is:', actual_max_word_length)
+    print('size of word vocabulary:', word_vocab.size)
+    print('size of char vocabulary:', char_vocab.size)
+    print('number of tokens in train:', len(word_tokens['train']))
+    print('number of tokens in valid:', len(word_tokens['valid']))
+    print('number of tokens in test:', len(word_tokens['test']))
+    # now we know the sizes, create tensors
+    word_tensors = {}
+    char_tensors = {}
+    for fname in ('train', 'valid', 'test'):
+        assert len(char_tokens[fname]) == len(word_tokens[fname])
+        word_tensors[fname] = np.array(word_tokens[fname], dtype=np.int32)
+        char_tensors[fname] = np.zeros([len(char_tokens[fname]), actual_max_word_length], dtype=np.int32)
+        for i, char_array in enumerate(char_tokens[fname]):
+            char_tensors[fname] [i,:len(char_array)] = char_array
+    return word_vocab, char_vocab, word_tensors, char_tensors, actual_max_word_length
+
+
 class DataReader:
 
     def __init__(self, word_tensor, char_tensor, batch_size, num_unroll_steps):

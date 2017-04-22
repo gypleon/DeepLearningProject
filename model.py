@@ -292,14 +292,14 @@ def individual_graph(char_vocab_size, word_vocab_size,
     ''' Second, apply convolutions '''
     # [batch_size x num_unroll_steps, cnn_size]  # where cnn_size=sum(kernel_features)
     # input_cnn = multi_conv(input_embedded, cnn_layers)
-    input_cnn = tdnn(input_embedded, [kernel[0] for kernel in cnn_layer], [kernel[1] for kernel in cnn_layer])
+    input_cnn = tdnn(input_embedded, [kernel[0] for kernel in cnn_layer.values()], [kernel[1] for kernel in cnn_layer.values()])
     ''' Maybe apply Highway '''
     if num_highway_layers > 0:
         input_cnn = highway(input_cnn, input_cnn.get_shape()[-1], num_layers=num_highway_layers)
     ''' Finally, do LSTM '''
     with tf.variable_scope('LSTM'):
         cells = list()
-        for rnn_layer_i in rnn_layers:
+        for rnn_layer_i in rnn_layers.values():
             cell = tf.contrib.rnn.BasicLSTMCell(rnn_layer_i[0], state_is_tuple=True, forget_bias=0.0)
             if dropout > 0.0:
                 cell = tf.contrib.rnn.DropoutWrapper(cell, output_keep_prob=1.-dropout)
@@ -312,8 +312,8 @@ def individual_graph(char_vocab_size, word_vocab_size,
         input_cnn = tf.reshape(input_cnn, [batch_size, num_unroll_steps, -1])
         # len([ [batch_size, num_all_cnn_features], ... ]) == num_unroll_steps
         input_cnn2 = [tf.squeeze(x, [1]) for x in tf.split(input_cnn, num_unroll_steps, 1)]
-        outputs, final_rnn_state = tf.contrib.rnn.static_rnn(cell, input_cnn2,
-                                         initial_state=initial_rnn_state, dtype=tf.float32)
+        # feed input sequence to RNNCell, loop according to time rollings, 1 batch per timestep
+        outputs, final_rnn_state = tf.contrib.rnn.static_rnn(cell, input_cnn2, initial_state=initial_rnn_state, dtype=tf.float32)
         # linear projection onto output (word) vocab
         logits = []
         with tf.variable_scope('WordEmbedding') as scope:
