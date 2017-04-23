@@ -58,7 +58,7 @@ flags.DEFINE_string ('EOS',            '+',  '<EOS> symbol. should be a single u
 FLAGS = flags.FLAGS
 
 
-class adict(dict, *av, **kav):
+class adict(dict):
     def __init__(self):
         dict.__init__(self, *av, **kav)
         self.__dict__ = self
@@ -229,24 +229,51 @@ class Individual:
                     valid_model.update(model.loss_graph(valid_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
         return my_model, valid_model, saver
 
+    # TODO: bias on less parameters
     def mutation_struct(self):
+
         # mutate cnn
         # mutate number of filters
-        # TODO: for 
+        for filter_type in self._cnn_layer.values():
+            num_var_cnn_type_filters = np.random.randint(-50, 51)
+            # add / remove filters
+            if num_var_cnn_type_filters > 0 or filter_type[1] + num_var_cnn_type_filters > 0:
+                filter_type[1] += num_var_cnn_type_filters
         # mutate filter types
         num_var_cnn_filter_types = np.random.randint(-1, 2)
         # add filter type
-        if num_var_cnn_filter_types > 0:
-            if len(self._cnn_layer) + num_var_cnn_filter_types <= min(FLAGS.max_cnn_filter_types, self._max_word_length):
-                available_types = list(set(filter_type for filter_type in range(1, FLAGS.max_cnn_filter_types+1))-set(filter_type[0] for filter_type in self._cnn_layer.values()))
-                new_type = np.random.choice(available_types)
-                num_new_type = np.random.randint(1, FLAGS.max_cnn_type_filters+1)
-                self._cnn_layer[str(new_type)] = num_new_type
+        if num_var_cnn_filter_types > 0 and len(self._cnn_layer) + num_var_cnn_filter_types <= min(FLAGS.max_cnn_filter_types, self._max_word_length):
+            available_types = list(set(filter_type for filter_type in range(1, FLAGS.max_cnn_filter_types+1))-set(filter_type[0] for filter_type in self._cnn_layer.values()))
+            new_type = np.random.choice(available_types)
+            num_new_type = np.random.randint(1, FLAGS.max_cnn_type_filters+1)
+            self._cnn_layer[str(new_type)] = num_new_type
         # remove filter type
-        elif num_var_cnn_filter_types < 0:
-            if len(self._cnn_layer) + num_var_cnn_filter_types > 0:
+        elif num_var_cnn_filter_types < 0 and len(self._cnn_layer) + num_var_cnn_filter_types > 0:
+            existed_types = [filter_type[0] for filter_type in self._cnn_layer.values()]
+            selected_type = np.random.choice(existed_types)
+            self._cnn_layer.pop('%d' % selected_type)
+            
         # mutate rnn
+        # mutate number of units
+        num_var_rnn_layer_units = np.random.randint(-100, 101)
+        for layer in self._rnn_layers.values():
+            if layer[0] + num_var_rnn_layer_units > 0:
+                layer[0] += num_var_rnn_layer_units
+        # mutate number of rnn layers 
         num_var_rnn_layers = np.random.randint(-1, 2)
+        # add rnn layer
+        if num_var_rnn_layers > 0 and len(self._rnn_layers) + num_var_rnn_layers <= FLAGS.max_rnn_layers:
+            for i in range(FLAGS.max_rnn_layers):
+                if not self._rnn_layers.get('%d' % i+1):
+                    num_units = np.random.randint(550, 750)
+                    self._rnn_layers['%d' % i+1] = [num_units]
+                    break
+        # remove rnn layer
+        elif num_var_rnn_layers < 0 and len(self._rnn_layers) + num_var_rnn_layers > 0:
+            existed_layers = [layer for layer in self._rnn_layers.keys()]
+            selected_layer = np.random.choice(existed_layers)
+            self._rnn_layers.pop(selected_layer)
+
         # refresh knowledge
         self._knowledge.structure = self.encode_structure()
         self._struct_exp = self.experience(self._knowledge.structure)
@@ -257,9 +284,8 @@ class Individual:
         self._knowledge.dropout = np.random.uniform()
 
     def mutation(self):
-        for layer_type in self._layers:
         # TODO: mutate parameters
-        # self.mutation_param()
+        self.mutation_param()
         self.mutation_struct()
 
     # train on mini-dataset
@@ -394,6 +420,7 @@ class Population:
         self._population = list()
         for i in range(self._population_size):
             self._population.append(self.generate(i))
+        print("Initialized Population")
 
         self._average_fitness = None
 
@@ -411,6 +438,7 @@ class Population:
     @classmethod
     def generate(self, id_number):
         individual = Individual(id_number=id_number)
+        print("Generated Individual_%d" % id_number)
         return individual
 
     def select(self):
@@ -464,7 +492,7 @@ def main(_):
 
     # initialize population
     population = Population(num_winners=FLAGS.num_winners,
-                            population_size=FLAGS.population)
+                            population_size=FLAGS.population_size)
 
     # perform evolution
     for epoch in range(FLAGS.max_evo_epochs):
