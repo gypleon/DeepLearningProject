@@ -128,15 +128,20 @@ def load_mini_data(data_dir, max_word_length, eos='+', partition=1, num_partitio
     actual_max_word_length = 0
     word_tokens = collections.defaultdict(list)
     char_tokens = collections.defaultdict(list)
+    print("Loading partition: %d/%d" % (partition, num_partitions))
     for fname in ('train', 'valid', 'test'):
         print('reading', fname)
         num_lines = 0
-        with open(os.path.join(data_dir, fname + '.txt'), 'r', 'utf-8') as f:
-            for line in f:
+        with codecs.open(os.path.join(data_dir, fname + '.txt'), 'r', 'utf-8') as f:
+            for _, _ in enumerate(f):
                 num_lines += 1
+        print(" |total lines:", num_lines)
         partition_size = num_lines // num_partitions
+        print(" |partition size", partition_size)
         start_line = (partition-1)*partition_size
+        print(" |start line", start_line)
         end_line = partition*partition_size
+        print(" |end line", end_line)
         with codecs.open(os.path.join(data_dir, fname + '.txt'), 'r', 'utf-8') as f:
             for i, line in enumerate(f):
                 if i < start_line:
