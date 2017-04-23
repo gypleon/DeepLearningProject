@@ -188,6 +188,8 @@ def load_mini_data(data_dir, max_word_length, eos='+', partition=1, num_partitio
 class DataReader:
 
     def __init__(self, word_tensor, char_tensor, batch_size, num_unroll_steps):
+        # print("word_tensor shape", word_tensor.shape)
+        # print("char_tensor shape", char_tensor.shape)
 
         length = word_tensor.shape[0]
         assert char_tensor.shape[0] == length
@@ -196,6 +198,7 @@ class DataReader:
 
         # round down length to whole number of slices
         reduced_length = (length // (batch_size * num_unroll_steps)) * batch_size * num_unroll_steps
+        # print("reduced length", reduced_length)
         word_tensor = word_tensor[:reduced_length]
         char_tensor = char_tensor[:reduced_length, :]
 
