@@ -136,12 +136,16 @@ def load_mini_data(data_dir, max_word_length, eos='+', partition=1, num_partitio
             for _, _ in enumerate(f):
                 num_lines += 1
         print(" |total lines:", num_lines)
-        partition_size = num_lines // num_partitions
-        print(" |partition size", partition_size)
-        start_line = (partition-1)*partition_size
-        print(" |start line", start_line)
-        end_line = partition*partition_size
-        print(" |end line", end_line)
+        if 'train' == fname:
+            partition_size = num_lines // num_partitions
+            print(" |partition size", partition_size)
+            start_line = (partition-1)*partition_size
+            print(" |start line", start_line)
+            end_line = partition*partition_size
+            print(" |end line", end_line)
+        else:
+            start_line = 0
+            end_line = num_lines
         with codecs.open(os.path.join(data_dir, fname + '.txt'), 'r', 'utf-8') as f:
             for i, line in enumerate(f):
                 if i < start_line:

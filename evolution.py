@@ -5,7 +5,7 @@ from __future__ import print_function
 import os
 import time
 import copy
-import multiprocessing
+import threading
 
 import numpy as np
 import tensorflow as tf
@@ -17,7 +17,8 @@ from data_reader import load_data, load_mini_data, DataReader
 flags = tf.flags
 
 # system
-flags.DEFINE_integer('num_gpus', 1, 'the number of GPUs in the system')
+flags.DEFINE_integer('num_cpus', 4, 'number of CPUs on the system')
+flags.DEFINE_integer('num_gpus', 1, 'number of GPUs on the system')
 
 # data
 flags.DEFINE_integer('num_partitions',  100,  'total number of partitions for fitness training')
@@ -54,7 +55,7 @@ flags.DEFINE_integer('max_word_length',     65,   'maximum word length')
 
 # bookkeeping
 flags.DEFINE_integer('seed',           3435, 'random number generator seed')
-flags.DEFINE_integer('print_every',    5,    'how often to print current loss')
+flags.DEFINE_integer('print_every',    25,    'how often to print current loss')
 flags.DEFINE_string ('EOS',            '+',  '<EOS> symbol. should be a single unused character (like +) for PTB and blank for others')
 
 FLAGS = flags.FLAGS
@@ -83,6 +84,8 @@ class Individual:
                 char_embed_size=FLAGS.char_embed_size,
                 dropout=FLAGS.dropout):
 
+        print(cnn_layer)
+        print(rnn_layers)
         # TODO: generate individual seed
         self._seed = np.random.seed(id_number * 13)
         self._id_number = id_number
@@ -106,21 +109,17 @@ class Individual:
         self._knowledge = adict(
                         char_embed_size = char_embed_size,
                         dropout = dropout,
-                        structure = self.encode_structure()
+                        struct_exp = [self.encode_structure()]
                         )
-        self._struct_exp = [self._knowledge.structure]
 
         # create model
         self._gpu_id = self._id_number % FLAGS.num_gpus
         self._graph = tf.Graph()
-        # self._model, self._valid_model, self._saver = self.create_graph()
-
-    # TODO: release resources
-    # def __del__(self):
-    #     self._graph.close()
+        with self._graph.as_default() as g:
+            tf.set_random_seed(self._seed)
 
     def get_exp(self):
-        return self._struct_exp
+        return self._knowledge.struct_exp
 
     def get_fitness(self):
         return self._fitness
@@ -148,60 +147,20 @@ class Individual:
         for layer in range(struct_rnn.shape[0]):
             if struct_rnn[layer] > 0:
                 rnn_layers['%d' % (layer+1)] = [int(struct_rnn[layer])]
-        self._cnn_layer = cnn_layer
-        self._rnn_layers = rnn_layers
-        return cnn_layer, rnn_layers
+        self._cnn_layer = copy.deepcopy(cnn_layer)
+        self._rnn_layers = copy.deepcopy(rnn_layers)
+        return self._cnn_layer, self._rnn_layers
 
     def experience(self, struct):
-        self._struct_exp.append(struct) 
-
-    '''
-    # deprecated
-    def create_graph(self):
-        with self._graph.as_default():
-            with tf.device('/gpu:%d' % self._gpu_id):
-                initializer = tf.random_uniform_initializer(-FLAGS.param_init, FLAGS.param_init)
-                with tf.variable_scope("Individual_%d" % self._id_number, initializer=initializer):
-                    my_model = model.individual_graph(
-                                            char_vocab_size=self._char_vocab.size,
-                                            word_vocab_size=self._word_vocab.size,
-                                            char_embed_size=self._knowledge.char_embed_size,
-                                            batch_size=FLAGS.batch_size,
-                                            max_word_length=FLAGS.max_word_length,
-                                            num_unroll_steps=FLAGS.num_unroll_steps,
-                                            num_highway_layers=2,
-                                            cnn_layer=self._cnn_layer,
-                                            rnn_layers=self._rnn_layers,
-                                            dropout=self._knowledge.dropout)
-                    my_model.update(model.loss_graph(my_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
-                    my_model.update(model.training_graph(my_model.loss * FLAGS.num_unroll_steps, FLAGS.learning_rate, FLAGS.max_grad_norm))
-
-                saver = tf.train.Saver(max_to_keep=1)
-
-                with tf.variable_scope("Individual_%d" % self._id_number, reuse=True):
-                    valid_model = model.individual_graph(
-                                            char_vocab_size=self._char_vocab.size,
-                                            word_vocab_size=self._word_vocab.size,
-                                            char_embed_size=self._knowledge.char_embed_size,
-                                            batch_size=FLAGS.batch_size,
-                                            max_word_length=FLAGS.max_word_length,
-                                            num_unroll_steps=FLAGS.num_unroll_steps,
-                                            num_highway_layers=2,
-                                            cnn_layer=self._cnn_layer,
-                                            rnn_layers=self._rnn_layers,
-                                            dropout=self._knowledge.dropout)
-                    valid_model.update(model.loss_graph(valid_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
-        return my_model, valid_model, saver
-    '''
+        self._knowledge.struct_exp.append(struct) 
 
     # TODO: currently just reconstruct a graph without reusing parameters
     def update_graph(self, word_vocab, char_vocab, max_word_length, epoch):
         with self._graph.as_default():
-            # tf.reset_default_graph()
             with tf.device('/gpu:%d' % self._gpu_id):
                 initializer = tf.random_uniform_initializer(-FLAGS.param_init, FLAGS.param_init)
                 # TODO: other way to rebuild graph?
-                with tf.variable_scope("Individual_%d_%d" % (self._id_number, epoch), initializer=initializer):
+                with tf.variable_scope("Individual_%d" % (self._id_number), initializer=initializer):
                     my_model = model.individual_graph(
                                             char_vocab_size=char_vocab.size,
                                             word_vocab_size=word_vocab.size,
@@ -218,7 +177,7 @@ class Individual:
 
                 saver = tf.train.Saver(max_to_keep=1)
 
-                with tf.variable_scope("Individual_%d_%d" % (self._id_number, epoch), reuse=True):
+                with tf.variable_scope("Individual_%d" % (self._id_number), reuse=True):
                     valid_model = model.individual_graph(
                                             char_vocab_size=char_vocab.size,
                                             word_vocab_size=word_vocab.size,
@@ -279,16 +238,14 @@ class Individual:
             self._rnn_layers.pop(selected_layer)
 
         # refresh knowledge
-        self._knowledge.structure = self.encode_structure()
-        self.experience(self._knowledge.structure)
+        structure = self.encode_structure()
+        self.experience(structure)
 
     def mutation_param(self):
-        # TODO: knowledge should be learned instead
         self._knowledge.char_embed_size = FLAGS.char_embed_size + np.random.randint(-FLAGS.char_embed_size, FLAGS.char_embed_size+1)
         self._knowledge.dropout = np.random.uniform(0, 1)
 
     def mutation(self):
-        # TODO: mutate parameters
         self.mutation_param()
         self.mutation_struct()
 
@@ -301,7 +258,7 @@ class Individual:
         train_reader = DataReader(word_tensors['train'], char_tensors['train'], FLAGS.batch_size, FLAGS.num_unroll_steps)
         valid_reader = DataReader(word_tensors['valid'], char_tensors['valid'], FLAGS.batch_size, FLAGS.num_unroll_steps)
 
-        with tf.Session(graph=self._graph, config=tf.ConfigProto(allow_soft_placement=True)) as session:
+        with tf.Session(graph=self._graph, config=tf.ConfigProto(allow_soft_placement=True, inter_op_parallelism_threads=FLAGS.num_cpus)) as session:
             # initialize model
             tf.global_variables_initializer().run()
             session.run(self._model.clear_char_embedding_padding)
@@ -389,28 +346,38 @@ class Individual:
         self._fitness = best_valid_loss
         return self._fitness
 
-    def absorb(self, struct):
+    def absorb(self, struct_exp):
         # TODO: only beneficial features
-        beneficial_struct = struct
-        self.decode_structure(beneficial_struct)
+        cnn_last = struct_exp[-1][0]
+        rnn_last = struct_exp[-1][1]
+        # cnn_i = np.random.choice(np.non_zero(cnn_last)[0])
+        # rnn_i = np.random.choice(np.non_zero(rnn_last)[0])
+        for i in range(3):
+            cnn_i = np.random.choice(cnn_last)
+            rnn_i = np.random.choice(rnn_last)
+            self._knowledge.struct_exp[-1][0][cnn_i] = cnn_last[cnn_i]
+            self._knowledge.struct_exp[-1][1][rnn_i] = rnn_last[rnn_i]
+        self.decode_structure(self._knowledge.struct_exp[-1])
+        beneficial_struct = self._knowledge.struct_exp[-1]
         return beneficial_struct
 
     # encode and return evolution knowledge
     def teach(self):
-        self.experience(self._knowledge.structure)
-        return self._knowledge
+        self.experience(self._knowledge.struct_exp)
+        return self._knowledge.struct_exp
         
     # decode and absorb evolution knowledge
     def learn(self, knowledge):
-        # self._knowledge = copy.deepcopy(knowledge)
         self._knowledge.char_embed_size = knowledge.char_embed_size
         self._knowledge.dropout = knowledge.dropout
-        self._knowledge.structure = self.absorb(knowledge.structure)
-        self.experience(self._knowledge.structure)
+        beneficial_struct = self.absorb(knowledge.struct_exp)
+        self.experience(beneficial_struct)
 
+    '''
     def clear_variables(self):
         self._graph.as_default()
         self._graph.clear_collection("GLOBAL_VARIABLES")
+    '''
     
     def save_model(self):
         self._saver
@@ -429,6 +396,9 @@ class Population:
 
         self._num_winners = num_winners
         self._population_size = population_size
+
+        # TODO: multi threads for multi GPUs
+        self._threadings = []
 
         # Individuals
         self._population = list()
@@ -449,7 +419,21 @@ class Population:
         return self.select()[0]
 
     def generate(self, id_number):
-        individual = Individual(id_number=id_number)
+        cnn_layer = {}
+        rnn_layers = {}
+        # generate cnn layer
+        num_filter_types = np.random.randint(5, 11)
+        for filter_type in range(1, num_filter_types+1):
+            num_type_filters = 10 * np.random.randint(5, 21)
+            cnn_layer['%d' % filter_type] = [filter_type, num_type_filters]
+        # generate rnn layers
+        num_rnn_layers = np.random.randint(1, FLAGS.max_rnn_layers+1)
+        for layer in range(1, num_rnn_layers+1):
+            num_units = 50 * np.random.randint(10, 17)
+            rnn_layers['%d' % layer] = [num_units]
+        individual = Individual(id_number=id_number,
+                                cnn_layer=cnn_layer,
+                                rnn_layers=rnn_layers)
         print("Generated Individual_%d" % id_number)
         return individual
 
@@ -458,7 +442,7 @@ class Population:
         word_vocab, char_vocab, word_tensors, char_tensors, max_word_length = load_mini_data(FLAGS.data_dir, FLAGS.max_word_length, eos=FLAGS.EOS, partition=partition, num_partitions=FLAGS.num_partitions)
         for individual in self._population:
             print("Compute individual_%d's fitness: %f" % (individual._id_number, individual.fitness(word_vocab, char_vocab, word_tensors, char_tensors, max_word_length, epoch)))
-            individual.clear_variables()
+            # individual.clear_variables()
         self._population.sort(key=lambda individual:individual.get_fitness())
         winners = self._population[:self._num_winners]
         return winners
@@ -468,15 +452,21 @@ class Population:
         dissim_cnn, dissim_rnn = 0, 0
         exp1 = individual_1.get_exp()
         exp2 = individual_2.get_exp()
-        print("exp1:", exp1)
-        print("exp2:", exp2)
+        assert len(exp1) == len(exp2), ("Error: Individuals' experience missed.", exp1, exp2)
         for struct1, struct2 in zip(exp1, exp2):
-            dissim_cnn = time_discount * (dissim_cnn + np.linalg.norm(struct1[0] - struct2[0]))
-            dissim_rnn = time_discount * (dissim_rnn + np.linalg.norm(struct1[1] - struct2[1]))
-            print("dissim_cnn:", dissim_cnn)
-            print("dissim_rnn:", dissim_rnn)
+            # TODO: normalize struct vector
+            dissim_cnn = (time_discount * dissim_cnn + np.linalg.norm(struct1[0] - struct2[0])) / (self.dissim_norm(time_discount, len(exp1))
+            dissim_rnn = (time_discount * dissim_rnn + np.linalg.norm(struct1[1] - struct2[1])) / (self.dissim_norm(time_discount, len(exp1))
+        print("dissim_cnn:", dissim_cnn)
+        print("dissim_rnn:", dissim_rnn)
         print("sim %d and %d is: %f" % (individual_1._id_number, individual_2._id_number, 1/(dissim_cnn+dissim_rnn)))
-        return 1 / (dissim_cnn + dissim_rnn)
+        return 100 / (dissim_cnn + dissim_rnn)
+
+    def dissim_norm(self, td, steps):
+        if steps > 1:
+            return 1+td*self.dissim_norm(td, steps-1)
+        else:
+            return 1
 
     def find_teacher(self, leaner):
         sim = FLAGS.learning_threshold
