@@ -5,6 +5,7 @@ from __future__ import print_function
 import os
 import time
 import copy
+import logging
 import threading
 
 import numpy as np
@@ -504,6 +505,9 @@ class Population:
 
 def main(_):
 
+    # TODO: stronger readable
+    logging.basicConfig(filename='%s/history.log' % FLAGS.population_dir, format='%(levelname)s:%(message)s', level=logging.INFO)
+
     if not os.path.exists(FLAGS.population_dir):
         os.mkdir(FLAGS.population_dir)
         print('[EVOLUTION] Created population history directory', FLAGS.population_dir)
@@ -520,7 +524,9 @@ def main(_):
 
     # get result
     result = population.final_winner()
-    result.show_knowledge()
+    result.show_history()
+
+    # TODO: plot automatically
 
     # TODO: fully train
     if FLAGS.if_train_winner == 1:

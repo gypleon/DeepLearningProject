@@ -262,7 +262,6 @@ def training_graph(loss, learning_rate=1.0, max_grad_norm=5.0):
 
 # LEON: retrieve trainable variables
 def model_size():
-
     params = tf.trainable_variables()
     size = 0
     for x in params:
