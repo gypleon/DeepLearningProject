@@ -33,7 +33,7 @@ flags.DEFINE_integer('highway_layers',  2,                              'number 
 
 # evolution configuration
 flags.DEFINE_integer('num_winners',             5, 'number of winners of each generation')
-flags.DEFINE_integer('population_size',         20, 'number of individuals of each generation')
+flags.DEFINE_integer('population_size',         15, 'number of individuals of each generation')
 flags.DEFINE_integer('max_evo_epochs',          15, 'max number of evolution iterations')
 flags.DEFINE_float  ('learning_threshold',      0.2, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
@@ -236,10 +236,10 @@ class Individual:
         num_var_rnn_layers = np.random.randint(-1, 2)
         # add rnn layer
         if num_var_rnn_layers > 0 and len(self._rnn_layers) + num_var_rnn_layers <= FLAGS.max_rnn_layers:
-            for i in range(FLAGS.max_rnn_layers):
-                if not self._rnn_layers.get('%d' % i+1):
-                    num_units = np.random.randint(550, 750)
-                    self._rnn_layers['%d' % i+1] = [num_units]
+            for i in range(1, FLAGS.max_rnn_layers+1):
+                if not self._rnn_layers.get('%d' % i):
+                    num_units = np.random.randint(450, 850)
+                    self._rnn_layers['%d' % i] = [num_units]
                     break
         # remove rnn layer
         elif num_var_rnn_layers < 0 and len(self._rnn_layers) + num_var_rnn_layers > 0:
@@ -322,8 +322,8 @@ class Individual:
             print("validation loss = %6.8f, perplexity = %6.8f" % (avg_valid_loss, np.exp(avg_valid_loss)))
             # save_as = '%s/epoch%03d_%.4f.model' % (self._individual_dir, evo_epoch, avg_valid_loss)
             save_as = '%s/epoch%03d.model' % (self._individual_dir, evo_epoch)
-            self._saver.save(session, save_as)
-            print('Saved model', save_as)
+            # self._saver.save(session, save_as)
+            # print('Saved model', save_as)
             ''' write out summary events '''
             # summary = tf.Summary(value=[
             #     tf.Summary.Value(tag="train_loss", simple_value=avg_train_loss),
@@ -490,6 +490,7 @@ class Population:
             self._population[winner_id]._knowledge.char_embed_size.append(self._population[winner_id]._knowledge.char_embed_size[-1])
             self._population[winner_id]._knowledge.dropout.append(self._population[winner_id]._knowledge.dropout[-1])
             self._population[winner_id].experience(self._population[winner_id]._knowledge.struct_exp[-1])
+            self._population[winner_id].show_knowledge()
 
     def show_history(self):
         for individual in self._population:
