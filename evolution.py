@@ -210,16 +210,16 @@ class Individual:
         for filter_type in self._cnn_layer.values():
             num_var_cnn_type_filters = np.random.randint(-50, 51)
             # add / remove filters
-            if num_var_cnn_type_filters > 0 or filter_type[1] + num_var_cnn_type_filters > 0:
+            if filter_type[1] + num_var_cnn_type_filters > 0:
                 filter_type[1] += num_var_cnn_type_filters
         # mutate filter types
         num_var_cnn_filter_types = np.random.randint(-1, 2)
         # add filter type
         if num_var_cnn_filter_types > 0 and len(self._cnn_layer) + num_var_cnn_filter_types <= min(FLAGS.max_cnn_filter_types, self._max_word_length):
-            available_types = list(set(filter_type for filter_type in range(1, FLAGS.max_cnn_filter_types+1))-set(filter_type[0] for filter_type in self._cnn_layer.values()))
+            available_types = list(set(filter_type_i for filter_type_i in range(1, FLAGS.max_cnn_filter_types+1))-set(filter_type[0] for filter_type in self._cnn_layer.values()))
             new_type = np.random.choice(available_types)
             num_new_type = np.random.randint(1, FLAGS.max_cnn_type_filters+1)
-            self._cnn_layer[str(new_type)] = num_new_type
+            self._cnn_layer['%d' % new_type] = [new_type, num_new_type]
         # remove filter type
         elif num_var_cnn_filter_types < 0 and len(self._cnn_layer) + num_var_cnn_filter_types > 0:
             existed_types = [filter_type[0] for filter_type in self._cnn_layer.values()]
@@ -246,6 +246,9 @@ class Individual:
             existed_layers = [layer for layer in self._rnn_layers.keys()]
             selected_layer = np.random.choice(existed_layers)
             self._rnn_layers.pop(selected_layer)
+
+        print(self._cnn_layer)
+        print(self._rnn_layers)
 
         # refresh knowledge
         structure = self.encode_structure()
