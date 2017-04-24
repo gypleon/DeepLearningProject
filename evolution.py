@@ -31,9 +31,9 @@ flags.DEFINE_float  ('dropout',         0.5,                            'dropout
 flags.DEFINE_integer('highway_layers',  2,                              'number of highway layers')
 
 # evolution configuration
-flags.DEFINE_integer('num_winners',             2, 'number of winners of each generation')
-flags.DEFINE_integer('population_size',         3, 'number of individuals of each generation')
-flags.DEFINE_integer('max_evo_epochs',          3, 'max number of evolution iterations')
+flags.DEFINE_integer('num_winners',             3, 'number of winners of each generation')
+flags.DEFINE_integer('population_size',         10, 'number of individuals of each generation')
+flags.DEFINE_integer('max_evo_epochs',          15, 'max number of evolution iterations')
 flags.DEFINE_float  ('learning_threshold',      0.1, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
 flags.DEFINE_float  ('prob_mutation_param',     0.1, 'probability of mutation for individual parameters')
@@ -357,16 +357,16 @@ class Individual:
         # TODO: only beneficial features
         cnn_last = struct_exp[-1][0]
         rnn_last = struct_exp[-1][1]
-        # cnn_i = np.random.choice(np.non_zero(cnn_last)[0])
-        # rnn_i = np.random.choice(np.non_zero(rnn_last)[0])
+        # cnn_i = np.random.choice(np.nonzero(cnn_last)[0])
+        # rnn_i = np.random.choice(np.nonzero(rnn_last)[0])
         for i in range(3):
             cnn_i = np.random.randint(len(cnn_last))
             rnn_i = np.random.randint(len(rnn_last))
-            if cnn_last[cnn_i] == 0 and self._knowledge.struct_exp[-1][0][cnn_i] > 0 and len(np.non_zero(self._knowledge.struct_exp[-1][0])[0]) == 1:
+            if cnn_last[cnn_i] == 0 and self._knowledge.struct_exp[-1][0][cnn_i] > 0 and len(np.nonzero(self._knowledge.struct_exp[-1][0])[0]) == 1:
                 print('')
             else:
                 self._knowledge.struct_exp[-1][0][cnn_i] = cnn_last[cnn_i]
-            if rnn_last[rnn_i] == 0 and self._knowledge.struct_exp[-1][1][rnn_i] > 0 and len(np.non_zero(self._knowledge.struct_exp[-1][1])[0]) == 1:
+            if rnn_last[rnn_i] == 0 and self._knowledge.struct_exp[-1][1][rnn_i] > 0 and len(np.nonzero(self._knowledge.struct_exp[-1][1])[0]) == 1:
                 print('')
             else:
                 self._knowledge.struct_exp[-1][1][rnn_i] = rnn_last[rnn_i]
