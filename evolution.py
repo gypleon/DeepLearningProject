@@ -32,10 +32,10 @@ flags.DEFINE_float  ('dropout',         0.5,                            'dropout
 flags.DEFINE_integer('highway_layers',  2,                              'number of highway layers')
 
 # evolution configuration
-flags.DEFINE_integer('num_winners',             3, 'number of winners of each generation')
-flags.DEFINE_integer('population_size',         10, 'number of individuals of each generation')
+flags.DEFINE_integer('num_winners',             5, 'number of winners of each generation')
+flags.DEFINE_integer('population_size',         20, 'number of individuals of each generation')
 flags.DEFINE_integer('max_evo_epochs',          15, 'max number of evolution iterations')
-flags.DEFINE_float  ('learning_threshold',      0.1, 'similarity threshold for teacher selection')
+flags.DEFINE_float  ('learning_threshold',      0.2, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
 flags.DEFINE_float  ('prob_mutation_param',     0.1, 'probability of mutation for individual parameters')
 flags.DEFINE_integer('max_cnn_filter_types',    30, 'max number of cnn filter types')
@@ -273,83 +273,77 @@ class Individual:
             tf.global_variables_initializer().run()
             session.run(self._model.clear_char_embedding_padding)
             print('[EVOLUTION] Epoch_%d Individual_%d. Size: %d' % (evo_epoch, self._id_number, model.model_size()))
-            self._summary_writer = tf.summary.FileWriter(self._individual_dir, graph=session.graph)
+            # self._summary_writer = tf.summary.FileWriter(self._individual_dir, graph=session.graph)
             session.run(
                 tf.assign(self._model.learning_rate, FLAGS.learning_rate),
             )
             # scout train
             best_valid_loss = None
             rnn_state = session.run(self._model.initial_rnn_state)
-            for epoch in range(FLAGS.max_epochs):
-                epoch_start_time = time.time()
-                avg_train_loss = 0.0
-                count = 0
-                for x, y in train_reader.iter():
-                    count += 1
-                    start_time = time.time()
-                    loss, _, rnn_state, gradient_norm, step, _ = session.run([
-                        self._model.loss,
-                        self._model.train_op,
-                        self._model.final_rnn_state,
-                        self._model.global_norm,
-                        self._model.global_step,
-                        self._model.clear_char_embedding_padding
-                    ], {
-                        self._model.input  : x,
-                        self._model.targets: y,
-                        self._model.initial_rnn_state: rnn_state
-                    })
-                    avg_train_loss += 0.05 * (loss - avg_train_loss)
-                    time_elapsed = time.time() - start_time
-                    # if count % FLAGS.print_every == 0:
-                    #     print('%6d: %d [%5d/%5d], train_loss/perplexity = %6.8f/%6.7f secs/batch = %.4fs, grad.norm=%6.8f' % (step,
-                    #                                             epoch, count,
-                    #                                             train_reader.length,
-                    #                                             loss, np.exp(loss),
-                    #                                             time_elapsed,
-                    #                                             gradient_norm))
-                print('Epoch training time:', time.time()-epoch_start_time)
-                # epoch done: time to evaluate
-                avg_valid_loss = 0.0
-                count = 0
-                rnn_state = session.run(self._valid_model.initial_rnn_state)
-                for x, y in valid_reader.iter():
-                    count += 1
-                    start_time = time.time()
-                    loss, rnn_state = session.run([
-                        self._valid_model.loss,
-                        self._valid_model.final_rnn_state
-                    ], {
-                        self._valid_model.input  : x,
-                        self._valid_model.targets: y,
-                        self._valid_model.initial_rnn_state: rnn_state,
-                    })
-                    avg_valid_loss += loss / valid_reader.length
-                print("at the end of epoch:", epoch)
-                print("train loss = %6.8f, perplexity = %6.8f" % (avg_train_loss, np.exp(avg_train_loss)))
-                print("validation loss = %6.8f, perplexity = %6.8f" % (avg_valid_loss, np.exp(avg_valid_loss)))
-                save_as = '%s/epoch%03d_%.4f.model' % (self._individual_dir, epoch, avg_valid_loss)
-                self._saver.save(session, save_as)
-                print('Saved model', save_as)
-                ''' write out summary events '''
-                summary = tf.Summary(value=[
-                    tf.Summary.Value(tag="train_loss", simple_value=avg_train_loss),
-                    tf.Summary.Value(tag="valid_loss", simple_value=avg_valid_loss)
-                ])
-                self._summary_writer.add_summary(summary, step)
-                ''' decide if need to decay learning rate '''
-                if best_valid_loss is not None and np.exp(avg_valid_loss) > np.exp(best_valid_loss) - FLAGS.decay_when:
-                    print('validation perplexity did not improve enough, decay learning rate')
-                    current_learning_rate = session.run(self._model.learning_rate)
-                    print('learning rate was:', current_learning_rate)
-                    current_learning_rate *= FLAGS.learning_rate_decay
-                    if current_learning_rate < 1.e-5:
-                        print('learning rate too small - stopping now')
-                        break
-                    session.run(self._model.learning_rate.assign(current_learning_rate))
-                    print('new learning rate is:', current_learning_rate)
-                else:
-                    best_valid_loss = avg_valid_loss
+            # train a mini
+            epoch_start_time = time.time()
+            avg_train_loss = 0.0
+            count = 0
+            for x, y in train_reader.iter():
+                count += 1
+                start_time = time.time()
+                loss, _, rnn_state, gradient_norm, step, _ = session.run([
+                    self._model.loss,
+                    self._model.train_op,
+                    self._model.final_rnn_state,
+                    self._model.global_norm,
+                    self._model.global_step,
+                    self._model.clear_char_embedding_padding
+                ], {
+                    self._model.input  : x,
+                    self._model.targets: y,
+                    self._model.initial_rnn_state: rnn_state
+                })
+                avg_train_loss += 0.05 * (loss - avg_train_loss)
+                time_elapsed = time.time() - start_time
+            print('training time:', time.time()-epoch_start_time)
+            # time to evaluate
+            avg_valid_loss = 0.0
+            count = 0
+            rnn_state = session.run(self._valid_model.initial_rnn_state)
+            for x, y in valid_reader.iter():
+                count += 1
+                start_time = time.time()
+                loss, rnn_state = session.run([
+                    self._valid_model.loss,
+                    self._valid_model.final_rnn_state
+                ], {
+                    self._valid_model.input  : x,
+                    self._valid_model.targets: y,
+                    self._valid_model.initial_rnn_state: rnn_state,
+                })
+                avg_valid_loss += loss / valid_reader.length
+            print("train loss = %6.8f, perplexity = %6.8f" % (avg_train_loss, np.exp(avg_train_loss)))
+            print("validation loss = %6.8f, perplexity = %6.8f" % (avg_valid_loss, np.exp(avg_valid_loss)))
+            # save_as = '%s/epoch%03d_%.4f.model' % (self._individual_dir, evo_epoch, avg_valid_loss)
+            save_as = '%s/epoch%03d.model' % (self._individual_dir, evo_epoch)
+            self._saver.save(session, save_as)
+            print('Saved model', save_as)
+            ''' write out summary events '''
+            # summary = tf.Summary(value=[
+            #     tf.Summary.Value(tag="train_loss", simple_value=avg_train_loss),
+            #     tf.Summary.Value(tag="valid_loss", simple_value=avg_valid_loss)
+            # ])
+            # self._summary_writer.add_summary(summary, step)
+            ''' decide if need to decay learning rate '''
+            if best_valid_loss is not None and np.exp(avg_valid_loss) > np.exp(best_valid_loss) - FLAGS.decay_when:
+                print('validation perplexity did not improve enough, decay learning rate')
+                current_learning_rate = session.run(self._model.learning_rate)
+                print('learning rate was:', current_learning_rate)
+                current_learning_rate *= FLAGS.learning_rate_decay
+                if current_learning_rate < 1.e-5:
+                    print('learning rate too small - stopping now')
+                    self._fitness = best_valid_loss
+                    return self._fitness
+                session.run(self._model.learning_rate.assign(current_learning_rate))
+                print('new learning rate is:', current_learning_rate)
+            else:
+                best_valid_loss = avg_valid_loss
 
         self._fitness = best_valid_loss
         return self._fitness
