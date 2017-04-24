@@ -32,9 +32,9 @@ flags.DEFINE_integer('highway_layers',  2,                              'number 
 
 # evolution configuration
 flags.DEFINE_integer('num_winners',             2, 'number of winners of each generation')
-flags.DEFINE_integer('population_size',         4, 'number of individuals of each generation')
+flags.DEFINE_integer('population_size',         3, 'number of individuals of each generation')
 flags.DEFINE_integer('max_evo_epochs',          3, 'max number of evolution iterations')
-flags.DEFINE_float  ('learning_threshold',      0.001, 'similarity threshold for teacher selection')
+flags.DEFINE_float  ('learning_threshold',      0.1, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
 flags.DEFINE_float  ('prob_mutation_param',     0.1, 'probability of mutation for individual parameters')
 flags.DEFINE_integer('max_cnn_filter_types',    30, 'max number of cnn filter types')
@@ -84,8 +84,6 @@ class Individual:
                 char_embed_size=FLAGS.char_embed_size,
                 dropout=FLAGS.dropout):
 
-        print(cnn_layer)
-        print(rnn_layers)
         # TODO: generate individual seed
         self._seed = np.random.seed(id_number * 13)
         self._id_number = id_number
@@ -107,16 +105,24 @@ class Individual:
 
         # encode network structure
         self._knowledge = adict(
-                        char_embed_size = char_embed_size,
-                        dropout = dropout,
+                        char_embed_size = [char_embed_size],
+                        dropout = [dropout],
                         struct_exp = [self.encode_structure()]
                         )
+
+        self.show_knowledge()
 
         # create model
         self._gpu_id = self._id_number % FLAGS.num_gpus
         self._graph = tf.Graph()
         with self._graph.as_default() as g:
             tf.set_random_seed(self._seed)
+
+    def show_knowledge(self, exp=-1):
+        print("[EVOLUTION] Individual_%d EXP_%d embed size:" % (self._id_number, exp), self._knowledge.char_embed_size[exp])
+        print("[EVOLUTION] Individual_%d EXP_%d dropout:" % (self._id_number, exp), self._knowledge.dropout[exp])
+        print("[EVOLUTION] Individual_%d EXP_%d CNN:\n" % (self._id_number, exp), self._knowledge.struct_exp[exp][0])
+        print("[EVOLUTION] Individual_%d EXP_%d RNN:\n" % (self._id_number, exp), self._knowledge.struct_exp[exp][1])
 
     def get_exp(self):
         return self._knowledge.struct_exp
@@ -160,35 +166,38 @@ class Individual:
             with tf.device('/gpu:%d' % self._gpu_id):
                 initializer = tf.random_uniform_initializer(-FLAGS.param_init, FLAGS.param_init)
                 # TODO: other way to rebuild graph?
-                with tf.variable_scope("Individual_%d" % (self._id_number), initializer=initializer):
+                reuse = None
+                # if epoch > 0:
+                #     reuse = True
+                with tf.variable_scope("Epoch_%d_Individual_%d" % (epoch, self._id_number), initializer=initializer, reuse=reuse):
                     my_model = model.individual_graph(
                                             char_vocab_size=char_vocab.size,
                                             word_vocab_size=word_vocab.size,
-                                            char_embed_size=self._knowledge.char_embed_size,
+                                            char_embed_size=self._knowledge.char_embed_size[-1],
                                             batch_size=FLAGS.batch_size,
                                             max_word_length=max_word_length,
                                             num_unroll_steps=FLAGS.num_unroll_steps,
                                             num_highway_layers=2,
                                             cnn_layer=self._cnn_layer,
                                             rnn_layers=self._rnn_layers,
-                                            dropout=self._knowledge.dropout)
+                                            dropout=self._knowledge.dropout[-1])
                     my_model.update(model.loss_graph(my_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
                     my_model.update(model.training_graph(my_model.loss * FLAGS.num_unroll_steps, FLAGS.learning_rate, FLAGS.max_grad_norm))
 
                 saver = tf.train.Saver(max_to_keep=1)
 
-                with tf.variable_scope("Individual_%d" % (self._id_number), reuse=True):
+                with tf.variable_scope("Epoch_%d_Individual_%d" % (epoch, self._id_number), reuse=True):
                     valid_model = model.individual_graph(
                                             char_vocab_size=char_vocab.size,
                                             word_vocab_size=word_vocab.size,
-                                            char_embed_size=self._knowledge.char_embed_size,
+                                            char_embed_size=self._knowledge.char_embed_size[-1],
                                             batch_size=FLAGS.batch_size,
                                             max_word_length=max_word_length,
                                             num_unroll_steps=FLAGS.num_unroll_steps,
                                             num_highway_layers=2,
                                             cnn_layer=self._cnn_layer,
                                             rnn_layers=self._rnn_layers,
-                                            dropout=self._knowledge.dropout)
+                                            dropout=self._knowledge.dropout[-1])
                     valid_model.update(model.loss_graph(valid_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
         return my_model, valid_model, saver
 
@@ -242,16 +251,16 @@ class Individual:
         self.experience(structure)
 
     def mutation_param(self):
-        self._knowledge.char_embed_size = FLAGS.char_embed_size + np.random.randint(-FLAGS.char_embed_size, FLAGS.char_embed_size+1)
-        self._knowledge.dropout = np.random.uniform(0, 1)
+        self._knowledge.char_embed_size.append(FLAGS.char_embed_size + np.random.randint(-FLAGS.char_embed_size, FLAGS.char_embed_size+1))
+        self._knowledge.dropout.append(np.random.uniform(0, 1))
 
     def mutation(self):
         self.mutation_param()
         self.mutation_struct()
 
     # train on mini-dataset
-    def fitness(self, word_vocab, char_vocab, word_tensors, char_tensors, max_word_length, epoch):
-        self._model, self._valid_model, self._saver = self.update_graph(word_vocab, char_vocab, max_word_length, epoch)
+    def fitness(self, word_vocab, char_vocab, word_tensors, char_tensors, max_word_length, evo_epoch):
+        self._model, self._valid_model, self._saver = self.update_graph(word_vocab, char_vocab, max_word_length, evo_epoch)
 
         self._max_word_length = max_word_length
 
@@ -262,7 +271,7 @@ class Individual:
             # initialize model
             tf.global_variables_initializer().run()
             session.run(self._model.clear_char_embedding_padding)
-            print('Created and initialized fresh Individual_%d. Size: %d' % (self._id_number, model.model_size()))
+            print('[EVOLUTION] Epoch_%d Individual_%d. Size: %d' % (evo_epoch, self._id_number, model.model_size()))
             self._summary_writer = tf.summary.FileWriter(self._individual_dir, graph=session.graph)
             session.run(
                 tf.assign(self._model.learning_rate, FLAGS.learning_rate),
@@ -291,13 +300,13 @@ class Individual:
                     })
                     avg_train_loss += 0.05 * (loss - avg_train_loss)
                     time_elapsed = time.time() - start_time
-                    if count % FLAGS.print_every == 0:
-                        print('%6d: %d [%5d/%5d], train_loss/perplexity = %6.8f/%6.7f secs/batch = %.4fs, grad.norm=%6.8f' % (step,
-                                                                epoch, count,
-                                                                train_reader.length,
-                                                                loss, np.exp(loss),
-                                                                time_elapsed,
-                                                                gradient_norm))
+                    # if count % FLAGS.print_every == 0:
+                    #     print('%6d: %d [%5d/%5d], train_loss/perplexity = %6.8f/%6.7f secs/batch = %.4fs, grad.norm=%6.8f' % (step,
+                    #                                             epoch, count,
+                    #                                             train_reader.length,
+                    #                                             loss, np.exp(loss),
+                    #                                             time_elapsed,
+                    #                                             gradient_norm))
                 print('Epoch training time:', time.time()-epoch_start_time)
                 # epoch done: time to evaluate
                 avg_valid_loss = 0.0
@@ -314,8 +323,6 @@ class Individual:
                         self._valid_model.targets: y,
                         self._valid_model.initial_rnn_state: rnn_state,
                     })
-                    if count % FLAGS.print_every == 0:
-                        print("\t> validation loss = %6.8f, perplexity = %6.8f" % (loss, np.exp(loss)))
                     avg_valid_loss += loss / valid_reader.length
                 print("at the end of epoch:", epoch)
                 print("train loss = %6.8f, perplexity = %6.8f" % (avg_train_loss, np.exp(avg_train_loss)))
@@ -353,35 +360,28 @@ class Individual:
         # cnn_i = np.random.choice(np.non_zero(cnn_last)[0])
         # rnn_i = np.random.choice(np.non_zero(rnn_last)[0])
         for i in range(3):
-            cnn_i = np.random.choice(cnn_last)
-            rnn_i = np.random.choice(rnn_last)
-            self._knowledge.struct_exp[-1][0][cnn_i] = cnn_last[cnn_i]
-            self._knowledge.struct_exp[-1][1][rnn_i] = rnn_last[rnn_i]
+            cnn_i = np.random.randint(len(cnn_last))
+            rnn_i = np.random.randint(len(rnn_last))
+            if cnn_last[cnn_i] == 0 and self._knowledge.struct_exp[-1][0][cnn_i] > 0 and len(np.non_zero(self._knowledge.struct_exp[-1][0])[0]) == 1:
+                print('')
+            else:
+                self._knowledge.struct_exp[-1][0][cnn_i] = cnn_last[cnn_i]
+            if rnn_last[rnn_i] == 0 and self._knowledge.struct_exp[-1][1][rnn_i] > 0 and len(np.non_zero(self._knowledge.struct_exp[-1][1])[0]) == 1:
+                print('')
+            else:
+                self._knowledge.struct_exp[-1][1][rnn_i] = rnn_last[rnn_i]
         self.decode_structure(self._knowledge.struct_exp[-1])
-        beneficial_struct = self._knowledge.struct_exp[-1]
-        return beneficial_struct
+        self.experience(self._knowledge.struct_exp[-1])
 
     # encode and return evolution knowledge
     def teach(self):
-        self.experience(self._knowledge.struct_exp)
-        return self._knowledge.struct_exp
+        return self._knowledge
         
     # decode and absorb evolution knowledge
     def learn(self, knowledge):
-        self._knowledge.char_embed_size = knowledge.char_embed_size
-        self._knowledge.dropout = knowledge.dropout
-        beneficial_struct = self.absorb(knowledge.struct_exp)
-        self.experience(beneficial_struct)
-
-    '''
-    def clear_variables(self):
-        self._graph.as_default()
-        self._graph.clear_collection("GLOBAL_VARIABLES")
-    '''
-    
-    def save_model(self):
-        self._saver
-        return
+        self._knowledge.char_embed_size.append(knowledge.char_embed_size[-1])
+        self._knowledge.dropout.append(knowledge.dropout[-1])
+        self.absorb(knowledge.struct_exp)
 
     def train(self):
         return
@@ -404,7 +404,7 @@ class Population:
         self._population = list()
         for i in range(self._population_size):
             self._population.append(self.generate(i))
-        print("Initialized Population")
+        print("[EVOLUTION] Initialized Population")
 
         self._average_fitness = None
 
@@ -434,14 +434,14 @@ class Population:
         individual = Individual(id_number=id_number,
                                 cnn_layer=cnn_layer,
                                 rnn_layers=rnn_layers)
-        print("Generated Individual_%d" % id_number)
+        print("[EVOLUTION] Generated Individual_%d" % id_number)
         return individual
 
     def select(self, epoch=0):
         partition = np.random.randint(1, FLAGS.num_partitions+1)
         word_vocab, char_vocab, word_tensors, char_tensors, max_word_length = load_mini_data(FLAGS.data_dir, FLAGS.max_word_length, eos=FLAGS.EOS, partition=partition, num_partitions=FLAGS.num_partitions)
         for individual in self._population:
-            print("Compute individual_%d's fitness: %f" % (individual._id_number, individual.fitness(word_vocab, char_vocab, word_tensors, char_tensors, max_word_length, epoch)))
+            print("[EVOLUTION] Individual_%d fitness: %f" % (individual._id_number, individual.fitness(word_vocab, char_vocab, word_tensors, char_tensors, max_word_length, epoch)))
             # individual.clear_variables()
         self._population.sort(key=lambda individual:individual.get_fitness())
         winners = self._population[:self._num_winners]
@@ -452,19 +452,17 @@ class Population:
         dissim_cnn, dissim_rnn = 0, 0
         exp1 = individual_1.get_exp()
         exp2 = individual_2.get_exp()
-        assert len(exp1) == len(exp2), ("Error: Individuals' experience missed.", exp1, exp2)
+        assert len(exp1) == len(exp2), ("Individuals' experience missed.", exp1, exp2)
         for struct1, struct2 in zip(exp1, exp2):
             # TODO: normalize struct vector
-            dissim_cnn = (time_discount * dissim_cnn + np.linalg.norm(struct1[0] - struct2[0])) / (self.dissim_norm(time_discount, len(exp1))
-            dissim_rnn = (time_discount * dissim_rnn + np.linalg.norm(struct1[1] - struct2[1])) / (self.dissim_norm(time_discount, len(exp1))
-        print("dissim_cnn:", dissim_cnn)
-        print("dissim_rnn:", dissim_rnn)
-        print("sim %d and %d is: %f" % (individual_1._id_number, individual_2._id_number, 1/(dissim_cnn+dissim_rnn)))
+            dissim_cnn = (time_discount * dissim_cnn + np.linalg.norm(struct1[0] - struct2[0])) / self.dissim_norm(time_discount, len(exp1))
+            dissim_rnn = (time_discount * dissim_rnn + np.linalg.norm(struct1[1] - struct2[1])) / self.dissim_norm(time_discount, len(exp1))
+        print("[EVOLUTION] similarity teacher_%d and learner_%d: %f" % (individual_1._id_number, individual_2._id_number, 100/(dissim_cnn+dissim_rnn)))
         return 100 / (dissim_cnn + dissim_rnn)
 
     def dissim_norm(self, td, steps):
         if steps > 1:
-            return 1+td*self.dissim_norm(td, steps-1)
+            return 1 + td * self.dissim_norm(td, steps-1)
         else:
             return 1
 
@@ -482,22 +480,33 @@ class Population:
         self._epoch = epoch
         self.select(epoch)
         # display ranking
-        print("fitness ranking:", [individual._id_number for individual in self._population], "fitness:", [individual.get_fitness() for individual in self._population])
+        print("[EVOLUTION] fitness ranking:", [individual._id_number for individual in self._population], "fitness:", [individual.get_fitness() for individual in self._population])
         # average fitness
-        print("average fitness:", np.average([individual.get_fitness() for individual in self._population]))
+        print("[EVOLUTION] average fitness:", np.average([individual.get_fitness() for individual in self._population]))
         for loser_id in range(self._num_winners, self._population_size):
             teacher_id = self.find_teacher(self._population[loser_id])
             if teacher_id >= 0:
                 self._population[loser_id].learn(self._population[teacher_id].teach())
+                print("[EVOLUTION] Individual_%d learn from Individual_%d" % (loser_id, teacher_id))
             else:
                 self._population[loser_id].mutation()
+                print("[EVOLUTION] Individual_%d mutate" % loser_id)
+        for winner_id in range(self._num_winners):
+            self._population[winner_id]._knowledge.char_embed_size.append(self._population[winner_id]._knowledge.char_embed_size[-1])
+            self._population[winner_id]._knowledge.dropout.append(self._population[winner_id]._knowledge.dropout[-1])
+            self._population[winner_id].experience(self._population[winner_id]._knowledge.struct_exp[-1])
+
+    def show_history(self):
+        for individual in self._population:
+            for exp in self._epoch:
+                individual.show_knowledge(exp)
 
 
 def main(_):
 
     if not os.path.exists(FLAGS.population_dir):
         os.mkdir(FLAGS.population_dir)
-        print('Created population history directory', FLAGS.population_dir)
+        print('[EVOLUTION] Created population history directory', FLAGS.population_dir)
 
     np.random.seed(seed=int(time.time()))
 
@@ -511,7 +520,7 @@ def main(_):
 
     # get result
     result = population.final_winner()
-    result.save_model()
+    result.show_knowledge()
 
     # TODO: fully train
     if FLAGS.if_train_winner == 1:
