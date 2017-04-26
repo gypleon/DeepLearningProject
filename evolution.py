@@ -256,7 +256,7 @@ class Individual:
 
     def mutation_param(self):
         self._knowledge.char_embed_size.append(FLAGS.char_embed_size + np.random.randint(-FLAGS.char_embed_size, FLAGS.char_embed_size+1))
-        self._knowledge.dropout.append(np.random.uniform(0, 1))
+        self._knowledge.dropout.append(np.random.uniform(0, 0.9))
 
     def mutation(self):
         self.mutation_param()
@@ -435,7 +435,7 @@ class Population:
         print("[EVOLUTION] Generated Individual_%d" % id_number)
         return individual
 
-    def select(self, epoch=0):
+    def select(self, epoch):
         partition = np.random.randint(1, FLAGS.num_partitions+1)
         word_vocab, char_vocab, word_tensors, char_tensors, max_word_length = load_mini_data(FLAGS.data_dir, FLAGS.max_word_length, eos=FLAGS.EOS, partition=partition, num_partitions=FLAGS.num_partitions)
         for individual in self._population:
@@ -518,6 +518,7 @@ def main(_):
 
     # perform evolution
     for epoch in range(FLAGS.max_evo_epochs):
+        print('[EVOLUTION] Epoch_%d started' % epoch)
         population.evolve(epoch)
 
     # get result
