@@ -1,0 +1,151 @@
+[EVOLUTION] Individual_0 EXP_-1 embed size: 15
+[EVOLUTION] Individual_0 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_0 EXP_-1 CNN:
+ [140  90 130 150  70 130   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_0 EXP_-1 RNN:
+ [550   0   0]
+[EVOLUTION] Generated Individual_0
+[EVOLUTION] Individual_1 EXP_-1 embed size: 15
+[EVOLUTION] Individual_1 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_1 EXP_-1 CNN:
+ [200 100  50  80 160  80 120 140  80   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_1 EXP_-1 RNN:
+ [600 700   0]
+[EVOLUTION] Generated Individual_1
+[EVOLUTION] Individual_2 EXP_-1 embed size: 15
+[EVOLUTION] Individual_2 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_2 EXP_-1 CNN:
+ [ 50 150  50 110  70  90 140   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_2 EXP_-1 RNN:
+ [600   0   0]
+[EVOLUTION] Generated Individual_2
+[EVOLUTION] Individual_3 EXP_-1 embed size: 15
+[EVOLUTION] Individual_3 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_3 EXP_-1 CNN:
+ [190 110  50  60 110  80 180 150  50  90   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_3 EXP_-1 RNN:
+ [750 550 650]
+[EVOLUTION] Generated Individual_3
+[EVOLUTION] Individual_4 EXP_-1 embed size: 15
+[EVOLUTION] Individual_4 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_4 EXP_-1 CNN:
+ [140 140  50  90 110  80   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_4 EXP_-1 RNN:
+ [700   0   0]
+[EVOLUTION] Generated Individual_4
+[EVOLUTION] Individual_5 EXP_-1 embed size: 15
+[EVOLUTION] Individual_5 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_5 EXP_-1 CNN:
+ [170 160 180 120 110 170 120  50 100 150   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_5 EXP_-1 RNN:
+ [650 650 550]
+[EVOLUTION] Generated Individual_5
+[EVOLUTION] Individual_6 EXP_-1 embed size: 15
+[EVOLUTION] Individual_6 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_6 EXP_-1 CNN:
+ [200 130 100 120 130 180 110 110  60 130   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_6 EXP_-1 RNN:
+ [550 500   0]
+[EVOLUTION] Generated Individual_6
+[EVOLUTION] Individual_7 EXP_-1 embed size: 15
+[EVOLUTION] Individual_7 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_7 EXP_-1 CNN:
+ [110 120 130 140 110 130 180  90  90  80   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_7 EXP_-1 RNN:
+ [650 700 500]
+[EVOLUTION] Generated Individual_7
+[EVOLUTION] Individual_8 EXP_-1 embed size: 15
+[EVOLUTION] Individual_8 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_8 EXP_-1 CNN:
+ [190 150  70 180  90 180 190   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_8 EXP_-1 RNN:
+ [750   0   0]
+[EVOLUTION] Generated Individual_8
+[EVOLUTION] Individual_9 EXP_-1 embed size: 15
+[EVOLUTION] Individual_9 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_9 EXP_-1 CNN:
+ [ 60 140 160 190 110 200 130 130  90  50   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_9 EXP_-1 RNN:
+ [750 700   0]
+[EVOLUTION] Generated Individual_9
+[EVOLUTION] Initialized Population
+[EVOLUTION] Epoch_0 started
+Loading partition: 81/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 33600
+ |end line 34020
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7787
+size of char vocabulary: 51
+number of tokens in train: 9468
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_0 Individual_0. Size: 9122152
+training time: 8.11131000519
+train loss = 6.91582180, perplexity = 1008.09914716
+validation loss = 7.13916979, perplexity = 1260.38157945
+[EVOLUTION] Individual_0 fitness: 7.139170
+[EVOLUTION] Epoch_0 Individual_1. Size: 17126552
+training time: 12.1118319035
+train loss = 6.99305202, perplexity = 1089.04017829
+validation loss = 7.07037260, perplexity = 1176.58634553
+[EVOLUTION] Individual_1 fitness: 7.070373
+[EVOLUTION] Epoch_0 Individual_2. Size: 9495002
+training time: 8.16584396362
+train loss = 6.87598383, perplexity = 968.72795586
+validation loss = 7.12129644, perplexity = 1238.05445512
+[EVOLUTION] Individual_2 fitness: 7.121296
+[EVOLUTION] Epoch_0 Individual_3. Size: 20708752
+training time: 14.0006740093
+train loss = 6.87762378, perplexity = 970.31793016
+validation loss = 7.11836431, perplexity = 1234.42963321
+[EVOLUTION] Individual_3 fitness: 7.118364
+[EVOLUTION] Epoch_0 Individual_4. Size: 10651102
+training time: 8.93986606598
+train loss = 6.95040224, perplexity = 1043.56940762
+validation loss = 7.11008095, perplexity = 1224.24664491
+[EVOLUTION] Individual_4 fitness: 7.110081
+[EVOLUTION] Epoch_0 Individual_5. Size: 23168552
+training time: 15.0820410252
+train loss = 6.95758877, perplexity = 1051.09606871
+validation loss = 7.12280129, perplexity = 1239.91894171
+[EVOLUTION] Individual_5 fitness: 7.122801
+[EVOLUTION] Epoch_0 Individual_6. Size: 16565102
+training time: 10.7279839516
+train loss = 6.89656801, perplexity = 988.87507462
+validation loss = 7.12919995, perplexity = 1247.87820810
+[EVOLUTION] Individual_6 fitness: 7.129200
+[EVOLUTION] Epoch_0 Individual_7. Size: 21553652
+training time: 14.9923181534
+train loss = 6.93209187, perplexity = 1024.63514546
+validation loss = 7.17770912, perplexity = 1309.90398946
+[EVOLUTION] Individual_7 fitness: 7.177709
+[EVOLUTION] Epoch_0 Individual_8. Size: 15731252
+training time: 9.96302008629
+train loss = 7.00595633, perplexity = 1103.18455717
+validation loss = 7.03639643, perplexity = 1137.28193698
+[EVOLUTION] Individual_8 fitness: 7.036396
+[EVOLUTION] Epoch_0 Individual_9. Size: 22010802
+training time: 12.8287270069
+train loss = 6.97911789, perplexity = 1073.97059262
+validation loss = 7.17339448, perplexity = 1304.26439002
+[EVOLUTION] Individual_9 fitness: 7.173394
+[EVOLUTION] fitness ranking: [8, 1, 4, 3, 2, 5, 6, 0, 9, 7] fitness: [7.0363964286949141, 7.0703725973387517, 7.110080950050623, 7.1183643069233247, 7.1212964386385043, 7.1228012868740853, 7.1291999545063351, 7.1391697949298543, 7.173394475017199, 7.1777091230179559]
+[EVOLUTION] average fitness: 7.1198785356
