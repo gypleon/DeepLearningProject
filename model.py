@@ -91,7 +91,10 @@ def tdnn(input_, kernels, kernel_features, scope='TDNN'):
     layers = []
     with tf.variable_scope(scope):
         for kernel_size, kernel_feature_size in zip(kernels, kernel_features):
-            reduced_length = max_word_length - kernel_size + 1
+            try:
+                reduced_length = max_word_length - kernel_size + 1
+            except ValueError:
+                print("[EVOLUTION][ERROR] max_word_length: ", max_word_length, ", kernel_size: ", kernel_size)
 
             # [(batch_size*num_unroll_steps) x 1 x num_filter_steps x kernel_feature_size]
             conv = conv2d(input_, kernel_feature_size, 1, kernel_size, name="kernel_%d" % kernel_size)

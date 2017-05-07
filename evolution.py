@@ -216,7 +216,8 @@ class Individual:
         num_var_cnn_filter_types = np.random.randint(-1, 2)
         # add filter type
         if num_var_cnn_filter_types > 0 and len(self._cnn_layer) + num_var_cnn_filter_types <= min(FLAGS.max_cnn_filter_types, self._max_word_length):
-            available_types = list(set(filter_type_i for filter_type_i in range(1, FLAGS.max_cnn_filter_types+1))-set(filter_type[0] for filter_type in self._cnn_layer.values()))
+            # TODO: notice MAX_LEN
+            available_types = list(set(filter_type_i for filter_type_i in range(1, self._max_word_length+1))-set(filter_type[0] for filter_type in self._cnn_layer.values()))
             new_type = np.random.choice(available_types)
             num_new_type = np.random.randint(1, FLAGS.max_cnn_type_filters+1)
             self._cnn_layer['%d' % new_type] = [new_type, num_new_type]
@@ -354,7 +355,8 @@ class Individual:
         cnn_last = struct_exp[-1][0]
         rnn_last = struct_exp[-1][1]
         for i in range(3):
-            cnn_i = np.random.randint(len(cnn_last))
+            # TODO: notice MAX_LEN
+            cnn_i = np.random.randint(self._max_word_length)
             rnn_i = np.random.randint(len(rnn_last))
             beneficial_exp.append([cnn_i, rnn_i])
             if cnn_last[cnn_i] == 0 and self._knowledge.struct_exp[-1][0][cnn_i] > 0 and len(np.nonzero(self._knowledge.struct_exp[-1][0])[0]) == 1:
@@ -418,6 +420,7 @@ class Population:
         cnn_layer = {}
         rnn_layers = {}
         # generate cnn layer
+        # TODO: notice MAX_LEN
         num_filter_types = np.random.randint(5, 11)
         for filter_type in range(1, num_filter_types+1):
             num_type_filters = 10 * np.random.randint(5, 21)

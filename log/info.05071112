@@ -1,0 +1,858 @@
+[EVOLUTION] Individual_0 EXP_-1 embed size: 15
+[EVOLUTION] Individual_0 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_0 EXP_-1 CNN:
+ [120 180 170 170 160 100  80 170 170   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_0 EXP_-1 RNN:
+ [550 600   0]
+[EVOLUTION] Generated Individual_0
+[EVOLUTION] Individual_1 EXP_-1 embed size: 15
+[EVOLUTION] Individual_1 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_1 EXP_-1 CNN:
+ [200 100  50  80 160  80 120 140  80   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_1 EXP_-1 RNN:
+ [600 700   0]
+[EVOLUTION] Generated Individual_1
+[EVOLUTION] Individual_2 EXP_-1 embed size: 15
+[EVOLUTION] Individual_2 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_2 EXP_-1 CNN:
+ [ 50 150  50 110  70  90 140   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_2 EXP_-1 RNN:
+ [600   0   0]
+[EVOLUTION] Generated Individual_2
+[EVOLUTION] Individual_3 EXP_-1 embed size: 15
+[EVOLUTION] Individual_3 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_3 EXP_-1 CNN:
+ [190 110  50  60 110  80 180 150  50  90   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_3 EXP_-1 RNN:
+ [750 550 650]
+[EVOLUTION] Generated Individual_3
+[EVOLUTION] Individual_4 EXP_-1 embed size: 15
+[EVOLUTION] Individual_4 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_4 EXP_-1 CNN:
+ [140 140  50  90 110  80   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_4 EXP_-1 RNN:
+ [700   0   0]
+[EVOLUTION] Generated Individual_4
+[EVOLUTION] Individual_5 EXP_-1 embed size: 15
+[EVOLUTION] Individual_5 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_5 EXP_-1 CNN:
+ [170 160 180 120 110 170 120  50 100 150   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_5 EXP_-1 RNN:
+ [650 650 550]
+[EVOLUTION] Generated Individual_5
+[EVOLUTION] Individual_6 EXP_-1 embed size: 15
+[EVOLUTION] Individual_6 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_6 EXP_-1 CNN:
+ [200 130 100 120 130 180 110 110  60 130   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_6 EXP_-1 RNN:
+ [550 500   0]
+[EVOLUTION] Generated Individual_6
+[EVOLUTION] Individual_7 EXP_-1 embed size: 15
+[EVOLUTION] Individual_7 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_7 EXP_-1 CNN:
+ [110 120 130 140 110 130 180  90  90  80   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_7 EXP_-1 RNN:
+ [650 700 500]
+[EVOLUTION] Generated Individual_7
+[EVOLUTION] Individual_8 EXP_-1 embed size: 15
+[EVOLUTION] Individual_8 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_8 EXP_-1 CNN:
+ [190 150  70 180  90 180 190   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_8 EXP_-1 RNN:
+ [750   0   0]
+[EVOLUTION] Generated Individual_8
+[EVOLUTION] Individual_9 EXP_-1 embed size: 15
+[EVOLUTION] Individual_9 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_9 EXP_-1 CNN:
+ [ 60 140 160 190 110 200 130 130  90  50   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_9 EXP_-1 RNN:
+ [750 700   0]
+[EVOLUTION] Generated Individual_9
+[EVOLUTION] Individual_10 EXP_-1 embed size: 15
+[EVOLUTION] Individual_10 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_10 EXP_-1 CNN:
+ [ 50  60 120  80  60   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_10 EXP_-1 RNN:
+ [550 650   0]
+[EVOLUTION] Generated Individual_10
+[EVOLUTION] Individual_11 EXP_-1 embed size: 15
+[EVOLUTION] Individual_11 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_11 EXP_-1 CNN:
+ [100 180  80 150 150  60   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_11 EXP_-1 RNN:
+ [750   0   0]
+[EVOLUTION] Generated Individual_11
+[EVOLUTION] Individual_12 EXP_-1 embed size: 15
+[EVOLUTION] Individual_12 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_12 EXP_-1 CNN:
+ [ 60  60  70 150 200 190   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_12 EXP_-1 RNN:
+ [600 750 750]
+[EVOLUTION] Generated Individual_12
+[EVOLUTION] Individual_13 EXP_-1 embed size: 15
+[EVOLUTION] Individual_13 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_13 EXP_-1 CNN:
+ [170  70 100 200 160 150  60  90 200   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_13 EXP_-1 RNN:
+ [750 600 500]
+[EVOLUTION] Generated Individual_13
+[EVOLUTION] Individual_14 EXP_-1 embed size: 15
+[EVOLUTION] Individual_14 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_14 EXP_-1 CNN:
+ [ 60 100  90  80 150  80  90 100   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_14 EXP_-1 RNN:
+ [700   0   0]
+[EVOLUTION] Generated Individual_14
+[EVOLUTION] Initialized Population
+[EVOLUTION] Epoch_0 started
+Loading partition: 62/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 25620
+ |end line 26040
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7760
+size of char vocabulary: 51
+number of tokens in train: 9886
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_0 Individual_0. Size: 18617125
+training time: 51.0019869804
+train loss = 6.67250761, perplexity = 790.37507294
+validation loss = 6.99374369, perplexity = 1089.79369777
+[EVOLUTION] Individual_0 fitness: 6.993744
+[EVOLUTION] Epoch_0 Individual_1. Size: 17107625
+training time: 12.0848817825
+train loss = 6.72991971, perplexity = 837.08005336
+validation loss = 7.01682412, perplexity = 1115.23911907
+[EVOLUTION] Individual_1 fitness: 7.016824
+[EVOLUTION] Epoch_0 Individual_2. Size: 9478775
+training time: 8.10921192169
+train loss = 6.83675059, perplexity = 931.45752701
+validation loss = 7.18768308, perplexity = 1323.03428489
+[EVOLUTION] Individual_2 fitness: 7.187683
+[EVOLUTION] Epoch_0 Individual_3. Size: 20693875
+training time: 14.0302710533
+train loss = 6.65946638, perplexity = 780.13452809
+validation loss = 6.95403443, perplexity = 1047.36674525
+[EVOLUTION] Individual_3 fitness: 6.954034
+[EVOLUTION] Epoch_0 Individual_4. Size: 10632175
+training time: 8.87957310677
+train loss = 6.71726047, perplexity = 826.55004465
+validation loss = 7.05164761, perplexity = 1154.75977381
+[EVOLUTION] Individual_4 fitness: 7.051648
+[EVOLUTION] Epoch_0 Individual_5. Size: 23150975
+training time: 15.1390221119
+train loss = 6.65700566, perplexity = 778.21719557
+validation loss = 7.18936349, perplexity = 1325.25939748
+[EVOLUTION] Individual_5 fitness: 7.189363
+[EVOLUTION] Epoch_0 Individual_6. Size: 16551575
+training time: 10.8175239563
+train loss = 6.62509279, perplexity = 753.77415541
+validation loss = 7.07486039, perplexity = 1181.87848510
+[EVOLUTION] Individual_6 fitness: 7.074860
+[EVOLUTION] Epoch_0 Individual_7. Size: 21534725
+training time: 15.0733859539
+train loss = 6.68505885, perplexity = 800.35777510
+validation loss = 7.11198978, perplexity = 1226.58575971
+[EVOLUTION] Individual_7 fitness: 7.111990
+[EVOLUTION] Epoch_0 Individual_8. Size: 15710975
+training time: 9.86606693268
+train loss = 6.79832558, perplexity = 896.34517646
+validation loss = 7.03936069, perplexity = 1140.65813771
+[EVOLUTION] Individual_8 fitness: 7.039361
+[EVOLUTION] Epoch_0 Individual_9. Size: 21991875
+training time: 12.865778923
+train loss = 6.77535582, perplexity = 875.99100281
+validation loss = 7.08009192, perplexity = 1188.07772345
+[EVOLUTION] Individual_9 fitness: 7.080092
+[EVOLUTION] Epoch_0 Individual_10. Size: 10768025
+training time: 10.7288508415
+train loss = 6.64768368, perplexity = 770.99637910
+validation loss = 6.90528094, perplexity = 997.52871971
+[EVOLUTION] Individual_10 fitness: 6.905281
+[EVOLUTION] Epoch_0 Individual_11. Size: 12354875
+training time: 9.34729194641
+train loss = 6.80022760, perplexity = 898.05166655
+validation loss = 7.12644192, perplexity = 1244.44126494
+[EVOLUTION] Individual_11 fitness: 7.126442
+[EVOLUTION] Epoch_0 Individual_12. Size: 19761125
+training time: 15.3685030937
+train loss = 6.68270976, perplexity = 798.47987003
+validation loss = 7.39408269, perplexity = 1626.33238832
+[EVOLUTION] Individual_12 fitness: 7.394083
+[EVOLUTION] Epoch_0 Individual_13. Size: 21518675
+training time: 14.5694041252
+train loss = 6.71028845, perplexity = 820.80736579
+validation loss = 7.15658947, perplexity = 1282.52936433
+[EVOLUTION] Individual_13 fitness: 7.156589
+[EVOLUTION] Epoch_0 Individual_14. Size: 11809725
+training time: 8.79817295074
+train loss = 6.73119554, perplexity = 838.14870749
+validation loss = 11.13474466, perplexity = 68510.66172482
+[EVOLUTION] Individual_14 fitness: 11.134745
+[EVOLUTION] fitness ranking: [10, 3, 0, 1, 8, 4, 6, 9, 7, 11, 13, 2, 5, 12, 14] fitness: [6.9052809400399839, 6.9540344315300109, 6.9937436892131242, 7.0168241174657169, 7.0393606885878341, 7.0516476132807409, 7.0748603881962779, 7.0800919215639491, 7.1119897835611408, 7.1264419249854001, 7.1565894729451083, 7.1876830782856356, 7.1893634909405586, 7.3940826900781182, 11.134744657756599]
+[EVOLUTION] average fitness: 7.3611159259
+[EVOLUTION] similarity teacher_10 and learner_4: 0.119674
+[EVOLUTION] similarity teacher_3 and learner_4: 0.089515
+[EVOLUTION] similarity teacher_0 and learner_4: 0.108897
+[EVOLUTION] similarity teacher_1 and learner_4: 0.107915
+[EVOLUTION] similarity teacher_8 and learner_4: 0.344828
+[EVOLUTION] Individual_5 learn from Individual_4
+[EVOLUTION] similarity teacher_10 and learner_6: 0.206711
+[EVOLUTION] similarity teacher_3 and learner_6: 0.118955
+[EVOLUTION] similarity teacher_0 and learner_6: 0.295023
+[EVOLUTION] similarity teacher_1 and learner_6: 0.255697
+[EVOLUTION] similarity teacher_8 and learner_6: 0.132968
+[EVOLUTION] Individual_6 learn from Individual_2
+[EVOLUTION] similarity teacher_10 and learner_9: 0.187471
+[EVOLUTION] similarity teacher_3 and learner_9: 0.107932
+[EVOLUTION] similarity teacher_0 and learner_9: 0.249849
+[EVOLUTION] similarity teacher_1 and learner_9: 0.246824
+[EVOLUTION] similarity teacher_8 and learner_9: 0.106501
+[EVOLUTION] Individual_7 learn from Individual_2
+[EVOLUTION] similarity teacher_10 and learner_7: 0.124315
+[EVOLUTION] similarity teacher_3 and learner_7: 0.250538
+[EVOLUTION] similarity teacher_0 and learner_7: 0.139549
+[EVOLUTION] similarity teacher_1 and learner_7: 0.144406
+[EVOLUTION] similarity teacher_8 and learner_7: 0.094231
+[EVOLUTION] Individual_8 learn from Individual_1
+[EVOLUTION] similarity teacher_10 and learner_11: 0.115284
+[EVOLUTION] similarity teacher_3 and learner_11: 0.086909
+[EVOLUTION] similarity teacher_0 and learner_11: 0.110381
+[EVOLUTION] similarity teacher_1 and learner_11: 0.103403
+[EVOLUTION] similarity teacher_8 and learner_11: 0.394976
+[EVOLUTION] Individual_9 learn from Individual_4
+[EVOLUTION] similarity teacher_10 and learner_13: 0.113930
+[EVOLUTION] similarity teacher_3 and learner_13: 0.226689
+[EVOLUTION] similarity teacher_0 and learner_13: 0.140165
+[EVOLUTION] similarity teacher_1 and learner_13: 0.134860
+[EVOLUTION] similarity teacher_8 and learner_13: 0.094169
+[EVOLUTION] Individual_10 learn from Individual_1
+[EVOLUTION] similarity teacher_10 and learner_2: 0.116805
+[EVOLUTION] similarity teacher_3 and learner_2: 0.090112
+[EVOLUTION] similarity teacher_0 and learner_2: 0.110169
+[EVOLUTION] similarity teacher_1 and learner_2: 0.105712
+[EVOLUTION] similarity teacher_8 and learner_2: 0.294574
+[EVOLUTION] Individual_11 learn from Individual_4
+[EVOLUTION] similarity teacher_10 and learner_5: 0.112198
+[EVOLUTION] similarity teacher_3 and learner_5: 0.250326
+[EVOLUTION] similarity teacher_0 and learner_5: 0.125231
+[EVOLUTION] similarity teacher_1 and learner_5: 0.123656
+[EVOLUTION] similarity teacher_8 and learner_5: 0.091305
+[EVOLUTION] Individual_12 learn from Individual_1
+[EVOLUTION] similarity teacher_10 and learner_12: 0.099041
+[EVOLUTION] similarity teacher_3 and learner_12: 0.164934
+[EVOLUTION] similarity teacher_0 and learner_12: 0.092053
+[EVOLUTION] similarity teacher_1 and learner_12: 0.096566
+[EVOLUTION] similarity teacher_8 and learner_12: 0.074426
+{'1': [1, 14], '3': [3, 94], '2': [2, 22], '5': [5, 192], '4': [4, 149], '6': [6, 240]}
+{'1': [700], '3': [850]}
+[EVOLUTION] Individual_13 mutate
+[EVOLUTION] similarity teacher_10 and learner_14: 0.117000
+[EVOLUTION] similarity teacher_3 and learner_14: 0.094573
+[EVOLUTION] similarity teacher_0 and learner_14: 0.116123
+[EVOLUTION] similarity teacher_1 and learner_14: 0.113522
+[EVOLUTION] similarity teacher_8 and learner_14: 0.331352
+[EVOLUTION] Individual_14 learn from Individual_4
+[EVOLUTION] Individual_10 EXP_-1 embed size: 15
+[EVOLUTION] Individual_10 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_10 EXP_-1 CNN:
+ [ 50  60 120  80  60   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_10 EXP_-1 RNN:
+ [550 650   0]
+[EVOLUTION] Individual_3 EXP_-1 embed size: 15
+[EVOLUTION] Individual_3 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_3 EXP_-1 CNN:
+ [190 110  50  60 110  80 180 150  50  90   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_3 EXP_-1 RNN:
+ [750 550 650]
+[EVOLUTION] Individual_0 EXP_-1 embed size: 15
+[EVOLUTION] Individual_0 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_0 EXP_-1 CNN:
+ [120 180 170 170 160 100  80 170 170   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_0 EXP_-1 RNN:
+ [550 600   0]
+[EVOLUTION] Individual_1 EXP_-1 embed size: 15
+[EVOLUTION] Individual_1 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_1 EXP_-1 CNN:
+ [200 100  50  80 160  80 120 140  80   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_1 EXP_-1 RNN:
+ [600 700   0]
+[EVOLUTION] Individual_8 EXP_-1 embed size: 15
+[EVOLUTION] Individual_8 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_8 EXP_-1 CNN:
+ [190 150  70 180  90 180 190   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_8 EXP_-1 RNN:
+ [750   0   0]
+[EVOLUTION] Epoch_1 started
+Loading partition: 40/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 16380
+ |end line 16800
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7763
+size of char vocabulary: 51
+number of tokens in train: 9544
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_1 Individual_10. Size: 21538003
+training time: 10.7182919979
+train loss = 6.78979422, perplexity = 888.73066069
+validation loss = 7.12225650, perplexity = 1239.24363534
+[EVOLUTION] Individual_10 fitness: 7.122257
+[EVOLUTION] Epoch_1 Individual_3. Size: 41389403
+training time: 13.8570210934
+train loss = 6.71210117, perplexity = 822.29660998
+validation loss = 7.09062338, perplexity = 1200.65602947
+[EVOLUTION] Individual_3 fitness: 7.090623
+[EVOLUTION] Epoch_1 Individual_0. Size: 37236053
+training time: 11.4240059853
+train loss = 6.79989301, perplexity = 897.75123789
+validation loss = 7.04586173, perplexity = 1148.09776526
+[EVOLUTION] Individual_0 fitness: 7.045862
+[EVOLUTION] Epoch_1 Individual_1. Size: 34217353
+training time: 11.9366240501
+train loss = 6.85061235, perplexity = 944.45907368
+validation loss = 7.19884573, perplexity = 1337.88558815
+[EVOLUTION] Individual_1 fitness: 7.198846
+[EVOLUTION] Epoch_1 Individual_8. Size: 31424203
+training time: 9.82419681549
+train loss = 6.85681204, perplexity = 950.33260820
+validation loss = 7.25449809, perplexity = 1414.45289829
+[EVOLUTION] Individual_8 fitness: 7.254498
+[EVOLUTION] Epoch_1 Individual_4. Size: 22227003
+training time: 9.20338582993
+train loss = 6.90408577, perplexity = 996.33721112
+validation loss = 7.17186734, perplexity = 1302.27411642
+[EVOLUTION] Individual_4 fitness: 7.171867
+[EVOLUTION] Epoch_1 Individual_6. Size: 33570553
+training time: 11.1988949776
+train loss = 6.94396046, perplexity = 1036.86857227
+validation loss = 7.08187306, perplexity = 1190.19573748
+[EVOLUTION] Individual_6 fitness: 7.081873
+[EVOLUTION] Epoch_1 Individual_9. Size: 39370553
+training time: 11.2661039829
+train loss = 6.73676382, perplexity = 842.82877245
+validation loss = 7.14558247, perplexity = 1268.48996142
+[EVOLUTION] Individual_9 fitness: 7.145582
+[EVOLUTION] Epoch_1 Individual_7. Size: 40856503
+training time: 13.5400159359
+train loss = 6.72200517, perplexity = 830.48109676
+validation loss = 7.04642561, perplexity = 1148.74533691
+[EVOLUTION] Individual_7 fitness: 7.046426
+[EVOLUTION] Epoch_1 Individual_11. Size: 24712003
+training time: 9.1669421196
+train loss = 6.88770802, perplexity = 980.15235241
+validation loss = 7.15251912, perplexity = 1277.31962658
+[EVOLUTION] Individual_11 fitness: 7.152519
+[EVOLUTION] Epoch_1 Individual_13. Size: 42320803
+training time: 13.9235169888
+train loss = 6.75258669, perplexity = 856.27081135
+validation loss = 6.95691748, perplexity = 1050.39070857
+[EVOLUTION] Individual_13 fitness: 6.956917
+[EVOLUTION] Epoch_1 Individual_2. Size: 18959353
+training time: 8.10790896416
+train loss = 6.77846383, perplexity = 878.71782807
+validation loss = 7.08221743, perplexity = 1190.60568303
+[EVOLUTION] Individual_2 fitness: 7.082217
+[EVOLUTION] Epoch_1 Individual_5. Size: 46139603
+training time: 14.4641320705
+train loss = 6.81549260, perplexity = 911.86558723
+validation loss = 7.07046719, perplexity = 1176.69764595
+[EVOLUTION] Individual_5 fitness: 7.070467
+[EVOLUTION] Epoch_1 Individual_12. Size: 37674269
+training time: 12.9845421314
+train loss = 6.92548853, perplexity = 1017.89141685
+validation loss = 7.07997696, perplexity = 1187.94114356
+[EVOLUTION] Individual_12 fitness: 7.079977
+[EVOLUTION] Epoch_1 Individual_14. Size: 25869253
+training time: 9.22458910942
+train loss = 6.86114864, perplexity = 954.46277038
+validation loss = 7.06280858, perplexity = 1167.72019934
+[EVOLUTION] Individual_14 fitness: 7.062809
+[EVOLUTION] fitness ranking: [13, 0, 7, 14, 5, 12, 6, 2, 3, 10, 9, 11, 4, 1, 8] fitness: [6.9569174773336346, 7.04586173463038, 7.046425614390972, 7.0628085793338888, 7.0704671889189648, 7.079976956238375, 7.0818730578569795, 7.0822174339566288, 7.0906233776210312, 7.1222565009871426, 7.1455824652646909, 7.1525191196070184, 7.1718673354939435, 7.1988457274266997, 7.2544980909931889]
+[EVOLUTION] average fitness: 7.10418271067
+[EVOLUTION] similarity teacher_13 and learner_12: 0.152335
+[EVOLUTION] similarity teacher_0 and learner_12: 0.098831
+[EVOLUTION] similarity teacher_7 and learner_12: 0.152614
+[EVOLUTION] similarity teacher_14 and learner_12: 0.111104
+[EVOLUTION] similarity teacher_5 and learner_12: 0.150768
+{'1': [1, 14], '3': [3, 102], '2': [2, 22], '5': [5, 205], '4': [4, 170], '6': [6, 241], '9': [9, 187]}
+{'3': [764]}
+[EVOLUTION] Individual_5 mutate
+[EVOLUTION] similarity teacher_13 and learner_6: 0.166884
+[EVOLUTION] similarity teacher_0 and learner_6: 0.572592
+[EVOLUTION] similarity teacher_7 and learner_6: 0.197746
+[EVOLUTION] similarity teacher_14 and learner_6: 0.162561
+[EVOLUTION] similarity teacher_5 and learner_6: 0.177604
+[EVOLUTION] Individual_6 learn from Individual_1
+[EVOLUTION] similarity teacher_13 and learner_2: 0.120415
+[EVOLUTION] similarity teacher_0 and learner_2: 0.142040
+[EVOLUTION] similarity teacher_7 and learner_2: 0.136726
+[EVOLUTION] similarity teacher_14 and learner_2: 0.394089
+[EVOLUTION] similarity teacher_5 and learner_2: 0.120966
+[EVOLUTION] Individual_7 learn from Individual_3
+[EVOLUTION] similarity teacher_13 and learner_3: 0.297743
+[EVOLUTION] similarity teacher_0 and learner_3: 0.135654
+[EVOLUTION] similarity teacher_7 and learner_3: 0.373816
+[EVOLUTION] similarity teacher_14 and learner_3: 0.123999
+[EVOLUTION] similarity teacher_5 and learner_3: 0.395154
+[EVOLUTION] Individual_8 learn from Individual_4
+[EVOLUTION] similarity teacher_13 and learner_10: 0.145745
+[EVOLUTION] similarity teacher_0 and learner_10: 0.332473
+[EVOLUTION] similarity teacher_7 and learner_10: 0.158842
+[EVOLUTION] similarity teacher_14 and learner_10: 0.135549
+[EVOLUTION] similarity teacher_5 and learner_10: 0.139234
+[EVOLUTION] Individual_9 learn from Individual_1
+[EVOLUTION] similarity teacher_13 and learner_9: 0.171988
+[EVOLUTION] similarity teacher_0 and learner_9: 0.762371
+[EVOLUTION] similarity teacher_7 and learner_9: 0.192847
+[EVOLUTION] similarity teacher_14 and learner_9: 0.152866
+[EVOLUTION] similarity teacher_5 and learner_9: 0.165629
+[EVOLUTION] Individual_10 learn from Individual_1
+[EVOLUTION] similarity teacher_13 and learner_11: 0.125687
+[EVOLUTION] similarity teacher_0 and learner_11: 0.142313
+[EVOLUTION] similarity teacher_7 and learner_11: 0.127603
+[EVOLUTION] similarity teacher_14 and learner_11: 0.463713
+[EVOLUTION] similarity teacher_5 and learner_11: 0.121697
+[EVOLUTION] Individual_11 learn from Individual_3
+[EVOLUTION] similarity teacher_13 and learner_4: 0.126103
+[EVOLUTION] similarity teacher_0 and learner_4: 0.139403
+[EVOLUTION] similarity teacher_7 and learner_4: 0.128318
+[EVOLUTION] similarity teacher_14 and learner_4: 0.548160
+[EVOLUTION] similarity teacher_5 and learner_4: 0.123285
+[EVOLUTION] Individual_12 learn from Individual_3
+[EVOLUTION] similarity teacher_13 and learner_1: 0.171188
+[EVOLUTION] similarity teacher_0 and learner_1: 0.394304
+[EVOLUTION] similarity teacher_7 and learner_1: 0.180470
+[EVOLUTION] similarity teacher_14 and learner_1: 0.151506
+[EVOLUTION] similarity teacher_5 and learner_1: 0.152821
+[EVOLUTION] Individual_13 learn from Individual_1
+[EVOLUTION] similarity teacher_13 and learner_8: 0.125883
+[EVOLUTION] similarity teacher_0 and learner_8: 0.136568
+[EVOLUTION] similarity teacher_7 and learner_8: 0.136405
+[EVOLUTION] similarity teacher_14 and learner_8: 0.534863
+[EVOLUTION] similarity teacher_5 and learner_8: 0.126933
+[EVOLUTION] Individual_14 learn from Individual_3
+[EVOLUTION] Individual_13 EXP_-1 embed size: 15
+[EVOLUTION] Individual_13 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_13 EXP_-1 CNN:
+ [170  70 100 200 160 150  60  90 200   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_13 EXP_-1 RNN:
+ [750 550 500]
+[EVOLUTION] Individual_0 EXP_-1 embed size: 15
+[EVOLUTION] Individual_0 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_0 EXP_-1 CNN:
+ [120 180 170 170 160 100  80 170 170   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_0 EXP_-1 RNN:
+ [550 600   0]
+[EVOLUTION] Individual_7 EXP_-1 embed size: 15
+[EVOLUTION] Individual_7 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_7 EXP_-1 CNN:
+ [110 120 130 140 110 130 180  90  90  80   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_7 EXP_-1 RNN:
+ [650 550 500]
+[EVOLUTION] Individual_14 EXP_-1 embed size: 15
+[EVOLUTION] Individual_14 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_14 EXP_-1 CNN:
+ [190 100  90  80 150 180  90 100   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_14 EXP_-1 RNN:
+ [700   0   0]
+[EVOLUTION] Individual_5 EXP_-1 embed size: 15
+[EVOLUTION] Individual_5 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_5 EXP_-1 CNN:
+ [170 160 180 120 110 170 120  50 100 150   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_5 EXP_-1 RNN:
+ [750 550 550]
+[EVOLUTION] Epoch_2 started
+Loading partition: 63/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 26040
+ |end line 26460
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7759
+size of char vocabulary: 51
+number of tokens in train: 9191
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_2 Individual_13. Size: 63120727
+training time: 13.6463139057
+train loss = 6.79067214, perplexity = 889.51123478
+validation loss = 7.03523912, perplexity = 1135.96651074
+[EVOLUTION] Individual_13 fitness: 7.035239
+[EVOLUTION] Epoch_2 Individual_0. Size: 55852577
+training time: 11.2393620014
+train loss = 6.82354023, perplexity = 919.23355008
+validation loss = 7.05066709, perplexity = 1153.62806117
+[EVOLUTION] Individual_0 fitness: 7.050667
+[EVOLUTION] Epoch_2 Individual_7. Size: 60176077
+training time: 13.3651678562
+train loss = 6.83357656, perplexity = 928.50574056
+validation loss = 7.17264101, perplexity = 1303.28203962
+[EVOLUTION] Individual_7 fitness: 7.172641
+[EVOLUTION] Epoch_2 Individual_14. Size: 39925977
+training time: 8.8736679554
+train loss = 6.85697957, perplexity = 950.49182984
+validation loss = 7.34135228, perplexity = 1542.79700308
+[EVOLUTION] Individual_14 fitness: 7.341352
+[EVOLUTION] Epoch_2 Individual_5. Size: 69126027
+training time: 14.2320058346
+train loss = 6.78524651, perplexity = 884.69814987
+validation loss = 7.15948462, perplexity = 1286.24784950
+[EVOLUTION] Individual_5 fitness: 7.159485
+[EVOLUTION] Epoch_2 Individual_12. Size: 52496045
+training time: 9.74906802177
+train loss = 6.90868631, perplexity = 1000.93146877
+validation loss = 7.05531346, perplexity = 1159.00071378
+[EVOLUTION] Individual_12 fitness: 7.055313
+[EVOLUTION] Epoch_2 Individual_6. Size: 50587127
+training time: 10.9504928589
+train loss = 6.80165788, perplexity = 899.33704611
+validation loss = 7.09470327, perplexity = 1205.56458866
+[EVOLUTION] Individual_6 fitness: 7.094703
+[EVOLUTION] Epoch_2 Individual_2. Size: 29169677
+training time: 7.95616221428
+train loss = 6.79211266, perplexity = 890.79351493
+validation loss = 6.97345792, perplexity = 1067.90912213
+[EVOLUTION] Individual_2 fitness: 6.973458
+[EVOLUTION] Epoch_2 Individual_3. Size: 60396527
+training time: 13.6004600525
+train loss = 6.84757680, perplexity = 941.59646140
+validation loss = 7.11964586, perplexity = 1236.01263796
+[EVOLUTION] Individual_3 fitness: 7.119646
+[EVOLUTION] Epoch_2 Individual_10. Size: 32238227
+training time: 10.0669460297
+train loss = 6.81475789, perplexity = 911.19588199
+validation loss = 6.99057815, perplexity = 1086.34936473
+[EVOLUTION] Individual_10 fitness: 6.990578
+[EVOLUTION] Epoch_2 Individual_9. Size: 56746827
+training time: 11.0333919525
+train loss = 6.81926169, perplexity = 915.30897521
+validation loss = 7.06146699, perplexity = 1166.15465215
+[EVOLUTION] Individual_9 fitness: 7.061467
+[EVOLUTION] Epoch_2 Individual_11. Size: 36243977
+training time: 8.43102002144
+train loss = 6.88102554, perplexity = 973.62433813
+validation loss = 7.14209202, perplexity = 1264.07007847
+[EVOLUTION] Individual_11 fitness: 7.142092
+[EVOLUTION] Epoch_2 Individual_4. Size: 34392077
+training time: 8.51236701012
+train loss = 6.92332894, perplexity = 1015.69556178
+validation loss = 7.17036245, perplexity = 1300.31582114
+[EVOLUTION] Individual_4 fitness: 7.170362
+[EVOLUTION] Epoch_2 Individual_1. Size: 51939027
+training time: 11.7313380241
+train loss = 6.78828175, perplexity = 887.38750173
+validation loss = 7.03910343, perplexity = 1140.36473246
+[EVOLUTION] Individual_1 fitness: 7.039103
+[EVOLUTION] Epoch_2 Individual_8. Size: 46246277
+training time: 8.91944885254
+train loss = 6.90376959, perplexity = 996.02224410
+validation loss = 7.21211420, perplexity = 1355.75558317
+[EVOLUTION] Individual_8 fitness: 7.212114
+[EVOLUTION] fitness ranking: [2, 10, 13, 1, 0, 12, 9, 6, 3, 11, 5, 4, 7, 8, 14] fitness: [6.9734579242606642, 6.9905781474079491, 7.0352391188614716, 7.0391034309767786, 7.0506670911068561, 7.0553134592015461, 7.0614669928924432, 7.0947032744980829, 7.1196458628511703, 7.1420920150013814, 7.1594846152353133, 7.1703624532794743, 7.1726410077473313, 7.2121142038540214, 7.3413522838130429]
+[EVOLUTION] average fitness: 7.10788145873
+[EVOLUTION] similarity teacher_2 and learner_12: 0.151029
+[EVOLUTION] similarity teacher_10 and learner_12: 0.130610
+[EVOLUTION] similarity teacher_13 and learner_12: 0.172076
+[EVOLUTION] similarity teacher_1 and learner_12: 0.129368
+[EVOLUTION] similarity teacher_0 and learner_12: 0.134340
+{'1': [1, 14], '3': [3, 144], '2': [2, 61], '5': [5, 207], '4': [4, 170], '6': [6, 281], '9': [9, 210]}
+{'3': [669]}
+[EVOLUTION] Individual_5 mutate
+[EVOLUTION] similarity teacher_2 and learner_9: 0.225096
+[EVOLUTION] similarity teacher_10 and learner_9: 0.617085
+[EVOLUTION] similarity teacher_13 and learner_9: 0.250630
+[EVOLUTION] similarity teacher_1 and learner_9: 0.569714
+[EVOLUTION] similarity teacher_0 and learner_9: 1.110969
+[EVOLUTION] Individual_6 learn from Individual_4
+[EVOLUTION] similarity teacher_2 and learner_6: 0.217265
+[EVOLUTION] similarity teacher_10 and learner_6: 0.638448
+[EVOLUTION] similarity teacher_13 and learner_6: 0.243192
+[EVOLUTION] similarity teacher_1 and learner_6: 0.727013
+[EVOLUTION] similarity teacher_0 and learner_6: 0.834413
+[EVOLUTION] Individual_7 learn from Individual_4
+[EVOLUTION] similarity teacher_2 and learner_3: 0.178181
+[EVOLUTION] similarity teacher_10 and learner_3: 0.213268
+[EVOLUTION] similarity teacher_13 and learner_3: 0.599784
+[EVOLUTION] similarity teacher_1 and learner_3: 0.247201
+[EVOLUTION] similarity teacher_0 and learner_3: 0.223734
+[EVOLUTION] Individual_8 learn from Individual_2
+[EVOLUTION] similarity teacher_2 and learner_11: 0.596120
+[EVOLUTION] similarity teacher_10 and learner_11: 0.246454
+[EVOLUTION] similarity teacher_13 and learner_11: 0.182858
+[EVOLUTION] similarity teacher_1 and learner_11: 0.195622
+[EVOLUTION] similarity teacher_0 and learner_11: 0.210639
+[EVOLUTION] Individual_9 learn from Individual_0
+[EVOLUTION] similarity teacher_2 and learner_5: 0.178245
+[EVOLUTION] similarity teacher_10 and learner_5: 0.207637
+[EVOLUTION] similarity teacher_13 and learner_5: 0.630493
+[EVOLUTION] similarity teacher_1 and learner_5: 0.220066
+[EVOLUTION] similarity teacher_0 and learner_5: 0.227834
+[EVOLUTION] Individual_10 learn from Individual_2
+[EVOLUTION] similarity teacher_2 and learner_4: 0.613196
+[EVOLUTION] similarity teacher_10 and learner_4: 0.216588
+[EVOLUTION] similarity teacher_13 and learner_4: 0.189058
+[EVOLUTION] similarity teacher_1 and learner_4: 0.204198
+[EVOLUTION] similarity teacher_0 and learner_4: 0.211733
+[EVOLUTION] Individual_11 learn from Individual_0
+[EVOLUTION] similarity teacher_2 and learner_7: 0.198768
+[EVOLUTION] similarity teacher_10 and learner_7: 0.233565
+[EVOLUTION] similarity teacher_13 and learner_7: 0.595681
+[EVOLUTION] similarity teacher_1 and learner_7: 0.264685
+[EVOLUTION] similarity teacher_0 and learner_7: 0.264874
+[EVOLUTION] Individual_12 learn from Individual_2
+[EVOLUTION] similarity teacher_2 and learner_8: 0.704381
+[EVOLUTION] similarity teacher_10 and learner_8: 0.200201
+[EVOLUTION] similarity teacher_13 and learner_8: 0.183143
+[EVOLUTION] similarity teacher_1 and learner_8: 0.202300
+[EVOLUTION] similarity teacher_0 and learner_8: 0.202007
+[EVOLUTION] Individual_13 learn from Individual_0
+[EVOLUTION] similarity teacher_2 and learner_14: 0.608886
+[EVOLUTION] similarity teacher_10 and learner_14: 0.206266
+[EVOLUTION] similarity teacher_13 and learner_14: 0.190666
+[EVOLUTION] similarity teacher_1 and learner_14: 0.214811
+[EVOLUTION] similarity teacher_0 and learner_14: 0.214536
+[EVOLUTION] Individual_14 learn from Individual_0
+[EVOLUTION] Individual_2 EXP_-1 embed size: 15
+[EVOLUTION] Individual_2 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_2 EXP_-1 CNN:
+ [ 50 150  50 110  70 180 140   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_2 EXP_-1 RNN:
+ [600   0   0]
+[EVOLUTION] Individual_10 EXP_-1 embed size: 15
+[EVOLUTION] Individual_10 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_10 EXP_-1 CNN:
+ [ 50 180 120  80  60   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_10 EXP_-1 RNN:
+ [550 600   0]
+[EVOLUTION] Individual_13 EXP_-1 embed size: 15
+[EVOLUTION] Individual_13 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_13 EXP_-1 CNN:
+ [170  70 100 200 160 150  60  90 200   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_13 EXP_-1 RNN:
+ [750 550 500]
+[EVOLUTION] Individual_1 EXP_-1 embed size: 15
+[EVOLUTION] Individual_1 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_1 EXP_-1 CNN:
+ [200 100  50 170 160 100 120 140  80   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_1 EXP_-1 RNN:
+ [550 700   0]
+[EVOLUTION] Individual_0 EXP_-1 embed size: 15
+[EVOLUTION] Individual_0 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_0 EXP_-1 CNN:
+ [120 180 170 170 160 100  80 170 170   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_0 EXP_-1 RNN:
+ [550 600   0]
+[EVOLUTION] Epoch_3 started
+Loading partition: 23/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 9240
+ |end line 9660
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7759
+size of char vocabulary: 51
+number of tokens in train: 9835
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_3 Individual_2. Size: 39380001
+training time: 8.61642098427
+train loss = 6.75725707, perplexity = 860.27927045
+validation loss = 7.15218789, perplexity = 1276.89660904
+[EVOLUTION] Individual_2 fitness: 7.152188
+[EVOLUTION] Epoch_3 Individual_10. Size: 42938451
+training time: 10.9643149376
+train loss = 6.75753644, perplexity = 860.51963689
+validation loss = 7.10033706, perplexity = 1212.37564923
+[EVOLUTION] Individual_10 fitness: 7.100337
+[EVOLUTION] Epoch_3 Individual_13. Size: 83920651
+training time: 14.8344700336
+train loss = 6.78562103, perplexity = 885.02954818
+validation loss = 7.01269139, perplexity = 1110.63965445
+[EVOLUTION] Individual_13 fitness: 7.012691
+[EVOLUTION] Epoch_3 Individual_1. Size: 69660701
+training time: 12.6578509808
+train loss = 6.78379133, perplexity = 883.41168580
+validation loss = 7.08710722, perplexity = 1196.44174843
+[EVOLUTION] Individual_1 fitness: 7.087107
+[EVOLUTION] Epoch_3 Individual_0. Size: 74469101
+training time: 12.0656089783
+train loss = 6.78419197, perplexity = 883.76569121
+validation loss = 7.11246358, perplexity = 1227.16704472
+[EVOLUTION] Individual_0 fitness: 7.112464
+[EVOLUTION] Epoch_3 Individual_12. Size: 67133928
+training time: 9.70973110199
+train loss = 6.89750992, perplexity = 989.80694639
+validation loss = 7.06466122, perplexity = 1169.88557541
+[EVOLUTION] Individual_12 fitness: 7.064661
+[EVOLUTION] Epoch_3 Individual_9. Size: 74123101
+training time: 11.9233570099
+train loss = 6.77256004, perplexity = 873.54534903
+validation loss = 7.08623437, perplexity = 1195.39789277
+[EVOLUTION] Individual_9 fitness: 7.086234
+[EVOLUTION] Epoch_3 Individual_6. Size: 67839651
+training time: 11.8687880039
+train loss = 6.78685762, perplexity = 886.12464010
+validation loss = 7.11282366, perplexity = 1227.60900956
+[EVOLUTION] Individual_6 fitness: 7.112824
+[EVOLUTION] Epoch_3 Individual_3. Size: 78933451
+training time: 14.4579708576
+train loss = 6.75852949, perplexity = 861.37460059
+validation loss = 7.08903987, perplexity = 1198.75628663
+[EVOLUTION] Individual_3 fitness: 7.089040
+[EVOLUTION] Epoch_3 Individual_11. Size: 46191651
+training time: 8.51919198036
+train loss = 6.78468074, perplexity = 884.19775427
+validation loss = 7.11642910, perplexity = 1232.04306380
+[EVOLUTION] Individual_11 fitness: 7.116429
+[EVOLUTION] Epoch_3 Individual_5. Size: 92201651
+training time: 15.1822199821
+train loss = 6.72761769, perplexity = 835.15529355
+validation loss = 7.00092224, perplexity = 1097.64497940
+[EVOLUTION] Individual_5 fitness: 7.000922
+[EVOLUTION] Epoch_3 Individual_4. Size: 46557151
+training time: 9.23216700554
+train loss = 6.83123775, perplexity = 926.33667324
+validation loss = 7.12065296, perplexity = 1237.25804548
+[EVOLUTION] Individual_4 fitness: 7.120653
+[EVOLUTION] Epoch_3 Individual_7. Size: 80728051
+training time: 14.7777240276
+train loss = 6.75367338, perplexity = 857.20181496
+validation loss = 7.15904343, perplexity = 1285.68050530
+[EVOLUTION] Individual_7 fitness: 7.159043
+[EVOLUTION] Epoch_3 Individual_8. Size: 61068351
+training time: 9.73147892952
+train loss = 6.82460337, perplexity = 920.21134696
+validation loss = 7.26969488, perplexity = 1436.11219785
+[EVOLUTION] Individual_8 fitness: 7.269695
+[EVOLUTION] Epoch_3 Individual_14. Size: 50936401
+training time: 8.41713404655
+train loss = 6.79998684, perplexity = 897.83547418
+validation loss = 7.10395445, perplexity = 1216.76922495
+[EVOLUTION] Individual_14 fitness: 7.103954
+[EVOLUTION] fitness ranking: [5, 13, 12, 9, 1, 3, 10, 14, 0, 6, 11, 4, 2, 7, 8] fitness: [7.000922235910231, 7.0126913936007886, 7.0646612242111955, 7.0862343736045998, 7.0871072211911121, 7.0890398705090591, 7.1003370602170435, 7.1039544488358644, 7.1124635762103683, 7.1128236618857539, 7.1164290978619729, 7.1206529565208605, 7.1521878888091663, 7.1590434332641433, 7.2696948787662032]
+[EVOLUTION] average fitness: 7.10588288809
+[EVOLUTION] similarity teacher_5 and learner_3: 0.956015
+[EVOLUTION] similarity teacher_13 and learner_3: 0.969032
+[EVOLUTION] similarity teacher_12 and learner_3: 0.191097
+[EVOLUTION] similarity teacher_9 and learner_3: 0.317703
+[EVOLUTION] similarity teacher_1 and learner_3: 0.356828
+[EVOLUTION] Individual_5 learn from Individual_1
+[EVOLUTION] similarity teacher_5 and learner_10: 0.287516
+[EVOLUTION] similarity teacher_13 and learner_10: 0.284995
+[EVOLUTION] similarity teacher_12 and learner_10: 0.174512
+[EVOLUTION] similarity teacher_9 and learner_10: 0.837847
+[EVOLUTION] similarity teacher_1 and learner_10: 0.607599
+[EVOLUTION] Individual_6 learn from Individual_3
+[EVOLUTION] similarity teacher_5 and learner_14: 0.239080
+[EVOLUTION] similarity teacher_13 and learner_14: 0.248573
+[EVOLUTION] similarity teacher_12 and learner_14: 0.212621
+[EVOLUTION] similarity teacher_9 and learner_14: 0.324580
+[EVOLUTION] similarity teacher_1 and learner_14: 0.277292
+[EVOLUTION] Individual_7 learn from Individual_3
+[EVOLUTION] similarity teacher_5 and learner_0: 0.332640
+[EVOLUTION] similarity teacher_13 and learner_0: 0.356399
+[EVOLUTION] similarity teacher_12 and learner_0: 0.185225
+[EVOLUTION] similarity teacher_9 and learner_0: 1.508418
+[EVOLUTION] similarity teacher_1 and learner_0: 0.866431
+[EVOLUTION] Individual_8 learn from Individual_3
+[EVOLUTION] similarity teacher_5 and learner_6: 0.344338
+[EVOLUTION] similarity teacher_13 and learner_6: 0.337634
+[EVOLUTION] similarity teacher_12 and learner_6: 0.178898
+[EVOLUTION] similarity teacher_9 and learner_6: 1.228757
+[EVOLUTION] similarity teacher_1 and learner_6: 0.999431
+[EVOLUTION] Individual_9 learn from Individual_3
+[EVOLUTION] similarity teacher_5 and learner_11: 0.237933
+[EVOLUTION] similarity teacher_13 and learner_11: 0.245102
+[EVOLUTION] similarity teacher_12 and learner_11: 0.204022
+[EVOLUTION] similarity teacher_9 and learner_11: 0.295645
+[EVOLUTION] similarity teacher_1 and learner_11: 0.269566
+[EVOLUTION] Individual_10 learn from Individual_3
+[EVOLUTION] similarity teacher_5 and learner_4: 0.245620
+[EVOLUTION] similarity teacher_13 and learner_4: 0.256693
+[EVOLUTION] similarity teacher_12 and learner_4: 0.198471
+[EVOLUTION] similarity teacher_9 and learner_4: 0.306003
+[EVOLUTION] similarity teacher_1 and learner_4: 0.277250
+[EVOLUTION] Individual_11 learn from Individual_3
+[EVOLUTION] similarity teacher_5 and learner_2: 0.235828
+[EVOLUTION] similarity teacher_13 and learner_2: 0.239225
+[EVOLUTION] similarity teacher_12 and learner_2: 0.205666
+[EVOLUTION] similarity teacher_9 and learner_2: 0.305624
+[EVOLUTION] similarity teacher_1 and learner_2: 0.264236
+[EVOLUTION] Individual_12 learn from Individual_3
+[EVOLUTION] similarity teacher_5 and learner_7: 1.234499
+[EVOLUTION] similarity teacher_13 and learner_7: 1.184256
+[EVOLUTION] similarity teacher_12 and learner_7: 0.204102
+[EVOLUTION] similarity teacher_9 and learner_7: 0.365972
+[EVOLUTION] similarity teacher_1 and learner_7: 0.345968
+[EVOLUTION] Individual_13 learn from Individual_0
+[EVOLUTION] similarity teacher_5 and learner_8: 0.240887
+[EVOLUTION] similarity teacher_13 and learner_8: 0.248663
+[EVOLUTION] similarity teacher_12 and learner_8: 0.188405
+[EVOLUTION] similarity teacher_9 and learner_8: 0.290452
+[EVOLUTION] similarity teacher_1 and learner_8: 0.274673
+[EVOLUTION] Individual_14 learn from Individual_3
+[EVOLUTION] Individual_5 EXP_-1 embed size: 15
+[EVOLUTION] Individual_5 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_5 EXP_-1 CNN:
+ [170 160 180 120 110 170  60  50 200 150   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individ
