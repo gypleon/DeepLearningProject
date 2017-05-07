@@ -32,15 +32,15 @@ flags.DEFINE_float  ('dropout',         0.5,                            'dropout
 flags.DEFINE_integer('highway_layers',  2,                              'number of highway layers')
 
 # evolution configuration
-flags.DEFINE_integer('num_winners',             5, 'number of winners of each generation')
-flags.DEFINE_integer('population_size',         15, 'number of individuals of each generation')
-flags.DEFINE_integer('max_evo_epochs',          15, 'max number of evolution iterations')
+flags.DEFINE_integer('num_winners',             3, 'number of winners of each generation')
+flags.DEFINE_integer('population_size',         7, 'number of individuals of each generation')
+flags.DEFINE_integer('max_evo_epochs',          5, 'max number of evolution iterations')
 flags.DEFINE_float  ('learning_threshold',      0.2, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
 flags.DEFINE_float  ('prob_mutation_param',     0.1, 'probability of mutation for individual parameters')
 flags.DEFINE_integer('max_cnn_filter_types',    30, 'max number of cnn filter types')
 flags.DEFINE_integer('max_cnn_type_filters',    300, 'max number of cnn filters for a specific type')
-flags.DEFINE_integer('max_rnn_layers',          3, 'max number of rnn layers')
+flags.DEFINE_integer('max_rnn_layers',          5, 'max number of rnn layers')
 flags.DEFINE_integer('if_train_winner',         0, '1-train the winner; 0-do not train')
 
 # optimization
@@ -466,10 +466,10 @@ class Population:
         teacher = None
         for candidate_rank in range(self._num_winners):
             cur_sim = self.similarity(learner, self._population[candidate_rank])
-            print("[EVOLUTION] Learner_%d and Teacher_%d distance: %f" % (learner._id_number, self._population[candidate_rank]._id_number, cur_sim))
             if cur_sim > sim:
                 sim = cur_sim
                 teacher = self._population[candidate_rank]
+                print("[EVOLUTION] Learner_%d and Teacher_%d distance: %f" % (learner._id_number, teacher._id_number, cur_sim))
         return teacher
 
     def evolve(self, epoch):
@@ -478,7 +478,7 @@ class Population:
         # display ranking
         print("[EVOLUTION] fitness ranking:", [individual._id_number for individual in self._population], "fitness:", [individual.get_fitness() for individual in self._population])
         # average fitness
-        print("[EVOLUTION] average fitness:", np.average([individual.get_fitness() for individual in self._population]))
+        # print("[EVOLUTION] average fitness:", np.average([individual.get_fitness() for individual in self._population]))
         for loser_rank in range(self._num_winners, self._population_size):
             loser = self._population[loser_rank]
             teacher = self.find_teacher(loser)
@@ -488,16 +488,15 @@ class Population:
                 print("[EVOLUTION] - char_embed_size: ", loser._knowledge.char_embed_size[-1])
                 print("[EVOLUTION] - dropout: ", loser._knowledge.dropout[-1])
                 print("[EVOLUTION] - Conv: ", loser._cnn_layer)
-                print("[EVOLUTION] - Recu: ", loser._rnn_layer)
+                print("[EVOLUTION] - Recu: ", loser._rnn_layers)
                 print("[EVOLUTION] - learned: ", new_struct)
             else:
                 loser.mutation()
                 print("[EVOLUTION] Individual_%d mutate:" % loser._id_number)
                 print("[EVOLUTION] - char_embed_size: ", loser._knowledge.char_embed_size[-1])
                 print("[EVOLUTION] - dropout: ", loser._knowledge.dropout[-1])
-                print("[EVOLUTION] - Recu: ", loser._rnn_layer)
                 print("[EVOLUTION] - Conv: ", loser._cnn_layer)
-                print("[EVOLUTION] - Recu: ", loser._rnn_layer)
+                print("[EVOLUTION] - Recu: ", loser._rnn_layers)
 
         for winner_rank in range(self._num_winners):
             winner = self._population[winner_rank]
