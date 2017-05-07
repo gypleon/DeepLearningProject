@@ -46,21 +46,23 @@ I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow devi
 I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
 I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
 I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
-I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
-I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
-I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
-I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
-I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
-I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
-I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
-I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
 Traceback (most recent call last):
   File "evolution.py", line 549, in <module>
     tf.app.run()
   File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/app.py", line 44, in run
     _sys.exit(main(_sys.argv[:1] + flags_passthrough))
-  File "evolution.py", line 538, in main
-    result = population.final_winner()
-  File "evolution.py", line 417, in final_winner
-    return self.select()[0]
-TypeError: select() takes exactly 2 arguments (1 given)
+  File "evolution.py", line 534, in main
+    population.evolve(epoch)
+  File "evolution.py", line 480, in evolve
+    self.select(epoch)
+  File "evolution.py", line 443, in select
+    print("[EVOLUTION] Individual_%d fitness: %f" % (individual._id_number, individual.fitness(word_vocab, char_vocab, word_tensors, char_tensors, max_word_length, epoch)))
+  File "evolution.py", line 265, in fitness
+    self._model, self._valid_model, self._saver = self.update_graph(word_vocab, char_vocab, max_word_length, evo_epoch)
+  File "evolution.py", line 184, in update_graph
+    dropout=self._knowledge.dropout[-1])
+  File "/home/ubuntu/notebook/DeepLearningProject/model.py", line 319, in individual_graph
+    outputs, final_rnn_state = tf.contrib.rnn.static_rnn(cell, input_cnn2, initial_state=initial_rnn_state, dtype=tf.float32)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/contrib/rnn/python/ops/core_rnn.py", line 138, in static_rnn
+    "shape inference, but saw value None." % i)
+ValueError: Input size (dimension 0 of inputs) must be accessible via shape inference, but saw value None.

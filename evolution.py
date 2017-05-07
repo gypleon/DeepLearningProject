@@ -122,8 +122,8 @@ class Individual:
     def show_knowledge(self, exp=-1):
         print("[EVOLUTION] Individual_%d EXP_%d embed size:" % (self._id_number, exp), self._knowledge.char_embed_size[exp])
         print("[EVOLUTION] Individual_%d EXP_%d dropout:" % (self._id_number, exp), self._knowledge.dropout[exp])
-        print("[EVOLUTION] Individual_%d EXP_%d CNN:\n" % (self._id_number, exp), self._knowledge.struct_exp[exp][0])
-        print("[EVOLUTION] Individual_%d EXP_%d RNN:\n" % (self._id_number, exp), self._knowledge.struct_exp[exp][1])
+        print("[EVOLUTION] Individual_%d EXP_%d Conv:\n" % (self._id_number, exp), self._knowledge.struct_exp[exp][0])
+        print("[EVOLUTION] Individual_%d EXP_%d Recu:\n" % (self._id_number, exp), self._knowledge.struct_exp[exp][1])
 
     def get_exp(self):
         return self._knowledge.struct_exp
@@ -253,7 +253,8 @@ class Individual:
         self.experience(structure)
 
     def mutation_param(self):
-        self._knowledge.char_embed_size.append(FLAGS.char_embed_size + np.random.randint(-FLAGS.char_embed_size, FLAGS.char_embed_size+1))
+        # TODO: notice EMBED SIZE 0
+        self._knowledge.char_embed_size.append(FLAGS.char_embed_size + np.random.randint(-(FLAGS.char_embed_size-1), FLAGS.char_embed_size))
         self._knowledge.dropout.append(np.random.uniform(0, 0.9))
 
     def mutation(self):
@@ -414,7 +415,7 @@ class Population:
         return self._average_fitness
 
     def final_winner(self):
-        return self.select()[0]
+        return self._population[:self._num_winners]
 
     def generate(self, id_number):
         cnn_layer = {}
@@ -508,10 +509,9 @@ class Population:
             winner.experience(winner._knowledge.struct_exp[-1])
             winner.show_knowledge()
 
-    def show_history(self):
-        for individual in self._population:
-            for exp in self._epoch:
-                individual.show_knowledge(exp)
+    def show_history(self, individual):
+        for exp in self._epoch:
+            individual.show_knowledge(exp)
 
 
 def main(_):
@@ -535,8 +535,9 @@ def main(_):
         population.evolve(epoch)
 
     # get result
-    result = population.final_winner()
-    result.show_history()
+    winners = population.final_winner()
+    for winner in winners:
+        population.show_history(winner)
 
     # TODO: plot automatically
 
