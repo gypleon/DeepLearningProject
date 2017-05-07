@@ -1,0 +1,560 @@
+[EVOLUTION] Individual_0 EXP_-1 embed size: 15
+[EVOLUTION] Individual_0 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_0 EXP_-1 Conv:
+ [130 190 140 110 170  70 170   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_0 EXP_-1 Recu:
+ [500 500   0   0   0]
+[EVOLUTION] Generated Individual_0
+[EVOLUTION] Individual_1 EXP_-1 embed size: 15
+[EVOLUTION] Individual_1 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_1 EXP_-1 Conv:
+ [200 100  50  80 160  80 120 140  80   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_1 EXP_-1 Recu:
+ [700 800 500   0   0]
+[EVOLUTION] Generated Individual_1
+[EVOLUTION] Individual_2 EXP_-1 embed size: 15
+[EVOLUTION] Individual_2 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_2 EXP_-1 Conv:
+ [ 50 150  50 110  70  90 140   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_2 EXP_-1 Recu:
+ [600 650 600 700 800]
+[EVOLUTION] Generated Individual_2
+[EVOLUTION] Individual_3 EXP_-1 embed size: 15
+[EVOLUTION] Individual_3 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_3 EXP_-1 Conv:
+ [190 110  50  60 110  80 180 150  50  90   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_3 EXP_-1 Recu:
+ [750 550 650   0   0]
+[EVOLUTION] Generated Individual_3
+[EVOLUTION] Individual_4 EXP_-1 embed size: 15
+[EVOLUTION] Individual_4 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_4 EXP_-1 Conv:
+ [140 140  50  90 110  80   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_4 EXP_-1 Recu:
+ [500 700 650 650   0]
+[EVOLUTION] Generated Individual_4
+[EVOLUTION] Individual_5 EXP_-1 embed size: 15
+[EVOLUTION] Individual_5 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_5 EXP_-1 Conv:
+ [170 160 180 120 110 170 120  50 100 150   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_5 EXP_-1 Recu:
+ [650 600 650 650   0]
+[EVOLUTION] Generated Individual_5
+[EVOLUTION] Individual_6 EXP_-1 embed size: 15
+[EVOLUTION] Individual_6 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_6 EXP_-1 Conv:
+ [200 130 100 120 130 180 110 110  60 130   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_6 EXP_-1 Recu:
+ [500 550   0   0   0]
+[EVOLUTION] Generated Individual_6
+[EVOLUTION] Initialized Population
+[EVOLUTION] Epoch_0 started
+Loading partition: 70/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 28980
+ |end line 29400
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7726
+size of char vocabulary: 51
+number of tokens in train: 9076
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_0 Individual_0. Size: 12739441
+training time: 9.66948795319
+train loss = 6.72289613, perplexity = 831.22135604
+validation loss = 6.91137977, perplexity = 1003.63106740
+[EVOLUTION] Individual_0 fitness: 6.911380
+[EVOLUTION] Epoch_0 Individual_1. Size: 21703191
+training time: 14.816095829
+train loss = 6.83215467, perplexity = 927.18644233
+validation loss = 6.90797314, perplexity = 1000.21788473
+[EVOLUTION] Individual_1 fitness: 6.907973
+[EVOLUTION] Epoch_0 Individual_2. Size: 25211941
+training time: 18.8735229969
+train loss = 6.80704171, perplexity = 904.19198879
+validation loss = 6.88162788, perplexity = 974.21096510
+[EVOLUTION] Individual_2 fitness: 6.881628
+[EVOLUTION] Epoch_0 Individual_3. Size: 20675141
+training time: 13.2940921783
+train loss = 6.75026229, perplexity = 854.28280637
+validation loss = 7.02749528, perplexity = 1127.20374039
+[EVOLUTION] Individual_3 fitness: 7.027495
+[EVOLUTION] Epoch_0 Individual_4. Size: 19061241
+training time: 16.0532281399
+train loss = 6.78430025, perplexity = 883.86138902
+validation loss = 7.05962374, perplexity = 1164.00711248
+[EVOLUTION] Individual_4 fitness: 7.059624
+[EVOLUTION] Epoch_0 Individual_5. Size: 27001641
+training time: 17.2224900723
+train loss = 6.78092811, perplexity = 880.88589994
+validation loss = 6.96902569, perplexity = 1063.18636905
+[EVOLUTION] Individual_5 fitness: 6.969026
+[EVOLUTION] Epoch_0 Individual_6. Size: 16666841
+training time: 10.3515930176
+train loss = 6.75198309, perplexity = 855.75411991
+validation loss = 6.95932267, perplexity = 1052.92014485
+[EVOLUTION] Individual_6 fitness: 6.959323
+[EVOLUTION] fitness ranking: [2, 1, 0, 6, 5, 3, 4] fitness: [6.8816278767982144, 6.9079731399826132, 6.9113797699753858, 6.9593226734079821, 6.9690256866310101, 7.0274952788817355, 7.0596237386490595]
+[EVOLUTION] Learner_6 and Teacher_0 distance: 0.338807
+[EVOLUTION] Individual_6 learn from Individual_0: 
+[EVOLUTION] - char_embed_size:  15
+[EVOLUTION] - dropout:  0.5
+[EVOLUTION] - Conv:  {'10': [10, 130], '1': [1, 200], '3': [3, 100], '2': [2, 130], '5': [5, 130], '4': [4, 120], '7': [7, 110], '6': [6, 180], '8': [8, 110]}
+[EVOLUTION] - Recu:  {'1': [500], '2': [500]}
+[EVOLUTION] - learned:  [[8, 1], [20, 4], [19, 3]]
+[EVOLUTION] Individual_5 mutate:
+[EVOLUTION] - char_embed_size:  13
+[EVOLUTION] - dropout:  0.221910871389
+[EVOLUTION] - Conv:  {'10': [10, 168], '18': [18, 159], '1': [1, 140], '3': [3, 216], '2': [2, 142], '5': [5, 63], '4': [4, 108], '7': [7, 138], '6': [6, 209], '9': [9, 73], '8': [8, 30]}
+[EVOLUTION] - Recu:  {'1': [713], '3': [713], '2': [663], '4': [713]}
+[EVOLUTION] Learner_3 and Teacher_1 distance: 0.237247
+[EVOLUTION] Individual_3 learn from Individual_1: 
+[EVOLUTION] - char_embed_size:  15
+[EVOLUTION] - dropout:  0.5
+[EVOLUTION] - Conv:  {'10': [10, 90], '1': [1, 190], '3': [3, 50], '2': [2, 110], '5': [5, 110], '4': [4, 60], '7': [7, 180], '6': [6, 80], '9': [9, 50], '8': [8, 150]}
+[EVOLUTION] - Recu:  {'1': [700], '3': [500], '2': [800]}
+[EVOLUTION] - learned:  [[17, 2], [20, 1], [16, 0]]
+[EVOLUTION] Individual_4 mutate:
+[EVOLUTION] - char_embed_size:  13
+[EVOLUTION] - dropout:  0.0518994926635
+[EVOLUTION] - Conv:  {'19': [19, 298], '1': [1, 98], '3': [3, 20], '2': [2, 150], '5': [5, 157], '4': [4, 128], '6': [6, 127]}
+[EVOLUTION] - Recu:  {'1': [527], '3': [677], '2': [727], '5': [840], '4': [677]}
+[EVOLUTION] Individual_2 EXP_-1 embed size: 15
+[EVOLUTION] Individual_2 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_2 EXP_-1 Conv:
+ [ 50 150  50 110  70  90 140   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_2 EXP_-1 Recu:
+ [600 650 600 700 800]
+[EVOLUTION] Individual_1 EXP_-1 embed size: 15
+[EVOLUTION] Individual_1 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_1 EXP_-1 Conv:
+ [200 100  50  80 160  80 120 140  80   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_1 EXP_-1 Recu:
+ [700 800 500   0   0]
+[EVOLUTION] Individual_0 EXP_-1 embed size: 15
+[EVOLUTION] Individual_0 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_0 EXP_-1 Conv:
+ [130 190 140 110 170  70 170   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_0 EXP_-1 Recu:
+ [500 500   0   0   0]
+[EVOLUTION] Epoch_1 started
+Loading partition: 48/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 19740
+ |end line 20160
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7748
+size of char vocabulary: 51
+number of tokens in train: 9353
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_1 Individual_2. Size: 50439304
+training time: 19.7532880306
+train loss = 6.78239436, perplexity = 882.17845321
+validation loss = 6.99362957, perplexity = 1089.66934337
+[EVOLUTION] Individual_2 fitness: 6.993630
+[EVOLUTION] Epoch_1 Individual_1. Size: 43424004
+training time: 15.4788939953
+train loss = 6.87240479, perplexity = 965.26704044
+validation loss = 7.10816496, perplexity = 1221.90324830
+[EVOLUTION] Individual_1 fitness: 7.108165
+[EVOLUTION] Epoch_1 Individual_0. Size: 25489904
+training time: 9.70727682114
+train loss = 6.68396383, perplexity = 799.48185363
+validation loss = 6.91154241, perplexity = 1003.79431008
+[EVOLUTION] Individual_0 fitness: 6.911542
+[EVOLUTION] Epoch_1 Individual_6. Size: 31924604
+training time: 10.1435518265
+train loss = 6.73688932, perplexity = 842.93455505
+validation loss = 7.07353906, perplexity = 1180.31786697
+[EVOLUTION] Individual_6 fitness: 7.073539
+[EVOLUTION] Epoch_1 Individual_5. Size: 58837616
+training time: 19.4454569817
+train loss = 6.76907099, perplexity = 870.50281430
+validation loss = 7.31008306, perplexity = 1495.30138669
+[EVOLUTION] Individual_5 fitness: 7.310083
+[EVOLUTION] Epoch_1 Individual_3. Size: 43075604
+training time: 15.5749640465
+train loss = 6.78300626, perplexity = 882.71841691
+validation loss = 7.18658860, perplexity = 1321.58704318
+[EVOLUTION] Individual_3 fitness: 7.186589
+[EVOLUTION] Epoch_1 Individual_4. Size: 48154953
+training time: 20.2274999619
+train loss = 6.76949896, perplexity = 870.87544451
+validation loss = 7.04511457, perplexity = 1147.24027071
+[EVOLUTION] Individual_4 fitness: 7.045115
+[EVOLUTION] fitness ranking: [0, 2, 4, 6, 1, 3, 5] fitness: [6.9115424088231148, 6.9936295744925365, 7.0451145727107791, 7.0735390599719681, 7.1081649617174714, 7.1865885988267175, 7.3100830619522048]
+[EVOLUTION] Learner_6 and Teacher_0 distance: 0.542407
+[EVOLUTION] Individual_6 learn from Individual_0: 
+[EVOLUTION] - char_embed_size:  15
+[EVOLUTION] - dropout:  0.5
+[EVOLUTION] - Conv:  {'10': [10, 130], '1': [1, 200], '3': [3, 100], '2': [2, 130], '5': [5, 130], '4': [4, 120], '7': [7, 170], '6': [6, 180], '8': [8, 110]}
+[EVOLUTION] - Recu:  {'1': [500], '2': [500]}
+[EVOLUTION] - learned:  [[6, 0], [17, 3], [6, 2]]
+[EVOLUTION] Individual_1 mutate:
+[EVOLUTION] - char_embed_size:  14
+[EVOLUTION] - dropout:  0.253103427965
+[EVOLUTION] - Conv:  {'10': [10, 300], '1': [1, 175], '3': [3, 44], '2': [2, 88], '5': [5, 154], '4': [4, 77], '7': [7, 132], '6': [6, 42], '9': [9, 114], '8': [8, 174]}
+[EVOLUTION] - Recu:  {'1': [672], '3': [472]}
+[EVOLUTION] Individual_3 mutate:
+[EVOLUTION] - char_embed_size:  18
+[EVOLUTION] - dropout:  0.160341972564
+[EVOLUTION] - Conv:  {'10': [10, 64], '1': [1, 150], '3': [3, 83], '2': [2, 153], '5': [5, 122], '4': [4, 64], '7': [7, 153], '6': [6, 65], '9': [9, 94], '8': [8, 106]}
+[EVOLUTION] - Recu:  {'1': [659], '3': [459], '2': [759], '4': [791]}
+[EVOLUTION] Individual_5 mutate:
+[EVOLUTION] - char_embed_size:  23
+[EVOLUTION] - dropout:  0.119862412603
+[EVOLUTION] - Conv:  {'10': [10, 201], '18': [18, 110], '1': [1, 142], '3': [3, 202], '2': [2, 115], '5': [5, 31], '4': [4, 69], '7': [7, 134], '6': [6, 202], '9': [9, 109], '8': [8, 11]}
+[EVOLUTION] - Recu:  {'1': [757], '3': [757], '2': [707], '4': [757]}
+[EVOLUTION] Individual_0 EXP_-1 embed size: 15
+[EVOLUTION] Individual_0 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_0 EXP_-1 Conv:
+ [130 190 140 110 170  70 170   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_0 EXP_-1 Recu:
+ [500 500   0   0   0]
+[EVOLUTION] Individual_2 EXP_-1 embed size: 15
+[EVOLUTION] Individual_2 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_2 EXP_-1 Conv:
+ [ 50 150  50 110  70  90 140   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_2 EXP_-1 Recu:
+ [600 650 600 700 800]
+[EVOLUTION] Individual_4 EXP_-1 embed size: 13
+[EVOLUTION] Individual_4 EXP_-1 dropout: 0.0518994926635
+[EVOLUTION] Individual_4 EXP_-1 Conv:
+ [ 98 150  20 128 157 127   0   0   0   0   0   0   0   0   0   0   0   0
+ 298   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_4 EXP_-1 Recu:
+ [527 727 677 677 840]
+[EVOLUTION] Epoch_2 started
+Loading partition: 6/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 2100
+ |end line 2520
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7744
+size of char vocabulary: 51
+number of tokens in train: 9594
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_2 Individual_0. Size: 38238363
+training time: 9.91715502739
+train loss = 6.78504161, perplexity = 884.51688778
+validation loss = 6.99658021, perplexity = 1092.88931101
+[EVOLUTION] Individual_0 fitness: 6.996580
+[EVOLUTION] Epoch_2 Individual_2. Size: 75663863
+training time: 20.2421381474
+train loss = 7.04147279, perplexity = 1143.06986549
+validation loss = 6.89835342, perplexity = 990.64219842
+[EVOLUTION] Individual_2 fitness: 6.898353
+[EVOLUTION] Epoch_2 Individual_4. Size: 77245953
+training time: 20.4944410324
+train loss = 6.85504891, perplexity = 948.65852532
+validation loss = 6.94583092, perplexity = 1038.80980356
+[EVOLUTION] Individual_4 fitness: 6.945831
+[EVOLUTION] Epoch_2 Individual_6. Size: 47902163
+training time: 10.3944470882
+train loss = 6.79601224, perplexity = 894.27401725
+validation loss = 6.96996115, perplexity = 1064.18140805
+[EVOLUTION] Individual_6 fitness: 6.969961
+[EVOLUTION] Epoch_2 Individual_1. Size: 61433484
+training time: 11.1570107937
+train loss = 6.75106864, perplexity = 854.97193515
+validation loss = 7.36050540, perplexity = 1572.63116944
+[EVOLUTION] Individual_1 fitness: 7.360505
+[EVOLUTION] Epoch_2 Individual_3. Size: 68936128
+training time: 18.9694490433
+train loss = 6.90160128, perplexity = 993.86490275
+validation loss = 7.97459768, perplexity = 2906.18842088
+[EVOLUTION] Individual_3 fitness: 7.974598
+[EVOLUTION] Epoch_2 Individual_5. Size: 91423501
+training time: 19.9775261879
+train loss = 6.87265860, perplexity = 965.51206605
+validation loss = 6.91990856, perplexity = 1012.22742859
+[EVOLUTION] Individual_5 fitness: 6.919909
+[EVOLUTION] fitness ranking: [2, 5, 4, 6, 0, 1, 3] fitness: [6.8983534180919825, 6.9199085564058338, 6.9458309171318806, 6.9699611516576399, 6.996580212246494, 7.3605053996813288, 7.9745976805970127]
+[EVOLUTION] Individual_6 mutate:
+[EVOLUTION] - char_embed_size:  15
+[EVOLUTION] - dropout:  0.637159969086
+[EVOLUTION] - Conv:  {'10': [10, 138], '16': [16, 67], '1': [1, 223], '3': [3, 95], '2': [2, 161], '5': [5, 117], '4': [4, 78], '7': [7, 142], '6': [6, 184], '8': [8, 160]}
+[EVOLUTION] - Recu:  {'1': [425]}
+[EVOLUTION] Individual_0 mutate:
+[EVOLUTION] - char_embed_size:  4
+[EVOLUTION] - dropout:  0.55224916585
+[EVOLUTION] - Conv:  {'1': [1, 85], '3': [3, 168], '2': [2, 184], '5': [5, 213], '4': [4, 122], '7': [7, 154], '6': [6, 61]}
+[EVOLUTION] - Recu:  {'1': [581], '2': [581]}
+[EVOLUTION] Individual_1 mutate:
+[EVOLUTION] - char_embed_size:  1
+[EVOLUTION] - dropout:  0.00419819948142
+[EVOLUTION] - Conv:  {'1': [1, 225], '3': [3, 90], '2': [2, 114], '5': [5, 203], '4': [4, 93], '7': [7, 166], '6': [6, 52], '9': [9, 111], '8': [8, 146]}
+[EVOLUTION] - Recu:  {'1': [721], '3': [521]}
+[EVOLUTION] Learner_3 and Teacher_5 distance: 0.254046
+[EVOLUTION] Individual_3 learn from Individual_5: 
+[EVOLUTION] - char_embed_size:  23
+[EVOLUTION] - dropout:  0.119862412603
+[EVOLUTION] - Conv:  {'10': [10, 64], '1': [1, 150], '3': [3, 83], '2': [2, 153], '5': [5, 122], '4': [4, 64], '7': [7, 153], '6': [6, 65], '9': [9, 94], '8': [8, 11]}
+[EVOLUTION] - Recu:  {'1': [659], '3': [757], '2': [707], '4': [791]}
+[EVOLUTION] - learned:  [[12, 1], [7, 2], [11, 1]]
+[EVOLUTION] Individual_2 EXP_-1 embed size: 15
+[EVOLUTION] Individual_2 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_2 EXP_-1 Conv:
+ [ 50 150  50 110  70  90 140   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_2 EXP_-1 Recu:
+ [600 650 600 700 800]
+[EVOLUTION] Individual_5 EXP_-1 embed size: 23
+[EVOLUTION] Individual_5 EXP_-1 dropout: 0.119862412603
+[EVOLUTION] Individual_5 EXP_-1 Conv:
+ [142 115 202  69  31 202 134  11 109 201   0   0   0   0   0   0   0 110
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_5 EXP_-1 Recu:
+ [757 707 757 757   0]
+[EVOLUTION] Individual_4 EXP_-1 embed size: 13
+[EVOLUTION] Individual_4 EXP_-1 dropout: 0.0518994926635
+[EVOLUTION] Individual_4 EXP_-1 Conv:
+ [ 98 150  20 128 157 127   0   0   0   0   0   0   0   0   0   0   0   0
+ 298   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_4 EXP_-1 Recu:
+ [527 727 677 677 840]
+[EVOLUTION] Epoch_3 started
+Loading partition: 24/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 9660
+ |end line 10080
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7748
+size of char vocabulary: 51
+number of tokens in train: 9027
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_3 Individual_2. Size: 100891226
+training time: 19.6195781231
+train loss = 6.71305936, perplexity = 823.08490222
+validation loss = 6.99612764, perplexity = 1092.39481091
+[EVOLUTION] Individual_2 fitness: 6.996128
+[EVOLUTION] Epoch_3 Individual_5. Size: 124012418
+training time: 19.0203568935
+train loss = 6.66321209, perplexity = 783.06216562
+validation loss = 7.23985940, perplexity = 1393.89797945
+[EVOLUTION] Individual_5 fitness: 7.239859
+[EVOLUTION] Epoch_3 Individual_4. Size: 106339665
+training time: 19.7996618748
+train loss = 6.78858426, perplexity = 887.65598361
+validation loss = 7.47712600, perplexity = 1767.15467477
+[EVOLUTION] Individual_4 fitness: 7.477126
+[EVOLUTION] Epoch_3 Individual_6. Size: 61821356
+training time: 7.47931194305
+train loss = 6.62990767, perplexity = 757.41223238
+validation loss = 7.93733252, perplexity = 2799.88191957
+[EVOLUTION] Individual_6 fitness: 7.937333
+[EVOLUTION] Epoch_3 Individual_0. Size: 53014498
+training time: 10.6267139912
+train loss = 6.69029394, perplexity = 804.55871331
+validation loss = 6.98632703, perplexity = 1081.74096812
+[EVOLUTION] Individual_0 fitness: 6.986327
+[EVOLUTION] Epoch_3 Individual_1. Size: 79383202
+training time: 11.1020240784
+train loss = 6.57721152, perplexity = 718.53292083
+validation loss = 7.15791798, perplexity = 1284.23435146
+[EVOLUTION] Individual_1 fitness: 7.157918
+[EVOLUTION] Epoch_3 Individual_3. Size: 96307390
+training time: 18.3406128883
+train loss = 6.65125573, perplexity = 773.75534499
+validation loss = 7.90224246, perplexity = 2703.33766913
+[EVOLUTION] Individual_3 fitness: 7.902242
+[EVOLUTION] fitness ranking: [0, 2, 1, 5, 4, 3, 6] fitness: [6.9863270297469562, 6.9961276394171223, 7.1579179843078027, 7.2398594031707582, 7.4771260037274887, 7.9022424623122403, 7.9373325236902614]
+[EVOLUTION] Learner_5 and Teacher_2 distance: 0.218399
+[EVOLUTION] Individual_5 learn from Individual_2: 
+[EVOLUTION] - char_embed_size:  15
+[EVOLUTION] - dropout:  0.5
+[EVOLUTION] - Conv:  {'10': [10, 201], '18': [18, 110], '1': [1, 142], '3': [3, 202], '2': [2, 115], '5': [5, 31], '4': [4, 110], '7': [7, 134], '6': [6, 202], '9': [9, 109], '8': [8, 11]}
+[EVOLUTION] - Recu:  {'1': [757], '3': [757], '2': [650], '5': [800], '4': [700]}
+[EVOLUTION] - learned:  [[11, 1], [20, 3], [3, 4]]
+[EVOLUTION] Learner_4 and Teacher_2 distance: 0.517170
+[EVOLUTION] Individual_4 learn from Individual_2: 
+[EVOLUTION] - char_embed_size:  15
+[EVOLUTION] - dropout:  0.5
+[EVOLUTION] - Conv:  {'1': [1, 98], '3': [3, 20], '2': [2, 150], '5': [5, 157], '4': [4, 128], '7': [7, 140], '6': [6, 127]}
+[EVOLUTION] - Recu:  {'1': [600], '3': [600], '2': [727], '5': [800], '4': [677]}
+[EVOLUTION] - learned:  [[18, 2], [14, 0], [6, 4]]
+[EVOLUTION] Learner_3 and Teacher_0 distance: 0.201630
+[EVOLUTION] Learner_3 and Teacher_2 distance: 0.250547
+[EVOLUTION] Individual_3 learn from Individual_2: 
+[EVOLUTION] - char_embed_size:  15
+[EVOLUTION] - dropout:  0.5
+[EVOLUTION] - Conv:  {'10': [10, 64], '1': [1, 150], '3': [3, 83], '2': [2, 153], '5': [5, 122], '4': [4, 64], '7': [7, 153], '6': [6, 65], '9': [9, 94], '8': [8, 11]}
+[EVOLUTION] - Recu:  {'1': [600], '3': [757], '2': [650], '4': [700]}
+[EVOLUTION] - learned:  [[12, 3], [13, 1], [17, 0]]
+[EVOLUTION] Learner_6 and Teacher_0 distance: 0.344382
+[EVOLUTION] Individual_6 learn from Individual_0: 
+[EVOLUTION] - char_embed_size:  4
+[EVOLUTION] - dropout:  0.55224916585
+[EVOLUTION] - Conv:  {'16': [16, 67], '1': [1, 223], '3': [3, 95], '2': [2, 161], '5': [5, 117], '4': [4, 78], '7': [7, 142], '6': [6, 184]}
+[EVOLUTION] - Recu:  {'1': [425], '2': [581]}
+[EVOLUTION] - learned:  [[13, 4], [7, 1], [9, 1]]
+[EVOLUTION] Individual_0 EXP_-1 embed size: 4
+[EVOLUTION] Individual_0 EXP_-1 dropout: 0.55224916585
+[EVOLUTION] Individual_0 EXP_-1 Conv:
+ [ 85 184 168 122 213  61 154   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_0 EXP_-1 Recu:
+ [581 581   0   0   0]
+[EVOLUTION] Individual_2 EXP_-1 embed size: 15
+[EVOLUTION] Individual_2 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_2 EXP_-1 Conv:
+ [ 50 150  50 110  70  90 140   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_2 EXP_-1 Recu:
+ [600 650 600 700 800]
+[EVOLUTION] Individual_1 EXP_-1 embed size: 1
+[EVOLUTION] Individual_1 EXP_-1 dropout: 0.00419819948142
+[EVOLUTION] Individual_1 EXP_-1 Conv:
+ [225 114  90  93 203  52 166 146 111   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_1 EXP_-1 Recu:
+ [721   0 521   0   0]
+[EVOLUTION] Epoch_4 started
+Loading partition: 93/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 38640
+ |end line 39060
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7772
+size of char vocabulary: 51
+number of tokens in train: 8935
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_4 Individual_0. Size: 67804601
+training time: 10.6599869728
+train loss = 6.91484579, perplexity = 1007.11571076
+validation loss = 6.96770593, perplexity = 1061.78414300
+[EVOLUTION] Individual_0 fitness: 6.967706
+[EVOLUTION] Epoch_4 Individual_2. Size: 126135413
+training time: 19.856801033
+train loss = 6.88430650, perplexity = 976.82400334
+validation loss = 7.03401864, perplexity = 1134.58092947
+[EVOLUTION] Individual_2 fitness: 7.034019
+[EVOLUTION] Epoch_4 Individual_1. Size: 97345448
+training time: 11.0976588726
+train loss = 6.84451698, perplexity = 938.71975163
+validation loss = 6.98298614, perplexity = 1078.13301844
+[EVOLUTION] Individual_1 fitness: 6.982986
+[EVOLUTION] Epoch_4 Individual_5. Size: 160603396
+training time: 21.4622671604
+train loss = 6.77651633, perplexity = 877.00818614
+validation loss = 7.18323983, perplexity = 1317.16875918
+[EVOLUTION] Individual_5 fitness: 7.183240
+[EVOLUTION] Epoch_4 Individual_4. Size: 133402649
+training time: 20.1538040638
+train loss = 6.88110033, perplexity = 973.69715837
+validation loss = 7.17298944, perplexity = 1303.73622692
+[EVOLUTION] Individual_4 fitness: 7.172989
+[EVOLUTION] Epoch_4 Individual_3. Size: 120808560
+training time: 17.7162790298
+train loss = 6.89476796, perplexity = 987.09665703
+validation loss = 7.04675077, perplexity = 1149.11892227
+[EVOLUTION] Individual_3 fitness: 7.046751
+[EVOLUTION] Epoch_4 Individual_6. Size: 75802111
+training time: 10.3907518387
+train loss = 6.85527068, perplexity = 948.86893214
+validation loss = 7.18534594, perplexity = 1319.94578540
+[EVOLUTION] Individual_6 fitness: 7.185346
+[EVOLUTION] fitness ranking: [0, 1, 2, 3, 4, 5, 6] fitness: [6.9677059259663903, 6.9829861375894815, 7.0340186365992947, 7.0467507731602987, 7.1729894420596576, 7.1832398326266693, 7.1853459430703666]
+[EVOLUTION] Learner_3 and Teacher_0 distance: 0.261730
+[EVOLUTION] Learner_3 and Teacher_1 distance: 0.271181
+[EVOLUTION] Learner_3 and Teacher_2 distance: 0.322504
+[EVOLUTION] Individual_3 learn from Individual_2: 
+[EVOLUTION] - char_embed_size:  15
+[EVOLUTION] - dropout:  0.5
+[EVOLUTION] - Conv:  {'10': [10, 64], '1': [1, 150], '3': [3, 83], '2': [2, 150], '5': [5, 122], '4': [4, 110], '7': [7, 153], '6': [6, 65], '9': [9, 94], '8': [8, 11]}
+[EVOLUTION] - Recu:  {'1': [600], '3': [757], '2': [650], '4': [700]}
+[EVOLUTION] - learned:  [[3, 1], [1, 1], [13, 3]]
+[EVOLUTION] Learner_4 and Teacher_0 distance: 0.229738
+[EVOLUTION] Learner_4 and Teacher_2 distance: 1.652447
+[EVOLUTION] Individual_4 learn from Individual_2: 
+[EVOLUTION] - char_embed_size:  15
+[EVOLUTION] - dropout:  0.5
+[EVOLUTION] - Conv:  {'1': [1, 98], '3': [3, 20], '2': [2, 150], '5': [5, 157], '4': [4, 128], '7': [7, 140], '6': [6, 90]}
+[EVOLUTION] - Recu:  {'1': [600], '3': [600], '2': [650], '5': [800], '4': [700]}
+[EVOLUTION] - learned:  [[5, 1], [18, 2], [7, 3]]
+[EVOLUTION] Learner_5 and Teacher_2 distance: 0.569171
+[EVOLUTION] Individual_5 learn from Individual_2: 
+[EVOLUTION] - char_embed_size:  15
+[EVOLUTION] - dropout:  0.5
+[EVOLUTION] - Conv:  {'10': [10, 201], '18': [18, 110], '1': [1, 142], '3': [3, 202], '2': [2, 115], '5': [5, 31], '4': [4, 110], '7': [7, 134], '6': [6, 202], '9': [9, 109], '8': [8, 11]}
+[EVOLUTION] - Recu:  {'1': [757], '3': [600], '2': [650], '5': [800], '4': [700]}
+[EVOLUTION] - learned:  [[18, 4], [20, 2], [18, 4]]
+[EVOLUTION] Learner_6 and Teacher_0 distance: 0.831410
+[EVOLUTION] Individual_6 learn from Individual_0: 
+[EVOLUTION] - char_embed_size:  4
+[EVOLUTION] - dropout:  0.55224916585
+[EVOLUTION] - Conv:  {'16': [16, 67], '1': [1, 223], '3': [3, 95], '2': [2, 161], '5': [5, 117], '4': [4, 78], '7': [7, 142], '6': [6, 184]}
+[EVOLUTION] - Recu:  {'1': [425], '2': [581]}
+[EVOLUTION] - learned:  [[14, 4], [10, 3], [11, 4]]
+[EVOLUTION] Individual_0 EXP_-1 embed size: 4
+[EVOLUTION] Individual_0 EXP_-1 dropout: 0.55224916585
+[EVOLUTION] Individual_0 EXP_-1 Conv:
+ [ 85 184 168 122 213  61 154   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_0 EXP_-1 Recu:
+ [581 581   0   0   0]
+[EVOLUTION] Individual_1 EXP_-1 embed size: 1
+[EVOLUTION] Individual_1 EXP_-1 dropout: 0.00419819948142
+[EVOLUTION] Individual_1 EXP_-1 Conv:
+ [225 114  90  93 203  52 166 146 111   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_1 EXP_-1 Recu:
+ [721   0 521   0   0]
+[EVOLUTION] Individual_2 EXP_-1 embed size: 15
+[EVOLUTION] Individual_2 EXP_-1 dropout: 0.5
+[EVOLUTION] Individual_2 EXP_-1 Conv:
+ [ 50 150  50 110  70  90 140   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0   0   0   0   0]
+[EVOLUTION] Individual_2 EXP_-1 Recu:
+ [600 650 600 700 800]

@@ -32,9 +32,9 @@ flags.DEFINE_float  ('dropout',         0.5,                            'dropout
 flags.DEFINE_integer('highway_layers',  2,                              'number of highway layers')
 
 # evolution configuration
-flags.DEFINE_integer('num_winners',             3, 'number of winners of each generation')
-flags.DEFINE_integer('population_size',         7, 'number of individuals of each generation')
-flags.DEFINE_integer('max_evo_epochs',          5, 'max number of evolution iterations')
+flags.DEFINE_integer('num_winners',             5, 'number of winners of each generation')
+flags.DEFINE_integer('population_size',         15, 'number of individuals of each generation')
+flags.DEFINE_integer('max_evo_epochs',          25, 'max number of evolution iterations')
 flags.DEFINE_float  ('learning_threshold',      0.2, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
 flags.DEFINE_float  ('prob_mutation_param',     0.1, 'probability of mutation for individual parameters')
@@ -510,7 +510,7 @@ class Population:
             winner.show_knowledge()
 
     def show_history(self, individual):
-        for exp in self._epoch:
+        for exp in range(self._epoch):
             individual.show_knowledge(exp)
 
 

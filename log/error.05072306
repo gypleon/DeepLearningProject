@@ -54,13 +54,3 @@ I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow devi
 I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
 I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
 I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla K80, pci bus id: 0000:00:1e.0)
-Traceback (most recent call last):
-  File "evolution.py", line 550, in <module>
-    tf.app.run()
-  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/app.py", line 44, in run
-    _sys.exit(main(_sys.argv[:1] + flags_passthrough))
-  File "evolution.py", line 540, in main
-    population.show_history(winner)
-  File "evolution.py", line 513, in show_history
-    for exp in self._epoch:
-TypeError: 'int' object is not iterable
