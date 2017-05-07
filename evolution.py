@@ -349,14 +349,14 @@ class Individual:
         return self._fitness
 
     def absorb(self, struct_exp):
+        beneficial_exp = list()
         # TODO: only beneficial features
         cnn_last = struct_exp[-1][0]
         rnn_last = struct_exp[-1][1]
-        # cnn_i = np.random.choice(np.nonzero(cnn_last)[0])
-        # rnn_i = np.random.choice(np.nonzero(rnn_last)[0])
         for i in range(3):
             cnn_i = np.random.randint(len(cnn_last))
             rnn_i = np.random.randint(len(rnn_last))
+            beneficial_exp.append([cnn_i, rnn_i])
             if cnn_last[cnn_i] == 0 and self._knowledge.struct_exp[-1][0][cnn_i] > 0 and len(np.nonzero(self._knowledge.struct_exp[-1][0])[0]) == 1:
                 print('')
             else:
@@ -367,6 +367,7 @@ class Individual:
                 self._knowledge.struct_exp[-1][1][rnn_i] = rnn_last[rnn_i]
         self.decode_structure(self._knowledge.struct_exp[-1])
         self.experience(self._knowledge.struct_exp[-1])
+        return beneficial_exp
 
     # encode and return evolution knowledge
     def teach(self):
@@ -376,7 +377,7 @@ class Individual:
     def learn(self, knowledge):
         self._knowledge.char_embed_size.append(knowledge.char_embed_size[-1])
         self._knowledge.dropout.append(knowledge.dropout[-1])
-        self.absorb(knowledge.struct_exp)
+        return self.absorb(knowledge.struct_exp)
 
     def train(self):
         return
@@ -482,8 +483,13 @@ class Population:
             loser = self._population[loser_rank]
             teacher = self.find_teacher(loser)
             if teacher != None:
-                new_knowledge = loser.learn(teacher.teach())
-                print("[EVOLUTION] Individual_%d learn from Individual_%d: " % (loser._id_number, teacher._id_number), new_knowledge)
+                new_struct = loser.learn(teacher.teach())
+                print("[EVOLUTION] Individual_%d learn from Individual_%d: " % (loser._id_number, teacher._id_number))
+                print("[EVOLUTION] - char_embed_size: ", loser._knowledge.char_embed_size[-1])
+                print("[EVOLUTION] - dropout: ", loser._knowledge.dropout[-1])
+                print("[EVOLUTION] - Conv: ", loser._cnn_layer)
+                print("[EVOLUTION] - Recu: ", loser._rnn_layer)
+                print("[EVOLUTION] - learned: ", new_struct)
             else:
                 loser.mutation()
                 print("[EVOLUTION] Individual_%d mutate:" % loser._id_number)
