@@ -247,9 +247,6 @@ class Individual:
             selected_layer = np.random.choice(existed_layers)
             self._rnn_layers.pop(selected_layer)
 
-        print(self._cnn_layer)
-        print(self._rnn_layers)
-
         # refresh knowledge
         structure = self.encode_structure()
         self.experience(structure)
@@ -455,7 +452,6 @@ class Population:
             # TODO: normalize struct vector
             dissim_cnn = (time_discount * dissim_cnn + np.linalg.norm(struct1[0] - struct2[0])) / self.dissim_norm(time_discount, len(exp1))
             dissim_rnn = (time_discount * dissim_rnn + np.linalg.norm(struct1[1] - struct2[1])) / self.dissim_norm(time_discount, len(exp1))
-        print("[EVOLUTION] similarity teacher_%d and learner_%d: %f" % (individual_1._id_number, individual_2._id_number, 100/(dissim_cnn+dissim_rnn)))
         return 100 / (dissim_cnn + dissim_rnn)
 
     def dissim_norm(self, td, steps):
@@ -464,15 +460,16 @@ class Population:
         else:
             return 1
 
-    def find_teacher(self, leaner):
+    def find_teacher(self, learner):
         sim = FLAGS.learning_threshold
-        teacher_id = -1
-        for candidate_id in range(self._num_winners):
-            cur_sim = self.similarity(self._population[candidate_id], leaner)
+        teacher = None
+        for candidate_rank in range(self._num_winners):
+            cur_sim = self.similarity(learner, self._population[candidate_rank])
+            print("[EVOLUTION] Learner_%d and Teacher_%d distance: %f" % (learner._id_number, self._population[candidate_rank]._id_number, cur_sim))
             if cur_sim > sim:
                 sim = cur_sim
-                teacher_id = candidate_id
-        return teacher_id
+                teacher = self._population[candidate_rank]
+        return teacher
 
     def evolve(self, epoch):
         self._epoch = epoch
@@ -481,19 +478,27 @@ class Population:
         print("[EVOLUTION] fitness ranking:", [individual._id_number for individual in self._population], "fitness:", [individual.get_fitness() for individual in self._population])
         # average fitness
         print("[EVOLUTION] average fitness:", np.average([individual.get_fitness() for individual in self._population]))
-        for loser_id in range(self._num_winners, self._population_size):
-            teacher_id = self.find_teacher(self._population[loser_id])
-            if teacher_id >= 0:
-                self._population[loser_id].learn(self._population[teacher_id].teach())
-                print("[EVOLUTION] Individual_%d learn from Individual_%d" % (loser_id, teacher_id))
+        for loser_rank in range(self._num_winners, self._population_size):
+            loser = self._population[loser_rank]
+            teacher = self.find_teacher(loser)
+            if teacher != None:
+                new_knowledge = loser.learn(teacher.teach())
+                print("[EVOLUTION] Individual_%d learn from Individual_%d: " % (loser._id_number, teacher._id_number), new_knowledge)
             else:
-                self._population[loser_id].mutation()
-                print("[EVOLUTION] Individual_%d mutate" % loser_id)
-        for winner_id in range(self._num_winners):
-            self._population[winner_id]._knowledge.char_embed_size.append(self._population[winner_id]._knowledge.char_embed_size[-1])
-            self._population[winner_id]._knowledge.dropout.append(self._population[winner_id]._knowledge.dropout[-1])
-            self._population[winner_id].experience(self._population[winner_id]._knowledge.struct_exp[-1])
-            self._population[winner_id].show_knowledge()
+                loser.mutation()
+                print("[EVOLUTION] Individual_%d mutate:" % loser._id_number)
+                print("[EVOLUTION] - char_embed_size: ", loser._knowledge.char_embed_size[-1])
+                print("[EVOLUTION] - dropout: ", loser._knowledge.dropout[-1])
+                print("[EVOLUTION] - Recu: ", loser._rnn_layer)
+                print("[EVOLUTION] - Conv: ", loser._cnn_layer)
+                print("[EVOLUTION] - Recu: ", loser._rnn_layer)
+
+        for winner_rank in range(self._num_winners):
+            winner = self._population[winner_rank]
+            winner._knowledge.char_embed_size.append(winner._knowledge.char_embed_size[-1])
+            winner._knowledge.dropout.append(winner._knowledge.dropout[-1])
+            winner.experience(winner._knowledge.struct_exp[-1])
+            winner.show_knowledge()
 
     def show_history(self):
         for individual in self._population:
@@ -503,7 +508,7 @@ class Population:
 
 def main(_):
 
-    # TODO: stronger readable
+    # TODO: more readable
     logging.basicConfig(filename='%s/history.log' % FLAGS.population_dir, format='%(levelname)s:%(message)s', level=logging.INFO)
 
     if not os.path.exists(FLAGS.population_dir):
