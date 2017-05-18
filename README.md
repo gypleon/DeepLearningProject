@@ -1,4 +1,5 @@
-~~Sentence-based Emotion Recognition on Evolutionary Neural Networks~~ --
+~~Sentence-based Emotion Recognition on Evolutionary Neural Networks~~
+
 Evolve Complex Neural Networks for Natural Language Model
 =====
 # Introduction
