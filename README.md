@@ -1,4 +1,4 @@
-~~Sentence-based Emotion Recognition on Evolutionary Neural Networks~~
+~~Sentence-based Emotion Recognition on Evolutionary Neural Networks~~ --
 Evolve Complex Neural Networks for Natural Language Model
 =====
 # Introduction
@@ -9,8 +9,8 @@ Original network structure is designed by [Yoon Kim](https://github.com/yoonkim/
 [Penn Treebank](https://catalog.ldc.upenn.edu/ldc99t42)
 
 # Toolkits
-* Python 3.4.3
-* Tensorflow 1.0.0
+* Python 3.4.3 -> Python 2.7.6
+* Tensorflow 1.0.0 -> Tensorflow 1.0.1
 
 # Reference
 1. [Kim, Yoon, et al. "Character-aware neural language models." arXiv preprint arXiv:1508.06615 (2015).](https://arxiv.org/abs/1508.06615)
