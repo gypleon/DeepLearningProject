@@ -238,22 +238,33 @@ class Individual:
                 filter_type[1] = num_cnn_type_filters
             else:
                 # add / remove filters
-                filter_type[1] = np.random.randint(FLAGS.min_cnn_type_filters, FLAGS.max_cnn_type_filters)
+                filter_type[1] = np.random.randint(FLAGS.min_cnn_type_filters, FLAGS.max_cnn_type_filters+1)
         # mutate filter types
         if local:
-            num_var_cnn_filter_types = np.random.randint(-1, 2)
+            num_cnn_filter_types = int(np.random.normal(len(self._cnn_layer), len(self._cnn_layer) * FLAGS.local_std_rate))
+            if num_cnn_filter_types > FLAGS.max_cnn_filter_types:
+                num_cnn_filter_types = FLAGS.max_cnn_filter_types
+            elif num_cnn_filter_types < FLAGS.min_cnn_filter_types:
+                num_cnn_filter_types = FLAGS.min_cnn_filter_types
+            num_var_cnn_filter_types = len(self._cnn_layer) - num_cnn_filter_types
+        else:
+            num_cnn_filter_types = np.random.randint(FLAGS.min_cnn_filter_types, FLAGS.max_cnn_filter_types+1)
+            num_var_cnn_filter_types = len(self._cnn_layer) - num_cnn_filter_types
         # add filter type
-        if num_var_cnn_filter_types > 0 and len(self._cnn_layer) + num_var_cnn_filter_types <= min(FLAGS.max_cnn_filter_types, self._max_word_length):
-            # TODO: notice MAX_LEN
+        if num_var_cnn_filter_types > 0: # and len(self._cnn_layer) + num_var_cnn_filter_types <= min(FLAGS.max_cnn_filter_types, self._max_word_length):
             available_types = list(set(filter_type_i for filter_type_i in range(1, self._max_word_length+1))-set(filter_type[0] for filter_type in self._cnn_layer.values()))
-            new_type = np.random.choice(available_types)
-            num_new_type = np.random.randint(1, FLAGS.max_cnn_type_filters+1)
-            self._cnn_layer['%d' % new_type] = [new_type, num_new_type]
+            for i in range(num_var_cnn_filter_types):
+                new_type = np.random.choice(available_types)
+                available_types.remove(new_type)
+                num_new_type = np.random.randint(FLAGS.min_cnn_type_filters, FLAGS.max_cnn_type_filters+1)
+                self._cnn_layer['%d' % new_type] = [new_type, num_new_type]
         # remove filter type
-        elif num_var_cnn_filter_types < 0 and len(self._cnn_layer) + num_var_cnn_filter_types > 0:
+        elif num_var_cnn_filter_types < 0: # and len(self._cnn_layer) + num_var_cnn_filter_types > 0:
             existed_types = [filter_type[0] for filter_type in self._cnn_layer.values()]
-            selected_type = np.random.choice(existed_types)
-            self._cnn_layer.pop('%d' % selected_type)
+            for i in range(-num_var_cnn_filter_types):
+                selected_type = np.random.choice(existed_types)
+                existed_types.remove(selected_type)
+                self._cnn_layer.pop('%d' % selected_type)
             
         # mutate rnn
         # mutate number of units
