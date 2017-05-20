@@ -40,13 +40,13 @@ flags.DEFINE_integer('max_evo_epochs',          20, 'max number of evolution ite
 flags.DEFINE_float  ('learning_threshold',      0.2, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
 flags.DEFINE_float  ('prob_mutation_param',     0.1, 'probability of mutation for individual parameters')
-flags.DEFINE_integer('max_cnn_filter_types',    30, 'max number of cnn filter types')
-flags.DEFINE_integer('max_cnn_type_filters',    300, 'max number of cnn filters for a specific type')
+flags.DEFINE_integer('max_cnn_filter_types',    21, 'max number of cnn filter types')
 flags.DEFINE_integer('min_cnn_filter_types',    5, 'max number of cnn filter types')
+flags.DEFINE_integer('max_cnn_type_filters',    300, 'max number of cnn filters for a specific type')
 flags.DEFINE_integer('min_cnn_type_filters',    50, 'max number of cnn filters for a specific type')
 flags.DEFINE_integer('max_rnn_layers',          5, 'max number of rnn layers')
-flags.DEFINE_integer('max_rnn_layer_cells',     1000, 'max number of rnn layer cells')
 flags.DEFINE_integer('min_rnn_layers',          1, 'max number of rnn layers')
+flags.DEFINE_integer('max_rnn_layer_cells',     1000, 'max number of rnn layer cells')
 flags.DEFINE_integer('min_rnn_layer_cells',     100, 'max number of rnn layer cells')
 flags.DEFINE_integer('if_train_winner',         0, '1-train the winner; 0-do not train')
 flags.DEFINE_integer('local_std_rate',          0.1, '')
@@ -246,10 +246,10 @@ class Individual:
                 num_cnn_filter_types = FLAGS.max_cnn_filter_types
             elif num_cnn_filter_types < FLAGS.min_cnn_filter_types:
                 num_cnn_filter_types = FLAGS.min_cnn_filter_types
-            num_var_cnn_filter_types = len(self._cnn_layer) - num_cnn_filter_types
+            num_var_cnn_filter_types = num_cnn_filter_types - len(self._cnn_layer) 
         else:
             num_cnn_filter_types = np.random.randint(FLAGS.min_cnn_filter_types, FLAGS.max_cnn_filter_types+1)
-            num_var_cnn_filter_types = len(self._cnn_layer) - num_cnn_filter_types
+            num_var_cnn_filter_types = num_cnn_filter_types - len(self._cnn_layer) 
         # add filter type
         if num_var_cnn_filter_types > 0: # and len(self._cnn_layer) + num_var_cnn_filter_types <= min(FLAGS.max_cnn_filter_types, self._max_word_length):
             available_types = list(set(filter_type_i for filter_type_i in range(1, self._max_word_length+1))-set(filter_type[0] for filter_type in self._cnn_layer.values()))
@@ -268,12 +268,22 @@ class Individual:
             
         # mutate rnn
         # mutate number of units
-        num_var_rnn_layer_units = np.random.randint(-100, 101)
         for layer in self._rnn_layers.values():
-            if layer[0] + num_var_rnn_layer_units > 0:
-                layer[0] += num_var_rnn_layer_units
+            if local:
+                num_rnn_layer_units = int(np.random.normal(len(self._rnn_layers), len(self._rnn_layers) * FLAGS.local_std_rate))
+                if num_rnn_layer_units > FLAGS.max_rnn_layer_cells:
+                    num_rnn_layer_units = FLAGS.max_rnn_layer_cells
+                elif num_rnn_layer_units < FLAGS.min_rnn_layer_cells:
+                    num_rnn_layer_units = FLAGS.min_rnn_layer_cells
+            else:
+                num_rnn_layer_units = np.random.randint(FLAGS.min_rnn_layer_cells, FLAGS.max_rnn_layer_cells+1)
+            layer[0] = num_rnn_layer_units
         # mutate number of rnn layers 
-        num_var_rnn_layers = np.random.randint(-1, 2)
+        if local:
+            num_var_rnn_layers = 
+            np.random.randint(, 2)
+        else:
+            num_var_rnn_layers = np.random.randint(FLAGS.min_rnn_layer_cells, FLAGS.max_rnn_layer_cells+1)
         # add rnn layer
         if num_var_rnn_layers > 0 and len(self._rnn_layers) + num_var_rnn_layers <= FLAGS.max_rnn_layers:
             for i in range(1, FLAGS.max_rnn_layers+1):
@@ -557,7 +567,7 @@ class Population:
         teacher = None
         for candidate_rank in range(self._num_winners):
             distance = self.distance(loser, self._population[candidate_rank])
-            print("[EVOLUTION] %d and %d distance: %f" % (loser._id_number, teacher._id_number, distance))
+            print("[EVOLUTION] %d and %d distance: %f" % (loser._id_number, self._population[candidate_rank]._id_number, distance))
             if distance > sim:
                 sim = distance 
                 teacher = self._population[candidate_rank]
