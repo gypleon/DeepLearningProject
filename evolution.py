@@ -10,6 +10,7 @@ import threading
 
 import numpy as np
 import tensorflow as tf
+from scipy.spatial import distance as dist
 
 import model
 from data_reader import load_data, load_mini_data, DataReader
@@ -34,15 +35,21 @@ flags.DEFINE_integer('highway_layers',  2,                              'number 
 # evolution configuration
 flags.DEFINE_integer('num_winners',             1, 'number of winners of each generation')
 flags.DEFINE_integer('population_size',         3, 'number of individuals of each generation')
-flags.DEFINE_integer('num_touraments',          2, 'number of tourament rounds of each generation')
+flags.DEFINE_integer('num_touraments',          1, 'number of tourament rounds of each generation')
 flags.DEFINE_integer('max_evo_epochs',          20, 'max number of evolution iterations')
 flags.DEFINE_float  ('learning_threshold',      0.2, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
 flags.DEFINE_float  ('prob_mutation_param',     0.1, 'probability of mutation for individual parameters')
 flags.DEFINE_integer('max_cnn_filter_types',    30, 'max number of cnn filter types')
 flags.DEFINE_integer('max_cnn_type_filters',    300, 'max number of cnn filters for a specific type')
+flags.DEFINE_integer('min_cnn_filter_types',    5, 'max number of cnn filter types')
+flags.DEFINE_integer('min_cnn_type_filters',    50, 'max number of cnn filters for a specific type')
 flags.DEFINE_integer('max_rnn_layers',          5, 'max number of rnn layers')
+flags.DEFINE_integer('max_rnn_layer_cells',     1000, 'max number of rnn layer cells')
+flags.DEFINE_integer('min_rnn_layers',          1, 'max number of rnn layers')
+flags.DEFINE_integer('min_rnn_layer_cells',     100, 'max number of rnn layer cells')
 flags.DEFINE_integer('if_train_winner',         0, '1-train the winner; 0-do not train')
+flags.DEFINE_integer('local_std_rate',          0.1, '')
 
 # optimization
 flags.DEFINE_float  ('learning_rate_decay', 0.5,  'learning rate decay')
@@ -53,7 +60,7 @@ flags.DEFINE_integer('num_unroll_steps',    35,   'number of timesteps to unroll
 flags.DEFINE_integer('batch_size',          5,   'number of sequences to train on in parallel')
 flags.DEFINE_integer('max_epochs',          1,   'number of full passes through the training data')
 flags.DEFINE_float  ('max_grad_norm',       5.0,  'normalize gradients at')
-flags.DEFINE_integer('max_word_length',     65,   'maximum word length')
+flags.DEFINE_integer('max_word_length',     21,   'maximum word length')
 
 # bookkeeping
 flags.DEFINE_integer('seed',           3435, 'random number generator seed')
@@ -121,8 +128,8 @@ class Individual:
         self._graph = None
 
     def show_knowledge(self, exp=-1):
-        print("[EVOLUTION] Individual_%d EXP_%d embed size:" % (self._id_number, exp), self._knowledge.char_embed_size[exp])
-        print("[EVOLUTION] Individual_%d EXP_%d dropout:" % (self._id_number, exp), self._knowledge.dropout[exp])
+        # print("[EVOLUTION] Individual_%d EXP_%d embed size:" % (self._id_number, exp), self._knowledge.char_embed_size[exp])
+        # print("[EVOLUTION] Individual_%d EXP_%d dropout:" % (self._id_number, exp), self._knowledge.dropout[exp])
         print("[EVOLUTION] Individual_%d EXP_%d Conv:\n" % (self._id_number, exp), self._knowledge.struct_exp[exp][0])
         print("[EVOLUTION] Individual_%d EXP_%d Recu:\n" % (self._id_number, exp), self._knowledge.struct_exp[exp][1])
 
@@ -221,12 +228,20 @@ class Individual:
         # mutate cnn
         # mutate number of filters
         for filter_type in self._cnn_layer.values():
-            num_var_cnn_type_filters = np.random.randint(-50, 51)
-            # add / remove filters
-            if filter_type[1] + num_var_cnn_type_filters > 0:
-                filter_type[1] += num_var_cnn_type_filters
+            if local:
+                num_cnn_type_filters = int(np.random.normal(filter_type[1], filter_type[1] * FLAGS.local_std_rate))
+                if num_cnn_type_filters > FLAGS.max_cnn_type_filters:
+                    num_cnn_type_filters = FLAGS.max_cnn_type_filters 
+                elif num_cnn_type_filters < FLAGS.min_cnn_type_filters:
+                    num_cnn_type_filters = FLAGS.min_cnn_type_filters 
+                # add / remove filters
+                filter_type[1] = num_cnn_type_filters
+            else:
+                # add / remove filters
+                filter_type[1] = np.random.randint(FLAGS.min_cnn_type_filters, FLAGS.max_cnn_type_filters)
         # mutate filter types
-        num_var_cnn_filter_types = np.random.randint(-1, 2)
+        if local:
+            num_var_cnn_filter_types = np.random.randint(-1, 2)
         # add filter type
         if num_var_cnn_filter_types > 0 and len(self._cnn_layer) + num_var_cnn_filter_types <= min(FLAGS.max_cnn_filter_types, self._max_word_length):
             # TODO: notice MAX_LEN
@@ -436,15 +451,21 @@ class Population:
         cnn_layer = {}
         rnn_layers = {}
         # generate cnn layer
-        # TODO: notice MAX_LEN
-        num_filter_types = np.random.randint(5, 11)
-        for filter_type in range(1, num_filter_types+1):
-            num_type_filters = 10 * np.random.randint(5, 21)
+        # len: 5 - 21
+        num_filter_types = np.random.randint(FLAGS.min_cnn_filter_types, FLAGS.max_cnn_filter_types+1)
+        available_filter_types = [i for i in range(1, FLAGS.max_cnn_filter_types+1)]
+        for i in range(num_filter_types):
+            filter_type = np.random.choice(available_filter_types)
+            available_filter_types.remove(filter_type)
+            # num: 50 - 300
+            num_type_filters = np.random.randint(FLAGS.min_cnn_type_filters, FLAGS.max_cnn_type_filters)
             cnn_layer['%d' % filter_type] = [filter_type, num_type_filters]
         # generate rnn layers
-        num_rnn_layers = np.random.randint(1, FLAGS.max_rnn_layers+1)
+        # 1 - 5
+        num_rnn_layers = np.random.randint(FLAGS.min_rnn_layers, FLAGS.max_rnn_layers+1)
         for layer in range(1, num_rnn_layers+1):
-            num_units = 50 * np.random.randint(10, 17)
+            # 100 - 1000
+            num_units = np.random.randint(FLAGS.min_rnn_layer_cells, FLAGS.max_rnn_layer_cells+1)
             rnn_layers['%d' % layer] = [num_units]
         individual = Individual(id_number=id_number,
                                 cnn_layer=cnn_layer,
@@ -486,17 +507,32 @@ class Population:
         self._population.sort(key=lambda individual:individual.get_fitness())
         return self._population
 
+    def seuclidean(self, x, y):
+        assert len(x) == len(y), "x, y with different dimentionality."
+        dim = len(x)
+        V = [np.var([x[i], y[i]]) for i in range(dim)]
+        print(x)
+        print(y)
+        print(V)
+        return dist.seuclidean(x, y, V)
+
     def distance(self, individual_1, individual_2):
+        ''' history make no sense
         time_discount = 0.9
         dissim_cnn, dissim_rnn = 0, 0
+        '''
         exp1 = individual_1.get_exp()
         exp2 = individual_2.get_exp()
         assert len(exp1) == len(exp2), ("Individuals' experience missed.", exp1, exp2)
+        '''
         for struct1, struct2 in zip(exp1, exp2):
-            # TODO: normalize struct vector
             dissim_cnn = (time_discount * dissim_cnn + np.linalg.norm(struct1[0] - struct2[0])) / self.dissim_norm(time_discount, len(exp1))
             dissim_rnn = (time_discount * dissim_rnn + np.linalg.norm(struct1[1] - struct2[1])) / self.dissim_norm(time_discount, len(exp1))
         return 100 / (dissim_cnn + dissim_rnn)
+        '''
+        struct_1 = np.concatenate((exp1[-1][0], exp1[-1][1]))
+        struct_2 = np.concatenate((exp2[-1][0], exp2[-1][1]))
+        return self.seuclidean(struct_1, struct_2)
 
     def dissim_norm(self, td, steps):
         if steps > 1:
@@ -505,10 +541,12 @@ class Population:
             return 1
 
     def find_teacher(self, loser):
-        sim = FLAGS.learning_threshold
+        # sim = FLAGS.learning_threshold
+        sim = 0
         teacher = None
         for candidate_rank in range(self._num_winners):
             distance = self.distance(loser, self._population[candidate_rank])
+            print("[EVOLUTION] %d and %d distance: %f" % (loser._id_number, teacher._id_number, distance))
             if distance > sim:
                 sim = distance 
                 teacher = self._population[candidate_rank]
@@ -528,16 +566,16 @@ class Population:
             if teacher != None:
                 new_struct = loser.learn(teacher.teach())
                 print("[EVOLUTION] Individual_%d learn from Individual_%d: " % (loser._id_number, teacher._id_number))
-                print("[EVOLUTION] - char_embed_size: ", loser._knowledge.char_embed_size[-1])
-                print("[EVOLUTION] - dropout: ", loser._knowledge.dropout[-1])
+                # print("[EVOLUTION] - char_embed_size: ", loser._knowledge.char_embed_size[-1])
+                # print("[EVOLUTION] - dropout: ", loser._knowledge.dropout[-1])
                 print("[EVOLUTION] - Conv: ", loser._cnn_layer)
                 print("[EVOLUTION] - Recu: ", loser._rnn_layers)
                 print("[EVOLUTION] - learned: ", new_struct)
             else:
                 loser.mutation()
                 print("[EVOLUTION] Individual_%d mutate:" % loser._id_number)
-                print("[EVOLUTION] - char_embed_size: ", loser._knowledge.char_embed_size[-1])
-                print("[EVOLUTION] - dropout: ", loser._knowledge.dropout[-1])
+                # print("[EVOLUTION] - char_embed_size: ", loser._knowledge.char_embed_size[-1])
+                # print("[EVOLUTION] - dropout: ", loser._knowledge.dropout[-1])
                 print("[EVOLUTION] - Conv: ", loser._cnn_layer)
                 print("[EVOLUTION] - Recu: ", loser._rnn_layers)
 
@@ -570,7 +608,9 @@ def main(_):
 
     # perform evolution
     for epoch in range(FLAGS.max_evo_epochs):
+        print('==================================================================================================================================')
         print('[EVOLUTION] Epoch_%d started' % epoch)
+        print('==================================================================================================================================')
         population.evolve(epoch)
 
     # get result
