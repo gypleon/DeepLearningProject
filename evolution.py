@@ -266,12 +266,12 @@ class Individual:
         self.experience(structure)
 
     def mutation_param(self):
-        # TODO: notice EMBED SIZE 0
         self._knowledge.char_embed_size.append(FLAGS.char_embed_size + np.random.randint(-(FLAGS.char_embed_size-1), FLAGS.char_embed_size))
         self._knowledge.dropout.append(np.random.uniform(0, 0.9))
 
     def mutation(self):
-        self.mutation_param()
+        # deprecated
+        # self.mutation_param()
         self.mutation_struct()
 
     # train on mini-dataset
@@ -460,7 +460,7 @@ class Population:
             ranking = self.tourament(epoch, t, arena)
             print("[EVOLUTION] fitness ranking:", [individual._id_number for individual in self._population], "fitness:", [individual.get_fitness() for individual in self._population])
             for rank in range(len(ranking)):
-                ranking[rank]._score -= rank
+                ranking[rank]._score -= rank * ranking[rank].get_fitness()
         self._population.sort(key=lambda individual:individual.get_score(), reverse=True)
         winners = self._population[:self._num_winners]
         return winners
@@ -486,7 +486,7 @@ class Population:
         self._population.sort(key=lambda individual:individual.get_fitness())
         return self._population
 
-    def similarity(self, individual_1, individual_2):
+    def distance(self, individual_1, individual_2):
         time_discount = 0.9
         dissim_cnn, dissim_rnn = 0, 0
         exp1 = individual_1.get_exp()
@@ -505,10 +505,10 @@ class Population:
             return 1
 
     def find_teacher(self, learner):
-        sim = FLAGS.learning_threshold
+        sim = learning_threshold
         teacher = None
         for candidate_rank in range(self._num_winners):
-            cur_sim = self.similarity(learner, self._population[candidate_rank])
+            cur_sim = self.distance(learner, self._population[candidate_rank])
             if cur_sim > sim:
                 sim = cur_sim
                 teacher = self._population[candidate_rank]
