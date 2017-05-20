@@ -22,7 +22,7 @@ flags.DEFINE_integer('num_cpus', 4, 'number of CPUs on the system')
 flags.DEFINE_integer('num_gpus', 1, 'number of GPUs on the system')
 
 # data
-flags.DEFINE_integer('num_partitions',  100,  'total number of partitions for fitness training')
+flags.DEFINE_integer('num_partitions',  300,  'total number of partitions for fitness training')
 flags.DEFINE_string ('data_dir',        'data',   'data directory. Should contain train.txt/valid.txt/test.txt with input data')
 flags.DEFINE_string ('population_dir',  'population', 'evolution history, information for generations')
 
@@ -32,9 +32,10 @@ flags.DEFINE_float  ('dropout',         0.5,                            'dropout
 flags.DEFINE_integer('highway_layers',  2,                              'number of highway layers')
 
 # evolution configuration
-flags.DEFINE_integer('num_winners',             5, 'number of winners of each generation')
-flags.DEFINE_integer('population_size',         15, 'number of individuals of each generation')
-flags.DEFINE_integer('max_evo_epochs',          25, 'max number of evolution iterations')
+flags.DEFINE_integer('num_winners',             1, 'number of winners of each generation')
+flags.DEFINE_integer('population_size',         3, 'number of individuals of each generation')
+flags.DEFINE_integer('num_touraments',          2, 'number of tourament rounds of each generation')
+flags.DEFINE_integer('max_evo_epochs',          20, 'max number of evolution iterations')
 flags.DEFINE_float  ('learning_threshold',      0.2, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
 flags.DEFINE_float  ('prob_mutation_param',     0.1, 'probability of mutation for individual parameters')
@@ -85,11 +86,13 @@ class Individual:
                 char_embed_size=FLAGS.char_embed_size,
                 dropout=FLAGS.dropout):
 
-        # TODO: generate individual seed
         self._seed = np.random.seed(id_number * 13)
         self._id_number = id_number
         self._max_word_length = 0
         self._fitness = 0
+        self._score = 0
+        self._loss = 0
+        self._model_size = 0
 
         self._individual_dir = FLAGS.population_dir + "/individual_%d" % self._id_number
         if not os.path.exists(self._individual_dir):
@@ -115,9 +118,7 @@ class Individual:
 
         # create model
         self._gpu_id = self._id_number % FLAGS.num_gpus
-        self._graph = tf.Graph()
-        with self._graph.as_default() as g:
-            tf.set_random_seed(self._seed)
+        self._graph = None
 
     def show_knowledge(self, exp=-1):
         print("[EVOLUTION] Individual_%d EXP_%d embed size:" % (self._id_number, exp), self._knowledge.char_embed_size[exp])
@@ -130,6 +131,15 @@ class Individual:
 
     def get_fitness(self):
         return self._fitness
+
+    def get_score(self):
+        return self._score
+
+    def get_loss(self):
+        return self._loss
+
+    def get_model_size(self):
+        return self._model_size
 
     def encode_structure(self):
         struct_cnn = np.zeros([FLAGS.max_cnn_filter_types], dtype=np.int32)
@@ -161,9 +171,12 @@ class Individual:
     def experience(self, struct):
         self._knowledge.struct_exp.append(struct) 
 
-    # TODO: currently just reconstruct a graph without reusing parameters
     def update_graph(self, word_vocab, char_vocab, max_word_length, epoch):
+        # TODO: release previous graph?
+        self._graph = tf.Graph()
+        # self._graph.clear_collection(self._graph.get_all_collection_keys())
         with self._graph.as_default():
+            tf.set_random_seed(self._seed)
             with tf.device('/gpu:%d' % self._gpu_id):
                 initializer = tf.random_uniform_initializer(-FLAGS.param_init, FLAGS.param_init)
                 # TODO: other way to rebuild graph?
@@ -262,8 +275,9 @@ class Individual:
         self.mutation_struct()
 
     # train on mini-dataset
-    def fitness(self, word_vocab, char_vocab, word_tensors, char_tensors, max_word_length, evo_epoch):
-        self._model, self._valid_model, self._saver = self.update_graph(word_vocab, char_vocab, max_word_length, evo_epoch)
+    def loss(self, word_vocab, char_vocab, word_tensors, char_tensors, max_word_length, evo_epoch, tourament):
+        if 0 == tourament:
+            self._model, self._valid_model, self._saver = self.update_graph(word_vocab, char_vocab, max_word_length, evo_epoch)
 
         self._max_word_length = max_word_length
 
@@ -274,7 +288,9 @@ class Individual:
             # initialize model
             tf.global_variables_initializer().run()
             session.run(self._model.clear_char_embedding_padding)
-            print('[EVOLUTION] Epoch_%d Individual_%d. Size: %d' % (evo_epoch, self._id_number, model.model_size()))
+            if 0 == tourament:
+                self._model_size = model.model_size()
+            print('[EVOLUTION] Epoch_%d Individual_%d. Size: %d' % (evo_epoch, self._id_number, self._model_size))
             # self._summary_writer = tf.summary.FileWriter(self._individual_dir, graph=session.graph)
             session.run(
                 tf.assign(self._model.learning_rate, FLAGS.learning_rate),
@@ -283,8 +299,8 @@ class Individual:
             best_valid_loss = None
             rnn_state = session.run(self._model.initial_rnn_state)
             # train a mini
-            epoch_start_time = time.time()
-            avg_train_loss = 0.0
+            # epoch_start_time = time.time()
+            # avg_train_loss = 0.0
             count = 0
             for x, y in train_reader.iter():
                 count += 1
@@ -301,9 +317,9 @@ class Individual:
                     self._model.targets: y,
                     self._model.initial_rnn_state: rnn_state
                 })
-                avg_train_loss += 0.05 * (loss - avg_train_loss)
-                time_elapsed = time.time() - start_time
-            print('training time:', time.time()-epoch_start_time)
+                # avg_train_loss += 0.05 * (loss - avg_train_loss)
+                # time_elapsed = time.time() - start_time
+            # print('training time:', time.time()-epoch_start_time)
             # time to evaluate
             avg_valid_loss = 0.0
             count = 0
@@ -320,18 +336,12 @@ class Individual:
                     self._valid_model.initial_rnn_state: rnn_state,
                 })
                 avg_valid_loss += loss / valid_reader.length
-            print("train loss = %6.8f, perplexity = %6.8f" % (avg_train_loss, np.exp(avg_train_loss)))
-            print("validation loss = %6.8f, perplexity = %6.8f" % (avg_valid_loss, np.exp(avg_valid_loss)))
+            # print("train loss = %6.8f, perplexity = %6.8f" % (avg_train_loss, np.exp(avg_train_loss)))
+            # print("validation loss = %6.8f, perplexity = %6.8f" % (avg_valid_loss, np.exp(avg_valid_loss)))
             # save_as = '%s/epoch%03d_%.4f.model' % (self._individual_dir, evo_epoch, avg_valid_loss)
-            save_as = '%s/epoch%03d.model' % (self._individual_dir, evo_epoch)
+            # save_as = '%s/epoch%03d.model' % (self._individual_dir, evo_epoch)
             # self._saver.save(session, save_as)
             # print('Saved model', save_as)
-            ''' write out summary events '''
-            # summary = tf.Summary(value=[
-            #     tf.Summary.Value(tag="train_loss", simple_value=avg_train_loss),
-            #     tf.Summary.Value(tag="valid_loss", simple_value=avg_valid_loss)
-            # ])
-            # self._summary_writer.add_summary(summary, step)
             ''' decide if need to decay learning rate '''
             if best_valid_loss is not None and np.exp(avg_valid_loss) > np.exp(best_valid_loss) - FLAGS.decay_when:
                 print('validation perplexity did not improve enough, decay learning rate')
@@ -347,8 +357,11 @@ class Individual:
             else:
                 best_valid_loss = avg_valid_loss
 
-        self._fitness = best_valid_loss
-        return self._fitness
+        if tourament >= FLAGS.num_touraments:
+            tf.reset_default_graph()
+
+        self._loss = best_valid_loss
+        return self._loss
 
     def absorb(self, struct_exp):
         beneficial_exp = list()
@@ -405,14 +418,16 @@ class Population:
             self._population.append(self.generate(i))
         print("[EVOLUTION] Initialized Population")
 
-        self._average_fitness = None
+        # self._average_fitness = None
 
+    ''' deprecated
     def average_fitness(self):
         self._average_fitness = 0 
         for individual in self._population:
             self._average_fitness += individual.get_fitness()
         self._average_fitness /= self._population_size
         return self._average_fitness
+    '''
 
     def final_winner(self):
         return self._population[:self._num_winners]
@@ -438,14 +453,38 @@ class Population:
         return individual
 
     def select(self, epoch):
-        partition = np.random.randint(1, FLAGS.num_partitions+1)
-        word_vocab, char_vocab, word_tensors, char_tensors, max_word_length = load_mini_data(FLAGS.data_dir, FLAGS.max_word_length, eos=FLAGS.EOS, partition=partition, num_partitions=FLAGS.num_partitions)
         for individual in self._population:
-            print("[EVOLUTION] Individual_%d fitness: %f" % (individual._id_number, individual.fitness(word_vocab, char_vocab, word_tensors, char_tensors, max_word_length, epoch)))
-            # individual.clear_variables()
-        self._population.sort(key=lambda individual:individual.get_fitness())
+            individual._score = self._population_size * FLAGS.num_touraments
+        for t in range(FLAGS.num_touraments):
+            arena = np.random.randint(1, FLAGS.num_partitions+1)
+            ranking = self.tourament(epoch, t, arena)
+            print("[EVOLUTION] fitness ranking:", [individual._id_number for individual in self._population], "fitness:", [individual.get_fitness() for individual in self._population])
+            for rank in range(len(ranking)):
+                ranking[rank]._score -= rank
+        self._population.sort(key=lambda individual:individual.get_score(), reverse=True)
         winners = self._population[:self._num_winners]
         return winners
+
+    def fitness(self, loss, losses, model_size, model_sizes):
+        loss_weight = model_size
+        norm_loss = loss
+        fitness = loss_weight * norm_loss
+        return fitness
+
+    def tourament(self, epoch, t, partition):
+        word_vocab, char_vocab, word_tensors, char_tensors, max_word_length = load_mini_data(FLAGS.data_dir, FLAGS.max_word_length, eos=FLAGS.EOS, partition=partition, num_partitions=FLAGS.num_partitions)
+        losses = []
+        model_sizes = []
+        for individual in self._population:
+            losses.append(individual.loss(word_vocab, char_vocab, word_tensors, char_tensors, max_word_length, epoch, t))
+            model_sizes.append(individual.get_model_size())
+        for individual in self._population:
+            loss = individual.get_loss()
+            model_size = individual.get_model_size()
+            individual._fitness = self.fitness(loss, losses, model_size, model_sizes)
+            print("[EVOLUTION] Epoch_%d Tour_%d Individual_%d fitness: %f" % (epoch, t, individual._id_number, individual.get_fitness()))
+        self._population.sort(key=lambda individual:individual.get_fitness())
+        return self._population
 
     def similarity(self, individual_1, individual_2):
         time_discount = 0.9
@@ -480,7 +519,7 @@ class Population:
         self._epoch = epoch
         self.select(epoch)
         # display ranking
-        print("[EVOLUTION] fitness ranking:", [individual._id_number for individual in self._population], "fitness:", [individual.get_fitness() for individual in self._population])
+        print("[EVOLUTION] score ranking:", [individual._id_number for individual in self._population], "score:", [individual.get_score() for individual in self._population])
         # average fitness
         # print("[EVOLUTION] average fitness:", np.average([individual.get_fitness() for individual in self._population]))
         for loser_rank in range(self._num_winners, self._population_size):
