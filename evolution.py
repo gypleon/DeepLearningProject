@@ -280,22 +280,30 @@ class Individual:
             layer[0] = num_rnn_layer_units
         # mutate number of rnn layers 
         if local:
-            num_var_rnn_layers = 
-            np.random.randint(, 2)
+            num_rnn_layers = int(np.random.normal(len(self._rnn_layers), len(self._rnn_layers) * FLAGS.local_std_rate))
+            if num_rnn_layers > FLAGS.max_rnn_layers:
+                num_rnn_layers = FLAGS.max_rnn_layers
+            elif num_rnn_layers < FLAGS.min_rnn_layers:
+                num_rnn_layers = FLAGS.min_rnn_layers
+            num_var_rnn_layers = num_rnn_layers - len(self._rnn_layers)
         else:
-            num_var_rnn_layers = np.random.randint(FLAGS.min_rnn_layer_cells, FLAGS.max_rnn_layer_cells+1)
+            num_rnn_layers = np.random.randint(FLAGS.min_rnn_layers, FLAGS.max_rnn_layers+1)
+            num_var_rnn_layers = num_rnn_layers - len(self._rnn_layers)
         # add rnn layer
-        if num_var_rnn_layers > 0 and len(self._rnn_layers) + num_var_rnn_layers <= FLAGS.max_rnn_layers:
-            for i in range(1, FLAGS.max_rnn_layers+1):
-                if not self._rnn_layers.get('%d' % i):
-                    num_units = np.random.randint(450, 850)
-                    self._rnn_layers['%d' % i] = [num_units]
-                    break
+        if num_var_rnn_layers > 0: # and len(self._rnn_layers) + num_var_rnn_layers <= FLAGS.max_rnn_layers:
+            for j in range(num_var_rnn_layers):
+                for i in range(1, FLAGS.max_rnn_layers+1):
+                    if not self._rnn_layers.get('%d' % i):
+                        num_units = np.random.randint(FLAGS.min_rnn_layer_cells, FLAGS.max_rnn_layer_cells+1)
+                        self._rnn_layers['%d' % i] = [num_units]
+                        break
         # remove rnn layer
-        elif num_var_rnn_layers < 0 and len(self._rnn_layers) + num_var_rnn_layers > 0:
-            existed_layers = [layer for layer in self._rnn_layers.keys()]
-            selected_layer = np.random.choice(existed_layers)
-            self._rnn_layers.pop(selected_layer)
+        elif num_var_rnn_layers < 0: # and len(self._rnn_layers) + num_var_rnn_layers > 0:
+            for i in range(-num_var_rnn_layers):
+                existed_layers = [layer for layer in self._rnn_layers.keys()]
+                selected_layer = np.random.choice(existed_layers)
+                existed_layers.remove(selected_layer)
+                self._rnn_layers.pop(selected_layer)
 
         # refresh knowledge
         structure = self.encode_structure()
