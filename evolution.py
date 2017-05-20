@@ -290,7 +290,7 @@ class Individual:
             session.run(self._model.clear_char_embedding_padding)
             if 0 == tourament:
                 self._model_size = model.model_size()
-            print('[EVOLUTION] Epoch_%d Individual_%d. Size: %d' % (evo_epoch, self._id_number, self._model_size))
+            # print('[EVOLUTION] Epoch_%d Individual_%d. Size: %d' % (evo_epoch, self._id_number, self._model_size))
             # self._summary_writer = tf.summary.FileWriter(self._individual_dir, graph=session.graph)
             session.run(
                 tf.assign(self._model.learning_rate, FLAGS.learning_rate),
@@ -466,9 +466,9 @@ class Population:
         return winners
 
     def fitness(self, loss, losses, model_size, model_sizes):
-        loss_weight = model_size
-        norm_loss = loss
-        fitness = loss_weight * norm_loss
+        reg_size = (model_size - np.min(model_sizes)) / np.std(model_sizes)
+        reg_loss = (loss - np.min(losses)) / np.std(losses)
+        fitness = reg_size + reg_loss
         return fitness
 
     def tourament(self, epoch, t, partition):
@@ -482,7 +482,7 @@ class Population:
             loss = individual.get_loss()
             model_size = individual.get_model_size()
             individual._fitness = self.fitness(loss, losses, model_size, model_sizes)
-            print("[EVOLUTION] Epoch_%d Tour_%d Individual_%d fitness: %f" % (epoch, t, individual._id_number, individual.get_fitness()))
+            print("[EVOLUTION] Epoch_%d Tour_%d Individual_%d fitness: %f, loss: %f, size: %d" % (epoch, t, individual._id_number, individual.get_fitness(), loss, model_size))
         self._population.sort(key=lambda individual:individual.get_fitness())
         return self._population
 
