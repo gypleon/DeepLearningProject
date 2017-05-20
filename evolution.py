@@ -215,8 +215,8 @@ class Individual:
                     valid_model.update(model.loss_graph(valid_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
         return my_model, valid_model, saver
 
-    # TODO: bias on less parameters
-    def mutation_struct(self):
+    # TODO: local: Normal, non-local: Uniform
+    def mutation_struct(self, local=True):
 
         # mutate cnn
         # mutate number of filters
@@ -504,15 +504,15 @@ class Population:
         else:
             return 1
 
-    def find_teacher(self, learner):
-        sim = learning_threshold
+    def find_teacher(self, loser):
+        sim = FLAGS.learning_threshold
         teacher = None
         for candidate_rank in range(self._num_winners):
-            cur_sim = self.distance(learner, self._population[candidate_rank])
-            if cur_sim > sim:
-                sim = cur_sim
+            distance = self.distance(loser, self._population[candidate_rank])
+            if distance > sim:
+                sim = distance 
                 teacher = self._population[candidate_rank]
-                print("[EVOLUTION] Learner_%d and Teacher_%d distance: %f" % (learner._id_number, teacher._id_number, cur_sim))
+                print("[EVOLUTION] Loser_%d and Winner_%d distance: %f" % (loser._id_number, teacher._id_number, distance))
         return teacher
 
     def evolve(self, epoch):
