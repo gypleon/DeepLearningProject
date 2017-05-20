@@ -21,7 +21,7 @@ python evolution.py
 The evolution procedure would be printed on stdout including network structures of individuals at every generation. Other information, e.g. winners and losers at each generation, are also printed.
 
 # Acknoledgement
-I am very grateful to the paper written by Yoon Kim and the codes from mkroutikov. Thanks should also given to [Prof. LEUNG, Kwong-Sak](http://www.cs.cuhk.edu.hk/~ksleung/) and the tutor [LIU Pengfei](https://scholar.google.com.hk/citations?hl=en&view_op=list_works&gmla=AJsN-F7ES3mHLxTANgDceXsyYFXLlCm89-AxyODSAFmmHYwsbOUzVY169qXqlgozcpk6JBmvDXMgVi3bT26sxJlu6BIrnq3eZA&user=Jr-faBMAAAAJ).
+I am very grateful to the paper written by Yoon Kim and the codes from mkroutikov. Special thanks should be given to [Prof. LEUNG, Kwong-Sak](http://www.cs.cuhk.edu.hk/~ksleung/) and the tutor [LIU Pengfei](https://scholar.google.com.hk/citations?hl=en&view_op=list_works&gmla=AJsN-F7ES3mHLxTANgDceXsyYFXLlCm89-AxyODSAFmmHYwsbOUzVY169qXqlgozcpk6JBmvDXMgVi3bT26sxJlu6BIrnq3eZA&user=Jr-faBMAAAAJ) who give me numerous help.
 
 # Reference
 1. [Kim, Yoon, et al. "Character-aware neural language models." arXiv preprint arXiv:1508.06615 (2015).](https://arxiv.org/abs/1508.06615)

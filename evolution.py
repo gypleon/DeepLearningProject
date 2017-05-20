@@ -49,7 +49,7 @@ flags.DEFINE_integer('min_rnn_layers',          1, 'max number of rnn layers')
 flags.DEFINE_integer('max_rnn_layer_cells',     1000, 'max number of rnn layer cells')
 flags.DEFINE_integer('min_rnn_layer_cells',     100, 'max number of rnn layer cells')
 flags.DEFINE_integer('if_train_winner',         0, '1-train the winner; 0-do not train')
-flags.DEFINE_integer('local_std_rate',          0.1, '')
+flags.DEFINE_integer('local_std_rate',          0.2, '')
 
 # optimization
 flags.DEFINE_float  ('learning_rate_decay', 0.5,  'learning rate decay')
@@ -222,7 +222,6 @@ class Individual:
                     valid_model.update(model.loss_graph(valid_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
         return my_model, valid_model, saver
 
-    # TODO: local: Normal, non-local: Uniform
     def mutation_struct(self, local=True):
 
         # mutate cnn
@@ -453,6 +452,13 @@ class Population:
         self._num_winners = num_winners
         self._population_size = population_size
 
+        self._cnn_filter_stat = np.zeros([FLAGS.max_cnn_filter_types], dtype='int32')
+        self._rnn_layers_stat = np.zeros([FLAGS.max_rnn_layers], dtype='int32')
+        self._cnn_filter_wins = np.zeros([FLAGS.max_cnn_filter_types], dtype='int32')
+        self._rnn_layers_wins = np.zeros([FLAGS.max_rnn_layers], dtype='int32')
+        self._cnn_probs = np.zeros([FLAGS.max_cnn_filter_types])
+        self._rnn_probs = np.zeros([FLAGS.max_rnn_layers])
+
         # TODO: multi threads for multi GPUs
         self._threadings = []
 
@@ -472,6 +478,25 @@ class Population:
         self._average_fitness /= self._population_size
         return self._average_fitness
     '''
+
+    def update_probability(self):
+        # Laplace correction
+        
+    def update_struct_stat(self, cnn_filters, rnn_layers):
+        for f in range(len(cnn_filters)):
+            if cnn_filters[f] > 0:
+                self._cnn_filter_stat[f] += 1
+        for l in range(len(rnn_layers)):
+            if rnn_layers[l] > 0:
+                self._rnn_layers_stat[l] += 1
+
+    def update_struct_wins(self, cnn_filters, rnn_layers):
+        for f in range(len(cnn_filters)):
+            if cnn_filters[f] > 0:
+                self._cnn_filter_wins[f] += 1
+        for l in range(len(rnn_layers)):
+            if rnn_layers[l] > 0:
+                self._rnn_layers_wins[l] += 1
 
     def final_winner(self):
         return self._population[:self._num_winners]
@@ -513,6 +538,11 @@ class Population:
                 ranking[rank]._score -= rank * ranking[rank].get_fitness()
         self._population.sort(key=lambda individual:individual.get_score(), reverse=True)
         winners = self._population[:self._num_winners]
+        # update structure statistics
+        for ind_rank in range(self._population_size):
+            self.update_struct_stat(self._population[ind_rank]._knowledge.struct_exp[-1][0], self.population[ind_rank]._knowledge.struct_exp[-1][1])
+            if ind_rank <= self._num_winners:
+                self.update_struct_wins(self._population[ind_rank]._knowledge.struct_exp[-1][0], self.population[ind_rank]._knowledge.struct_exp[-1][1])
         return winners
 
     def fitness(self, loss, losses, model_size, model_sizes):
@@ -539,10 +569,12 @@ class Population:
     def seuclidean(self, x, y):
         assert len(x) == len(y), "x, y with different dimentionality."
         dim = len(x)
-        V = [np.var([x[i], y[i]]) for i in range(dim)]
-        print(x)
-        print(y)
-        print(V)
+        V = np.array([np.var([x[i], y[i]]) for i in range(dim)])
+        # correction for 0
+        V[V<1] = 1
+        # print(x)
+        # print(y)
+        # print(V)
         return dist.seuclidean(x, y, V)
 
     def distance(self, individual_1, individual_2):
