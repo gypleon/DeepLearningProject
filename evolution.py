@@ -406,24 +406,33 @@ class Individual:
         self._loss = best_valid_loss
         return self._loss
 
-    def absorb(self, struct_exp):
-        beneficial_exp = list()
-        # TODO: only beneficial features
+    def absorb(self, struct_exp, cnn_probs, rnn_probs):
         cnn_last = struct_exp[-1][0]
         rnn_last = struct_exp[-1][1]
-        for i in range(3):
-            # TODO: notice MAX_LEN
-            cnn_i = np.random.randint(self._max_word_length)
-            rnn_i = np.random.randint(len(rnn_last))
-            beneficial_exp.append([cnn_i, rnn_i])
-            if cnn_last[cnn_i] == 0 and self._knowledge.struct_exp[-1][0][cnn_i] > 0 and len(np.nonzero(self._knowledge.struct_exp[-1][0])[0]) == 1:
-                print('')
-            else:
-                self._knowledge.struct_exp[-1][0][cnn_i] = cnn_last[cnn_i]
-            if rnn_last[rnn_i] == 0 and self._knowledge.struct_exp[-1][1][rnn_i] > 0 and len(np.nonzero(self._knowledge.struct_exp[-1][1])[0]) == 1:
-                print('')
-            else:
-                self._knowledge.struct_exp[-1][1][rnn_i] = rnn_last[rnn_i]
+        beneficial_exp = []
+        cnn_selected = []
+        rnn_selected = []
+        for i in range(int(FLAGS.max_cnn_filter_types * 0.3)):
+            prob = 0
+            for cnn_i in range(len(cnn_last)):
+                if cnn_last[cnn_i] > 0 and cnn_probs[cnn_i] > prob and (cnn_i not in cnn_selected):
+                    prob = cnn_probs[cnn_i]
+                    cnn_selected.append(cnn_i)
+                    if cnn_last[cnn_i] == 0 and self._knowledge.struct_exp[-1][0][cnn_i] > 0 and len(np.nonzero(self._knowledge.struct_exp[-1][0])[0]) == 1:
+                        print('')
+                    else:
+                        self._knowledge.struct_exp[-1][0][cnn_i] = cnn_last[cnn_i]
+        for i in range(int(FLAGS.max_rnn_layers * 0.4)):
+            prob = 0
+            for rnn_i in range(len(rnn_last)):
+                if rnn_last[rnn_i] > 0 and rnn_probs[rnn_i] > prob and (rnn_i not in rnn_selected):
+                    prob = rnn_probs[rnn_i]
+                    rnn_selected.append(rnn_i)
+                    if rnn_last[rnn_i] == 0 and self._knowledge.struct_exp[-1][1][rnn_i] > 0 and len(np.nonzero(self._knowledge.struct_exp[-1][1])[0]) == 1:
+                        print('')
+                    else:
+                        self._knowledge.struct_exp[-1][1][rnn_i] = rnn_last[rnn_i]
+        beneficial_exp.append([cnn_selected, rnn_selected])
         self.decode_structure(self._knowledge.struct_exp[-1])
         self.experience(self._knowledge.struct_exp[-1])
         return beneficial_exp
@@ -433,10 +442,10 @@ class Individual:
         return self._knowledge
         
     # decode and absorb evolution knowledge
-    def learn(self, knowledge):
+    def learn(self, knowledge, cnn_probs, rnn_probs):
         self._knowledge.char_embed_size.append(knowledge.char_embed_size[-1])
         self._knowledge.dropout.append(knowledge.dropout[-1])
-        return self.absorb(knowledge.struct_exp)
+        return self.absorb(knowledge.struct_exp, cnn_probs, rnn_probs)
 
     def train(self):
         return
@@ -479,8 +488,18 @@ class Population:
         return self._average_fitness
     '''
 
-    def update_probability(self):
+    # with Laplace correction
+    def probability(self, i, wins, appears, total):
+        return (wins[i]+1) / (appears[i]+total)
+
+    def update_probs(self):
         # Laplace correction
+        for i in range(len(self._cnn_probs)):
+            self._cnn_probs[i] = self.probability(i, self._cnn_filter_wins, self._cnn_filter_stat, FLAGS.max_cnn_filter_types)
+        for i in range(len(self._rnn_probs)):
+            self._rnn_probs[i] = self.probability(i, self._rnn_layers_wins, self._rnn_layers_stat, FLAGS.max_rnn_layers)
+        print("[EVOLUTION] cnn probs:", self._cnn_probs)
+        print("[EVOLUTION] rnn probs:", self._rnn_probs)
         
     def update_struct_stat(self, cnn_filters, rnn_layers):
         for f in range(len(cnn_filters)):
@@ -528,6 +547,7 @@ class Population:
         return individual
 
     def select(self, epoch):
+        self.update_probs()
         for individual in self._population:
             individual._score = self._population_size * FLAGS.num_touraments
         for t in range(FLAGS.num_touraments):
@@ -540,15 +560,15 @@ class Population:
         winners = self._population[:self._num_winners]
         # update structure statistics
         for ind_rank in range(self._population_size):
-            self.update_struct_stat(self._population[ind_rank]._knowledge.struct_exp[-1][0], self.population[ind_rank]._knowledge.struct_exp[-1][1])
+            self.update_struct_stat(self._population[ind_rank]._knowledge.struct_exp[-1][0], self._population[ind_rank]._knowledge.struct_exp[-1][1])
             if ind_rank <= self._num_winners:
-                self.update_struct_wins(self._population[ind_rank]._knowledge.struct_exp[-1][0], self.population[ind_rank]._knowledge.struct_exp[-1][1])
+                self.update_struct_wins(self._population[ind_rank]._knowledge.struct_exp[-1][0], self._population[ind_rank]._knowledge.struct_exp[-1][1])
         return winners
 
     def fitness(self, loss, losses, model_size, model_sizes):
         reg_size = (model_size - np.min(model_sizes)) / np.std(model_sizes)
         reg_loss = (loss - np.min(losses)) / np.std(losses)
-        fitness = 1.1 * reg_size + reg_loss
+        fitness = 1.05 * reg_size + reg_loss
         return fitness
 
     def tourament(self, epoch, t, partition):
@@ -625,7 +645,7 @@ class Population:
             loser = self._population[loser_rank]
             teacher = self.find_teacher(loser)
             if teacher != None:
-                new_struct = loser.learn(teacher.teach())
+                new_struct = loser.learn(teacher.teach(), self._cnn_probs, self._rnn_probs)
                 print("[EVOLUTION] Individual_%d learn from Individual_%d: " % (loser._id_number, teacher._id_number))
                 # print("[EVOLUTION] - char_embed_size: ", loser._knowledge.char_embed_size[-1])
                 # print("[EVOLUTION] - dropout: ", loser._knowledge.dropout[-1])
