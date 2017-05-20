@@ -37,7 +37,7 @@ flags.DEFINE_integer('num_winners',             1, 'number of winners of each ge
 flags.DEFINE_integer('population_size',         3, 'number of individuals of each generation')
 flags.DEFINE_integer('num_touraments',          1, 'number of tourament rounds of each generation')
 flags.DEFINE_integer('max_evo_epochs',          20, 'max number of evolution iterations')
-flags.DEFINE_float  ('learning_threshold',      0.2, 'similarity threshold for teacher selection')
+flags.DEFINE_float  ('neighborhood_radius',     10, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
 flags.DEFINE_float  ('prob_mutation_param',     0.1, 'probability of mutation for individual parameters')
 flags.DEFINE_integer('max_cnn_filter_types',    21, 'max number of cnn filter types')
@@ -313,7 +313,7 @@ class Individual:
         self._knowledge.char_embed_size.append(FLAGS.char_embed_size + np.random.randint(-(FLAGS.char_embed_size-1), FLAGS.char_embed_size))
         self._knowledge.dropout.append(np.random.uniform(0, 0.9))
 
-    def mutation(self):
+    def mutation(self, local=True):
         # deprecated
         # self.mutation_param()
         self.mutation_struct()
@@ -518,7 +518,7 @@ class Population:
     def fitness(self, loss, losses, model_size, model_sizes):
         reg_size = (model_size - np.min(model_sizes)) / np.std(model_sizes)
         reg_loss = (loss - np.min(losses)) / np.std(losses)
-        fitness = reg_size + reg_loss
+        fitness = 1.1 * reg_size + reg_loss
         return fitness
 
     def tourament(self, epoch, t, partition):
@@ -570,16 +570,16 @@ class Population:
             return 1
 
     def find_teacher(self, loser):
-        # sim = FLAGS.learning_threshold
-        sim = 0
+        further_dist = 0
         teacher = None
         for candidate_rank in range(self._num_winners):
             distance = self.distance(loser, self._population[candidate_rank])
             print("[EVOLUTION] %d and %d distance: %f" % (loser._id_number, self._population[candidate_rank]._id_number, distance))
-            if distance > sim:
-                sim = distance 
-                teacher = self._population[candidate_rank]
-                print("[EVOLUTION] Loser_%d and Winner_%d distance: %f" % (loser._id_number, teacher._id_number, distance))
+            if distance < FLAGS.neighborhood_radius:
+                if distance > further_dist:
+                    further_dist = distance 
+                    teacher = self._population[candidate_rank]
+                    print("[EVOLUTION] Loser_%d and Winner_%d distance: %f" % (loser._id_number, teacher._id_number, distance))
         return teacher
 
     def evolve(self, epoch):
@@ -601,19 +601,32 @@ class Population:
                 print("[EVOLUTION] - Recu: ", loser._rnn_layers)
                 print("[EVOLUTION] - learned: ", new_struct)
             else:
-                loser.mutation()
+                loser.mutation(local=True)
                 print("[EVOLUTION] Individual_%d mutate:" % loser._id_number)
                 # print("[EVOLUTION] - char_embed_size: ", loser._knowledge.char_embed_size[-1])
                 # print("[EVOLUTION] - dropout: ", loser._knowledge.dropout[-1])
                 print("[EVOLUTION] - Conv: ", loser._cnn_layer)
                 print("[EVOLUTION] - Recu: ", loser._rnn_layers)
 
+        winner_to_mutate = []
+        for winner_1_rank in range(self._num_winners-1):
+            for winner_2_rank in range(winner_1_rank, self._num_winners):
+                winner_1 = self._population[winner_1_rank]
+                winner_2 = self._population[winner_2_rank]
+                if self.distance(winner_1, winner_2) <= FLAGS.neighborhood_radius:
+                    if winner_1.get_fitness() > winner_2.get_fitness():
+                        winner_to_mutate.append(winner_2_rank)
+                    else:
+                        winner_to_mutate.append(winner_1_rank)
         for winner_rank in range(self._num_winners):
             winner = self._population[winner_rank]
-            winner._knowledge.char_embed_size.append(winner._knowledge.char_embed_size[-1])
-            winner._knowledge.dropout.append(winner._knowledge.dropout[-1])
-            winner.experience(winner._knowledge.struct_exp[-1])
-            winner.show_knowledge()
+            if winner_rank in winner_to_mutate:
+                winner.mutation(local=False)
+            else:
+                winner._knowledge.char_embed_size.append(winner._knowledge.char_embed_size[-1])
+                winner._knowledge.dropout.append(winner._knowledge.dropout[-1])
+                winner.experience(winner._knowledge.struct_exp[-1])
+                winner.show_knowledge()
 
     def show_history(self, individual):
         for exp in range(self._epoch):
