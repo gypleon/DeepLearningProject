@@ -1,0 +1,1582 @@
+[EVOLUTION] Individual_0 EXP_-1 Conv:
+ [  0   0   0   0   0   0 248   0 166   0   0 215   0   0   0 195   0   0
+   0 208   0]
+[EVOLUTION] Individual_0 EXP_-1 Recu:
+ [765   0   0   0   0]
+[EVOLUTION] Generated Individual_0
+[EVOLUTION] Individual_1 EXP_-1 Conv:
+ [117 293 132   0 153   0 137 165  75 266  89 261   0 190 224 167   0 243
+ 131 129  59]
+[EVOLUTION] Individual_1 EXP_-1 Recu:
+ [277 855 897 759   0]
+[EVOLUTION] Generated Individual_1
+[EVOLUTION] Individual_2 EXP_-1 Conv:
+ [197 206 224 204 196 138 148  52 281 279  66 230 197  90 236 125 295 170
+ 108 124 172]
+[EVOLUTION] Individual_2 EXP_-1 Recu:
+ [636 355   0   0   0]
+[EVOLUTION] Generated Individual_2
+[EVOLUTION] Individual_3 EXP_-1 Conv:
+ [246   0 233 223   0   0 261 103   0   0   0   0 280 199 268 230 243   0
+   0 288   0]
+[EVOLUTION] Individual_3 EXP_-1 Recu:
+ [156 694 403 473   0]
+[EVOLUTION] Generated Individual_3
+[EVOLUTION] Individual_4 EXP_-1 Conv:
+ [198   0 198   0   0   0 262 277 237  91 265   0 119 274 209   0 266  80
+  62 182   0]
+[EVOLUTION] Individual_4 EXP_-1 Recu:
+ [876   0   0   0   0]
+[EVOLUTION] Generated Individual_4
+[EVOLUTION] Individual_5 EXP_-1 Conv:
+ [247   0 277  55 277  66   0   0   0  72  84 189 224 201 254   0 299 221
+ 290 239  89]
+[EVOLUTION] Individual_5 EXP_-1 Recu:
+ [558 676 931 165 713]
+[EVOLUTION] Generated Individual_5
+[EVOLUTION] Individual_6 EXP_-1 Conv:
+ [176 154  79 181 114   0 152 234 263 147   0 204 173 269 291 197 286 297
+ 246 289 170]
+[EVOLUTION] Individual_6 EXP_-1 Recu:
+ [400 778 453 171   0]
+[EVOLUTION] Generated Individual_6
+[EVOLUTION] Individual_7 EXP_-1 Conv:
+ [  0   0 206  62   0   0   0  82 155 118  53   0   0 246 208 201   0   0
+   0   0 128]
+[EVOLUTION] Individual_7 EXP_-1 Recu:
+ [201 384 158 245   0]
+[EVOLUTION] Generated Individual_7
+[EVOLUTION] Individual_8 EXP_-1 Conv:
+ [  0 195 156 198  93 180 169  58 160   0 260 115 295 103 136  86  84 229
+  78 118 124]
+[EVOLUTION] Individual_8 EXP_-1 Recu:
+ [339 902 422 551 926]
+[EVOLUTION] Generated Individual_8
+[EVOLUTION] Initialized Population
+==================================================================================================================================
+[EVOLUTION] Epoch_0 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.04761905  0.04761905  0.04761905  0.04761905  0.04761905  0.04761905
+  0.04761905  0.04761905  0.04761905  0.04761905  0.04761905  0.04761905
+  0.04761905  0.04761905  0.04761905  0.04761905  0.04761905  0.04761905
+  0.04761905  0.04761905  0.04761905]
+[EVOLUTION] rnn probs: [ 0.2  0.2  0.2  0.2  0.2]
+Loading partition: 70/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 28980
+ |end line 29400
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7726
+size of char vocabulary: 51
+number of tokens in train: 9076
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_0 Tour_0 Individual_0 fitness: 1.731547, loss: 7.487554, size: 15882367
+[EVOLUTION] Epoch_0 Tour_0 Individual_1 fitness: 2.502049, loss: 7.006499, size: 56968441
+[EVOLUTION] Epoch_0 Tour_0 Individual_2 fitness: 2.932477, loss: 6.890909, size: 71795257
+[EVOLUTION] Epoch_0 Tour_0 Individual_3 fitness: 1.566683, loss: 6.999063, size: 38470006
+[EVOLUTION] Epoch_0 Tour_0 Individual_4 fitness: 4.966932, loss: 8.086785, size: 49439025
+[EVOLUTION] Epoch_0 Tour_0 Individual_5 fitness: 2.562454, loss: 6.925586, size: 62481518
+[EVOLUTION] Epoch_0 Tour_0 Individual_6 fitness: 3.180220, loss: 6.895407, size: 76560615
+[EVOLUTION] Epoch_0 Tour_0 Individual_7 fitness: 0.000000, loss: 6.869586, size: 13695012
+[EVOLUTION] Epoch_0 Tour_0 Individual_8 fitness: 2.624790, loss: 7.046051, size: 57349139
+[EVOLUTION] fitness ranking: [7, 3, 0, 1, 5, 8, 2, 6, 4] fitness: [0.0, 1.5666829924166037, 1.7315468828649461, 2.5020493927951089, 2.5624536927839294, 2.6247896022291997, 2.9324774954919057, 3.1802198757909736, 4.9669323203249487]
+Loading partition: 66/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 27300
+ |end line 27720
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7740
+size of char vocabulary: 51
+number of tokens in train: 10027
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_0 Tour_1 Individual_7 fitness: 0.183776, loss: 7.069280, size: 13695012
+[EVOLUTION] Epoch_0 Tour_1 Individual_3 fitness: 1.501708, loss: 7.120803, size: 38470006
+[EVOLUTION] Epoch_0 Tour_1 Individual_0 fitness: 1.139418, loss: 7.547183, size: 15882367
+[EVOLUTION] Epoch_0 Tour_1 Individual_1 fitness: 4.950249, loss: 8.549244, size: 56968441
+[EVOLUTION] Epoch_0 Tour_1 Individual_5 fitness: 2.415357, loss: 6.965631, size: 62481518
+[EVOLUTION] Epoch_0 Tour_1 Individual_8 fitness: 2.495987, loss: 7.154416, size: 57349139
+[EVOLUTION] Epoch_0 Tour_1 Individual_2 fitness: 3.515954, loss: 7.326299, size: 71795257
+[EVOLUTION] Epoch_0 Tour_1 Individual_6 fitness: 3.457565, loss: 7.160306, size: 76560615
+[EVOLUTION] Epoch_0 Tour_1 Individual_4 fitness: 4.383171, loss: 8.439656, size: 49439025
+[EVOLUTION] fitness ranking: [7, 0, 3, 5, 8, 6, 2, 4, 1] fitness: [0.18377556137145906, 1.1394178479707879, 1.5017077533250027, 2.4153573715395922, 2.4959873464292226, 3.4575649749049866, 3.5159538639470411, 4.3831708423336462, 4.9502488135825438]
+[EVOLUTION] score ranking: [7, 3, 0, 5, 8, 2, 6, 1, 4] score: [18.0, 13.429901500933392, 13.397488386299319, 0.50411311424550576, -5.1078973968628887, -20.69058815663368, -21.549364005061747, -29.108138687045678, -52.417654458935111]
+[EVOLUTION] 5 and 7 distance: 9.797959
+[EVOLUTION] Loser_5 and Winner_7 distance: 9.797959
+[EVOLUTION] 5 and 3 distance: 9.643651
+[EVOLUTION] 5 and 0 distance: 9.797959
+[EVOLUTION] Individual_5 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 53], '10': [10, 118], '13': [13, 224], '12': [12, 189], '15': [15, 254], '14': [14, 201], '17': [17, 299], '19': [19, 290], '18': [18, 221], '21': [21, 89], '1': [1, 247], '3': [3, 206], '5': [5, 277], '4': [4, 62], '6': [6, 66], '9': [9, 155], '20': [20, 239], '8': [8, 82]}
+[EVOLUTION] - Recu:  {'1': [201], '3': [931], '2': [384], '5': [713], '4': [165]}
+[EVOLUTION] - learned:  [[[2, 3, 7, 8, 9, 10], [0, 1]]]
+[EVOLUTION] 8 and 7 distance: 10.000000
+[EVOLUTION] 8 and 3 distance: 10.000000
+[EVOLUTION] 8 and 0 distance: 9.797959
+[EVOLUTION] Loser_8 and Winner_0 distance: 9.797959
+[EVOLUTION] Individual_8 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 260], '13': [13, 295], '12': [12, 215], '15': [15, 136], '14': [14, 103], '17': [17, 84], '16': [16, 195], '19': [19, 78], '18': [18, 229], '21': [21, 124], '3': [3, 156], '2': [2, 195], '5': [5, 93], '4': [4, 198], '7': [7, 248], '6': [6, 180], '9': [9, 166], '20': [20, 208], '8': [8, 58]}
+[EVOLUTION] - Recu:  {'1': [765], '3': [422], '2': [902], '5': [926], '4': [551]}
+[EVOLUTION] - learned:  [[[6, 8, 11, 15, 19], [0]]]
+[EVOLUTION] 2 and 7 distance: 10.000000
+[EVOLUTION] 2 and 3 distance: 10.000000
+[EVOLUTION] 2 and 0 distance: 9.591663
+[EVOLUTION] Loser_2 and Winner_0 distance: 9.591663
+[EVOLUTION] Individual_2 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 66], '10': [10, 279], '13': [13, 197], '12': [12, 215], '15': [15, 236], '14': [14, 90], '17': [17, 295], '16': [16, 195], '19': [19, 108], '18': [18, 170], '21': [21, 172], '1': [1, 197], '3': [3, 224], '2': [2, 206], '5': [5, 196], '4': [4, 204], '7': [7, 248], '6': [6, 138], '9': [9, 166], '20': [20, 208], '8': [8, 52]}
+[EVOLUTION] - Recu:  {'1': [765], '2': [355]}
+[EVOLUTION] - learned:  [[[6, 8, 11, 15, 19], [0]]]
+[EVOLUTION] 6 and 7 distance: 9.797959
+[EVOLUTION] Loser_6 and Winner_7 distance: 9.797959
+[EVOLUTION] 6 and 3 distance: 9.433981
+[EVOLUTION] 6 and 0 distance: 9.591663
+[EVOLUTION] Individual_6 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 53], '10': [10, 118], '13': [13, 173], '12': [12, 204], '15': [15, 291], '14': [14, 269], '17': [17, 286], '16': [16, 197], '19': [19, 246], '18': [18, 297], '1': [1, 176], '3': [3, 206], '2': [2, 154], '5': [5, 114], '4': [4, 62], '7': [7, 152], '8': [8, 82], '9': [9, 155], '20': [20, 289], '21': [21, 170]}
+[EVOLUTION] - Recu:  {'1': [201], '3': [453], '2': [384], '4': [171]}
+[EVOLUTION] - learned:  [[[2, 3, 7, 8, 9, 10], [0, 1]]]
+[EVOLUTION] 1 and 7 distance: 9.380832
+[EVOLUTION] Loser_1 and Winner_7 distance: 9.380832
+[EVOLUTION] 1 and 3 distance: 9.797959
+[EVOLUTION] Loser_1 and Winner_3 distance: 9.797959
+[EVOLUTION] 1 and 0 distance: 9.165151
+[EVOLUTION] Individual_1 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 89], '10': [10, 266], '13': [13, 280], '12': [12, 261], '15': [15, 224], '14': [14, 190], '16': [16, 167], '19': [19, 131], '18': [18, 243], '1': [1, 246], '3': [3, 233], '2': [2, 293], '5': [5, 153], '4': [4, 223], '7': [7, 261], '8': [8, 103], '9': [9, 75], '20': [20, 129], '21': [21, 59]}
+[EVOLUTION] - Recu:  {'1': [156], '3': [897], '2': [694], '4': [759]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 6, 7, 12], [0, 1]]]
+[EVOLUTION] 4 and 7 distance: 9.000000
+[EVOLUTION] Loser_4 and Winner_7 distance: 9.000000
+[EVOLUTION] 4 and 3 distance: 8.774964
+[EVOLUTION] 4 and 0 distance: 8.246211
+[EVOLUTION] Individual_4 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 53], '10': [10, 118], '13': [13, 119], '15': [15, 209], '14': [14, 274], '17': [17, 266], '19': [19, 62], '18': [18, 80], '1': [1, 198], '3': [3, 206], '4': [4, 62], '7': [7, 262], '8': [8, 82], '9': [9, 155], '20': [20, 182]}
+[EVOLUTION] - Recu:  {'1': [201], '2': [384]}
+[EVOLUTION] - learned:  [[[2, 3, 7, 8, 9, 10], [0, 1]]]
+==================================================================================================================================
+[EVOLUTION] Epoch_1 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.11111111  0.04        0.13793103  0.14814815  0.07692308  0.08333333
+  0.10714286  0.10714286  0.10714286  0.11111111  0.11111111  0.11111111
+  0.11111111  0.13793103  0.13793103  0.14285714  0.11111111  0.07407407
+  0.07407407  0.13793103  0.11111111]
+[EVOLUTION] rnn probs: [ 0.35714286  0.33333333  0.36363636  0.36363636  0.28571429]
+Loading partition: 93/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 38640
+ |end line 39060
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7772
+size of char vocabulary: 51
+number of tokens in train: 8935
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_1 Tour_0 Individual_7 fitness: 0.140433, loss: 6.973695, size: 7895431
+[EVOLUTION] Epoch_1 Tour_0 Individual_3 fitness: 0.601784, loss: 6.986657, size: 15451492
+[EVOLUTION] Epoch_1 Tour_0 Individual_0 fitness: 0.000000, loss: 6.971630, size: 4848207
+[EVOLUTION] Epoch_1 Tour_0 Individual_5 fitness: 1.950593, loss: 6.974400, size: 57472593
+[EVOLUTION] Epoch_1 Tour_0 Individual_8 fitness: 3.897102, loss: 7.064262, size: 75373100
+[EVOLUTION] Epoch_1 Tour_0 Individual_2 fitness: 4.087937, loss: 7.068787, size: 78830988
+[EVOLUTION] Epoch_1 Tour_0 Individual_6 fitness: 2.465595, loss: 6.997114, size: 62630429
+[EVOLUTION] Epoch_1 Tour_0 Individual_1 fitness: 5.295137, loss: 7.164514, size: 74037684
+[EVOLUTION] Epoch_1 Tour_0 Individual_4 fitness: 3.144595, loss: 7.131294, size: 28007327
+[EVOLUTION] fitness ranking: [0, 7, 3, 5, 6, 4, 8, 2, 1] fitness: [0.0, 0.14043296754579382, 0.60178424708765021, 1.9505929108153039, 2.4655945486279136, 3.1445950737273538, 3.8971017278652216, 4.0879371882254487, 5.2951370077890685]
+Loading partition: 86/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 35700
+ |end line 36120
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7756
+size of char vocabulary: 51
+number of tokens in train: 10231
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_1 Tour_1 Individual_0 fitness: 2.040485, loss: 7.134863, size: 4848207
+[EVOLUTION] Epoch_1 Tour_1 Individual_7 fitness: 0.484605, loss: 6.993150, size: 7895431
+[EVOLUTION] Epoch_1 Tour_1 Individual_3 fitness: 0.384971, loss: 6.961349, size: 15451492
+[EVOLUTION] Epoch_1 Tour_1 Individual_5 fitness: 2.067181, loss: 6.974662, size: 57472593
+[EVOLUTION] Epoch_1 Tour_1 Individual_6 fitness: 3.354414, loss: 7.068199, size: 62630429
+[EVOLUTION] Epoch_1 Tour_1 Individual_4 fitness: 2.231779, loss: 7.079629, size: 28007327
+[EVOLUTION] Epoch_1 Tour_1 Individual_8 fitness: 4.978624, loss: 7.166973, size: 75373100
+[EVOLUTION] Epoch_1 Tour_1 Individual_2 fitness: 4.353943, loss: 7.103177, size: 78830988
+[EVOLUTION] Epoch_1 Tour_1 Individual_1 fitness: 5.616751, loss: 7.225360, size: 74037684
+[EVOLUTION] fitness ranking: [3, 7, 0, 5, 4, 6, 2, 8, 1] fitness: [0.3849713284770615, 0.4846050242694887, 2.04048470025909, 2.0671806647935571, 2.2317794609876191, 3.3544143281737231, 4.3539425671955936, 4.9786244307972769, 5.6167514227701298]
+[EVOLUTION] score ranking: [7, 3, 0, 5, 4, 6, 2, 8, 1] score: [17.374962008184717, 16.7964315058247, 13.91903059948182, 5.9466792731734177, -6.6500932125872456, -8.6344498353802717, -36.739215720751702, -40.232981382772266, -69.295107444473587]
+[EVOLUTION] 5 and 7 distance: 9.643651
+[EVOLUTION] Loser_5 and Winner_7 distance: 9.643651
+[EVOLUTION] 5 and 3 distance: 9.643651
+[EVOLUTION] 5 and 0 distance: 10.000000
+[EVOLUTION] Individual_5 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 60], '10': [10, 104], '13': [13, 224], '12': [12, 189], '15': [15, 170], '14': [14, 300], '17': [17, 299], '16': [16, 181], '19': [19, 290], '18': [18, 221], '21': [21, 113], '1': [1, 247], '3': [3, 206], '5': [5, 277], '4': [4, 61], '6': [6, 66], '9': [9, 160], '20': [20, 239], '8': [8, 100]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [931], '2': [100], '5': [713], '4': [165]}
+[EVOLUTION] - learned:  [[[3, 7, 9, 13, 15, 8, 10, 14, 20], [0, 1]]]
+[EVOLUTION] 4 and 7 distance: 8.544004
+[EVOLUTION] Loser_4 and Winner_7 distance: 8.544004
+[EVOLUTION] 4 and 3 distance: 8.485281
+[EVOLUTION] 4 and 0 distance: 8.717798
+[EVOLUTION] Loser_4 and Winner_0 distance: 8.717798
+[EVOLUTION] Individual_4 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 53], '10': [10, 118], '13': [13, 119], '12': [12, 275], '15': [15, 209], '14': [14, 274], '17': [17, 266], '16': [16, 198], '19': [19, 62], '18': [18, 80], '1': [1, 198], '3': [3, 206], '4': [4, 62], '7': [7, 125], '8': [8, 82], '9': [9, 145], '20': [20, 187]}
+[EVOLUTION] - Recu:  {'1': [100], '2': [384]}
+[EVOLUTION] - learned:  [[[6, 11, 15, 8, 19], [0]]]
+[EVOLUTION] 6 and 7 distance: 9.643651
+[EVOLUTION] Loser_6 and Winner_7 distance: 9.643651
+[EVOLUTION] 6 and 3 distance: 9.797959
+[EVOLUTION] Loser_6 and Winner_3 distance: 9.797959
+[EVOLUTION] 6 and 0 distance: 9.643651
+[EVOLUTION] Individual_6 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 53], '10': [10, 118], '13': [13, 266], '12': [12, 204], '15': [15, 256], '14': [14, 151], '17': [17, 228], '16': [16, 197], '19': [19, 246], '18': [18, 297], '1': [1, 248], '3': [3, 189], '2': [2, 154], '5': [5, 114], '4': [4, 184], '7': [7, 226], '8': [8, 92], '9': [9, 155], '20': [20, 289], '21': [21, 170]}
+[EVOLUTION] - Recu:  {'1': [201], '3': [453], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 6, 12, 13, 7, 14, 16], [1, 3]]]
+[EVOLUTION] 2 and 7 distance: 9.591663
+[EVOLUTION] Loser_2 and Winner_7 distance: 9.591663
+[EVOLUTION] 2 and 3 distance: 9.797959
+[EVOLUTION] Loser_2 and Winner_3 distance: 9.797959
+[EVOLUTION] 2 and 0 distance: 9.591663
+[EVOLUTION] Individual_2 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 66], '10': [10, 279], '13': [13, 266], '12': [12, 215], '15': [15, 256], '14': [14, 151], '17': [17, 228], '16': [16, 195], '19': [19, 108], '18': [18, 170], '21': [21, 172], '1': [1, 248], '3': [3, 189], '2': [2, 206], '5': [5, 196], '4': [4, 184], '7': [7, 226], '6': [6, 138], '9': [9, 166], '20': [20, 208], '8': [8, 92]}
+[EVOLUTION] - Recu:  {'1': [765], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 6, 12, 13, 7, 14, 16], [1, 3]]]
+[EVOLUTION] 8 and 7 distance: 10.000000
+[EVOLUTION] 8 and 3 distance: 10.000000
+[EVOLUTION] 8 and 0 distance: 9.797959
+[EVOLUTION] Loser_8 and Winner_0 distance: 9.797959
+[EVOLUTION] Individual_8 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 260], '13': [13, 295], '12': [12, 275], '15': [15, 136], '14': [14, 103], '17': [17, 84], '16': [16, 198], '19': [19, 78], '18': [18, 229], '21': [21, 124], '3': [3, 156], '2': [2, 195], '5': [5, 93], '4': [4, 198], '7': [7, 125], '6': [6, 180], '9': [9, 145], '20': [20, 187], '8': [8, 58]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [422], '2': [902], '5': [926], '4': [551]}
+[EVOLUTION] - learned:  [[[6, 11, 15, 8, 19], [0]]]
+[EVOLUTION] 1 and 7 distance: 9.591663
+[EVOLUTION] Loser_1 and Winner_7 distance: 9.591663
+[EVOLUTION] 1 and 3 distance: 9.797959
+[EVOLUTION] Loser_1 and Winner_3 distance: 9.797959
+[EVOLUTION] 1 and 0 distance: 9.591663
+[EVOLUTION] Individual_1 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 89], '10': [10, 266], '13': [13, 266], '12': [12, 261], '15': [15, 256], '14': [14, 151], '17': [17, 228], '16': [16, 167], '19': [19, 131], '18': [18, 243], '1': [1, 248], '3': [3, 189], '2': [2, 293], '5': [5, 153], '4': [4, 184], '7': [7, 226], '8': [8, 92], '9': [9, 75], '20': [20, 129], '21': [21, 59]}
+[EVOLUTION] - Recu:  {'1': [156], '3': [897], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 6, 12, 13, 7, 14, 16], [1, 3]]]
+[EVOLUTION] Individual_0 EXP_-1 Conv:
+ [  0   0   0   0   0   0 125   0 145   0   0 275   0   0   0 198   0   0
+   0 187   0]
+[EVOLUTION] Individual_0 EXP_-1 Recu:
+ [100   0   0   0   0]
+==================================================================================================================================
+[EVOLUTION] Epoch_2 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.15151515  0.03448276  0.16666667  0.2         0.09677419  0.11111111
+  0.14285714  0.16666667  0.16666667  0.15151515  0.14705882  0.15151515
+  0.14705882  0.18918919  0.18918919  0.17647059  0.15151515  0.09090909
+  0.09090909  0.16666667  0.15151515]
+[EVOLUTION] rnn probs: [ 0.36363636  0.35        0.33333333  0.375       0.33333333]
+Loading partition: 40/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 16380
+ |end line 16800
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7763
+size of char vocabulary: 51
+number of tokens in train: 9544
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_2 Tour_0 Individual_7 fitness: 0.741785, loss: 7.102988, size: 6450379
+[EVOLUTION] Epoch_2 Tour_0 Individual_3 fitness: 0.503172, loss: 6.965908, size: 10652374
+[EVOLUTION] Epoch_2 Tour_0 Individual_0 fitness: 3.431237, loss: 8.045252, size: 4847298
+[EVOLUTION] Epoch_2 Tour_0 Individual_5 fitness: 2.291527, loss: 6.931581, size: 59754690
+[EVOLUTION] Epoch_2 Tour_0 Individual_4 fitness: 1.560302, loss: 7.025604, size: 33605834
+[EVOLUTION] Epoch_2 Tour_0 Individual_6 fitness: 2.511504, loss: 6.936206, size: 65122950
+[EVOLUTION] Epoch_2 Tour_0 Individual_2 fitness: 2.853190, loss: 6.870042, size: 79029212
+[EVOLUTION] Epoch_2 Tour_0 Individual_8 fitness: 2.592314, loss: 7.021680, size: 60735632
+[EVOLUTION] Epoch_2 Tour_0 Individual_1 fitness: 2.447232, loss: 6.942125, size: 63002586
+[EVOLUTION] fitness ranking: [3, 7, 4, 5, 1, 6, 8, 2, 0] fitness: [0.50317176094519622, 0.74178512916570039, 1.5603017796199479, 2.2915267875443321, 2.4472319359385977, 2.511504322217915, 2.5923135177204508, 2.8531901297144162, 3.4312365278262056]
+Loading partition: 32/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 13020
+ |end line 13440
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7761
+size of char vocabulary: 51
+number of tokens in train: 9124
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_2 Tour_1 Individual_3 fitness: 0.424680, loss: 6.974247, size: 10652374
+[EVOLUTION] Epoch_2 Tour_1 Individual_7 fitness: 2.415556, loss: 7.232626, size: 6450379
+[EVOLUTION] Epoch_2 Tour_1 Individual_4 fitness: 1.155511, loss: 6.956000, size: 33605834
+[EVOLUTION] Epoch_2 Tour_1 Individual_5 fitness: 2.188865, loss: 6.959315, size: 59754690
+[EVOLUTION] Epoch_2 Tour_1 Individual_1 fitness: 2.359337, loss: 6.964783, size: 63002586
+[EVOLUTION] Epoch_2 Tour_1 Individual_6 fitness: 2.412456, loss: 6.961370, size: 65122950
+[EVOLUTION] Epoch_2 Tour_1 Individual_8 fitness: 3.638430, loss: 7.128788, size: 60735632
+[EVOLUTION] Epoch_2 Tour_1 Individual_2 fitness: 2.853190, loss: 6.950070, size: 79029212
+[EVOLUTION] Epoch_2 Tour_1 Individual_0 fitness: 2.554058, loss: 7.256652, size: 4847298
+[EVOLUTION] fitness ranking: [3, 4, 5, 1, 6, 7, 0, 2, 8] fitness: [0.42467998839927568, 1.1555105741443161, 2.1888654543711925, 2.3593371183786847, 2.4124560686892602, 2.4155564988256013, 2.5540580808625526, 2.8531901297144162, 3.6384297668231076]
+[EVOLUTION] score ranking: [3, 4, 5, 7, 1, 6, 2, 0, 8] score: [18.0, 13.723885866615788, 6.7476887286246177, 5.1804323767062943, 1.1330609011095554, -4.2073458858466157, -21.944661816001826, -24.774240707784962, -26.661319240907567]
+[EVOLUTION] 7 and 3 distance: 7.211103
+[EVOLUTION] Loser_7 and Winner_3 distance: 7.211103
+[EVOLUTION] 7 and 4 distance: 8.944272
+[EVOLUTION] Loser_7 and Winner_4 distance: 8.944272
+[EVOLUTION] 7 and 5 distance: 9.380832
+[EVOLUTION] Loser_7 and Winner_5 distance: 9.380832
+[EVOLUTION] Individual_7 learn from Individual_5: 
+[EVOLUTION] - Conv:  {'11': [11, 60], '10': [10, 104], '13': [13, 224], '12': [12, 189], '15': [15, 170], '14': [14, 300], '17': [17, 299], '16': [16, 181], '21': [21, 152], '1': [1, 247], '3': [3, 206], '5': [5, 277], '4': [4, 61], '6': [6, 66], '9': [9, 160], '20': [20, 239], '8': [8, 100]}
+[EVOLUTION] - Recu:  {'1': [100], '2': [100], '4': [165]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 4, 5, 7, 13, 8, 14, 9, 15, 10, 11, 19, 12, 16], [0, 3, 1]]]
+[EVOLUTION] 1 and 3 distance: 9.380832
+[EVOLUTION] Loser_1 and Winner_3 distance: 9.380832
+[EVOLUTION] 1 and 4 distance: 9.797959
+[EVOLUTION] Loser_1 and Winner_4 distance: 9.797959
+[EVOLUTION] 1 and 5 distance: 9.848858
+[EVOLUTION] Loser_1 and Winner_5 distance: 9.848858
+[EVOLUTION] Individual_1 learn from Individual_5: 
+[EVOLUTION] - Conv:  {'11': [11, 60], '10': [10, 104], '13': [13, 224], '12': [12, 189], '15': [15, 170], '14': [14, 300], '17': [17, 299], '16': [16, 181], '19': [19, 131], '18': [18, 243], '21': [21, 59], '1': [1, 247], '3': [3, 206], '2': [2, 293], '5': [5, 277], '4': [4, 61], '7': [7, 226], '6': [6, 66], '9': [9, 160], '20': [20, 239], '8': [8, 100]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [897], '2': [100], '4': [165]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 4, 5, 7, 13, 8, 14, 9, 15, 10, 11, 19, 12, 16], [0, 3, 1]]]
+[EVOLUTION] 6 and 3 distance: 9.380832
+[EVOLUTION] Loser_6 and Winner_3 distance: 9.380832
+[EVOLUTION] 6 and 4 distance: 9.219544
+[EVOLUTION] 6 and 5 distance: 9.848858
+[EVOLUTION] Loser_6 and Winner_5 distance: 9.848858
+[EVOLUTION] Individual_6 learn from Individual_5: 
+[EVOLUTION] - Conv:  {'11': [11, 60], '10': [10, 104], '13': [13, 224], '12': [12, 189], '15': [15, 170], '14': [14, 300], '17': [17, 299], '16': [16, 181], '19': [19, 246], '18': [18, 297], '21': [21, 170], '1': [1, 247], '3': [3, 206], '2': [2, 154], '5': [5, 277], '4': [4, 61], '7': [7, 226], '6': [6, 66], '9': [9, 160], '20': [20, 239], '8': [8, 100]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [453], '2': [100], '4': [165]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 4, 5, 7, 13, 8, 14, 9, 15, 10, 11, 19, 12, 16], [0, 3, 1]]]
+[EVOLUTION] 2 and 3 distance: 9.380832
+[EVOLUTION] Loser_2 and Winner_3 distance: 9.380832
+[EVOLUTION] 2 and 4 distance: 9.797959
+[EVOLUTION] Loser_2 and Winner_4 distance: 9.797959
+[EVOLUTION] 2 and 5 distance: 9.848858
+[EVOLUTION] Loser_2 and Winner_5 distance: 9.848858
+[EVOLUTION] Individual_2 learn from Individual_5: 
+[EVOLUTION] - Conv:  {'11': [11, 60], '10': [10, 104], '13': [13, 224], '12': [12, 189], '15': [15, 170], '14': [14, 300], '17': [17, 299], '16': [16, 181], '19': [19, 108], '18': [18, 170], '21': [21, 172], '1': [1, 247], '3': [3, 206], '2': [2, 206], '5': [5, 277], '4': [4, 61], '7': [7, 226], '6': [6, 66], '9': [9, 160], '20': [20, 239], '8': [8, 100]}
+[EVOLUTION] - Recu:  {'1': [100], '2': [100], '4': [165]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 4, 5, 7, 13, 8, 14, 9, 15, 10, 11, 19, 12, 16], [0, 3, 1]]]
+[EVOLUTION] 0 and 3 distance: 7.745967
+[EVOLUTION] Loser_0 and Winner_3 distance: 7.745967
+[EVOLUTION] 0 and 4 distance: 7.211103
+[EVOLUTION] 0 and 5 distance: 9.797959
+[EVOLUTION] Loser_0 and Winner_5 distance: 9.797959
+[EVOLUTION] Individual_0 learn from Individual_5: 
+[EVOLUTION] - Conv:  {'11': [11, 60], '10': [10, 104], '13': [13, 224], '12': [12, 189], '15': [15, 170], '14': [14, 300], '17': [17, 299], '16': [16, 181], '1': [1, 247], '3': [3, 206], '5': [5, 277], '4': [4, 61], '7': [7, 125], '6': [6, 66], '9': [9, 160], '20': [20, 239], '8': [8, 100]}
+[EVOLUTION] - Recu:  {'1': [100], '2': [100], '4': [165]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 4, 5, 7, 13, 8, 14, 9, 15, 10, 11, 19, 12, 16], [0, 3, 1]]]
+[EVOLUTION] 8 and 3 distance: 9.797959
+[EVOLUTION] Loser_8 and Winner_3 distance: 9.797959
+[EVOLUTION] 8 and 4 distance: 8.944272
+[EVOLUTION] 8 and 5 distance: 10.000000
+[EVOLUTION] Individual_8 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 260], '13': [13, 183], '12': [12, 275], '15': [15, 258], '14': [14, 148], '17': [17, 252], '16': [16, 198], '19': [19, 78], '18': [18, 229], '21': [21, 124], '3': [3, 230], '2': [2, 195], '5': [5, 93], '4': [4, 146], '7': [7, 197], '6': [6, 180], '9': [9, 145], '20': [20, 187], '8': [8, 78]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [422], '2': [100], '5': [926], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 3, 6, 7, 13, 12, 14, 16], [1, 3]]]
+[EVOLUTION] Individual_5 EXP_-1 Conv:
+ [247   0 206  61 277  66   0 100 160 104  60 189 224 300 170 181 299 221
+ 290 239 113]
+[EVOLUTION] Individual_5 EXP_-1 Recu:
+ [100 100 931 165 713]
+==================================================================================================================================
+[EVOLUTION] Epoch_3 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.18421053  0.03030303  0.20930233  0.23809524  0.11111111  0.13333333
+  0.16666667  0.22727273  0.20454545  0.18421053  0.19512195  0.175
+  0.19512195  0.24444444  0.24444444  0.21428571  0.2         0.12820513
+  0.12820513  0.18604651  0.17948718]
+[EVOLUTION] rnn probs: [ 0.34482759  0.39285714  0.31578947  0.36363636  0.36363636]
+Loading partition: 20/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 7980
+ |end line 8400
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7743
+size of char vocabulary: 51
+number of tokens in train: 9580
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_3 Tour_0 Individual_3 fitness: 0.079723, loss: 6.903294, size: 12974499
+[EVOLUTION] Epoch_3 Tour_0 Individual_4 fitness: 2.057717, loss: 6.904545, size: 43600509
+[EVOLUTION] Epoch_3 Tour_0 Individual_5 fitness: 4.609500, loss: 6.960420, size: 59751370
+[EVOLUTION] Epoch_3 Tour_0 Individual_7 fitness: 3.312717, loss: 6.958428, size: 40177203
+[EVOLUTION] Epoch_3 Tour_0 Individual_1 fitness: 4.531013, loss: 6.941892, size: 66490997
+[EVOLUTION] Epoch_3 Tour_0 Individual_6 fitness: 6.070623, loss: 6.994090, size: 68277080
+[EVOLUTION] Epoch_3 Tour_0 Individual_2 fitness: 5.911719, loss: 7.006475, size: 60441743
+[EVOLUTION] Epoch_3 Tour_0 Individual_0 fitness: 3.196866, loss: 6.955810, size: 39478869
+[EVOLUTION] Epoch_3 Tour_0 Individual_8 fitness: 2.725181, loss: 6.900376, size: 55911434
+[EVOLUTION] fitness ranking: [3, 4, 8, 0, 7, 1, 5, 2, 6] fitness: [0.079722873080969495, 2.0577168009271567, 2.7251807838121747, 3.1968664910932443, 3.3127174578599181, 4.5310125722631875, 4.6095000625912892, 5.9117185676718602, 6.0706229440838628]
+Loading partition: 96/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 39900
+ |end line 40320
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7735
+size of char vocabulary: 51
+number of tokens in train: 9127
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_3 Tour_1 Individual_3 fitness: 0.420369, loss: 6.936460, size: 12974499
+[EVOLUTION] Epoch_3 Tour_1 Individual_4 fitness: 4.259866, loss: 6.983690, size: 43600509
+[EVOLUTION] Epoch_3 Tour_1 Individual_8 fitness: 4.140668, loss: 6.961253, size: 55911434
+[EVOLUTION] Epoch_3 Tour_1 Individual_0 fitness: 3.575595, loss: 6.973160, size: 39478869
+[EVOLUTION] Epoch_3 Tour_1 Individual_7 fitness: 1.726539, loss: 6.925987, size: 40177203
+[EVOLUTION] Epoch_3 Tour_1 Individual_1 fitness: 6.431910, loss: 7.001609, size: 66490997
+[EVOLUTION] Epoch_3 Tour_1 Individual_5 fitness: 4.958284, loss: 6.975552, size: 59751370
+[EVOLUTION] Epoch_3 Tour_1 Individual_2 fitness: 3.884471, loss: 6.947706, size: 60441743
+[EVOLUTION] Epoch_3 Tour_1 Individual_6 fitness: 6.412175, loss: 6.998293, size: 68277080
+[EVOLUTION] fitness ranking: [3, 7, 0, 2, 8, 4, 5, 6, 1] fitness: [0.42036890588678372, 1.7265388460664597, 3.5755953340626387, 3.8844708854491854, 4.1406683981946912, 4.2598657373692408, 4.9582836788185531, 6.4121745022588623, 6.4319098438144975]
+[EVOLUTION] score ranking: [3, 7, 0, 8, 4, 2, 5, 1, 6] score: [18.0, 3.0225913224938679, 1.2582098585949897, -4.0130351604031134, -5.3570454877733589, -35.035442630050575, -39.406702448459058, -56.110341611831913, -75.450205068482944]
+[EVOLUTION] 8 and 3 distance: 9.219544
+[EVOLUTION] Loser_8 and Winner_3 distance: 9.219544
+[EVOLUTION] 8 and 7 distance: 9.797959
+[EVOLUTION] Loser_8 and Winner_7 distance: 9.797959
+[EVOLUTION] 8 and 0 distance: 9.797959
+[EVOLUTION] Individual_8 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 60], '10': [10, 104], '13': [13, 224], '12': [12, 189], '15': [15, 170], '14': [14, 300], '17': [17, 299], '16': [16, 181], '19': [19, 78], '18': [18, 229], '21': [21, 124], '1': [1, 247], '3': [3, 206], '2': [2, 195], '5': [5, 277], '4': [4, 61], '7': [7, 197], '6': [6, 66], '9': [9, 160], '20': [20, 239], '8': [8, 100]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [422], '2': [100], '5': [926], '4': [165]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 4, 5, 7, 14, 8, 15, 9, 10, 16, 11, 12, 19], [0, 1, 3]]]
+[EVOLUTION] 4 and 3 distance: 9.591663
+[EVOLUTION] Loser_4 and Winner_3 distance: 9.591663
+[EVOLUTION] 4 and 7 distance: 9.380832
+[EVOLUTION] 4 and 0 distance: 9.380832
+[EVOLUTION] Individual_4 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 57], '10': [10, 107], '13': [13, 232], '12': [12, 208], '15': [15, 229], '14': [14, 147], '17': [17, 287], '16': [16, 197], '19': [19, 94], '18': [18, 67], '21': [21, 117], '1': [1, 152], '3': [3, 239], '2': [2, 216], '5': [5, 256], '4': [4, 82], '7': [7, 193], '6': [6, 99], '9': [9, 109], '20': [20, 185], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 3, 13, 6, 7, 14, 11, 12, 16], [1, 3]]]
+[EVOLUTION] 2 and 3 distance: 9.591663
+[EVOLUTION] Loser_2 and Winner_3 distance: 9.591663
+[EVOLUTION] 2 and 7 distance: 4.472136
+[EVOLUTION] 2 and 0 distance: 4.472136
+[EVOLUTION] Individual_2 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 60], '10': [10, 104], '13': [13, 232], '12': [12, 208], '15': [15, 229], '14': [14, 147], '17': [17, 287], '16': [16, 181], '19': [19, 108], '18': [18, 170], '21': [21, 172], '1': [1, 247], '3': [3, 239], '2': [2, 206], '5': [5, 277], '4': [4, 82], '7': [7, 193], '6': [6, 66], '9': [9, 160], '20': [20, 239], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 3, 13, 6, 7, 14, 11, 12, 16], [1, 3]]]
+[EVOLUTION] 5 and 3 distance: 9.797959
+[EVOLUTION] Loser_5 and Winner_3 distance: 9.797959
+[EVOLUTION] 5 and 7 distance: 4.472136
+[EVOLUTION] 5 and 0 distance: 4.898979
+[EVOLUTION] Individual_5 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 60], '10': [10, 104], '13': [13, 232], '12': [12, 208], '15': [15, 229], '14': [14, 147], '17': [17, 287], '16': [16, 181], '19': [19, 290], '18': [18, 221], '21': [21, 113], '1': [1, 247], '3': [3, 239], '5': [5, 277], '4': [4, 82], '7': [7, 193], '6': [6, 66], '9': [9, 160], '20': [20, 239], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [931], '2': [100], '5': [713], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 3, 13, 6, 7, 14, 11, 12, 16], [1, 3]]]
+[EVOLUTION] 1 and 3 distance: 9.797959
+[EVOLUTION] Loser_1 and Winner_3 distance: 9.797959
+[EVOLUTION] 1 and 7 distance: 4.898979
+[EVOLUTION] 1 and 0 distance: 4.898979
+[EVOLUTION] Individual_1 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 60], '10': [10, 104], '13': [13, 232], '12': [12, 208], '15': [15, 229], '14': [14, 147], '17': [17, 287], '16': [16, 181], '19': [19, 131], '18': [18, 243], '21': [21, 59], '1': [1, 247], '3': [3, 239], '2': [2, 293], '5': [5, 277], '4': [4, 82], '7': [7, 193], '6': [6, 66], '9': [9, 160], '20': [20, 239], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [897], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 3, 13, 6, 7, 14, 11, 12, 16], [1, 3]]]
+[EVOLUTION] 6 and 3 distance: 9.797959
+[EVOLUTION] Loser_6 and Winner_3 distance: 9.797959
+[EVOLUTION] 6 and 7 distance: 4.898979
+[EVOLUTION] 6 and 0 distance: 4.898979
+[EVOLUTION] Individual_6 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 60], '10': [10, 104], '13': [13, 232], '12': [12, 208], '15': [15, 229], '14': [14, 147], '17': [17, 287], '16': [16, 181], '19': [19, 246], '18': [18, 297], '21': [21, 170], '1': [1, 247], '3': [3, 239], '2': [2, 154], '5': [5, 277], '4': [4, 82], '7': [7, 193], '6': [6, 66], '9': [9, 160], '20': [20, 239], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [453], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 3, 13, 6, 7, 14, 11, 12, 16], [1, 3]]]
+[EVOLUTION] Individual_0 EXP_-1 Conv:
+ [247   0 206  61 277  66 125 100 160 104  60 189 224 300 170 181 299   0
+   0 239   0]
+[EVOLUTION] Individual_0 EXP_-1 Recu:
+ [100 100   0 165   0]
+==================================================================================================================================
+[EVOLUTION] Epoch_4 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.2         0.05263158  0.25        0.2745098   0.15909091  0.18421053
+  0.20408163  0.26415094  0.23076923  0.2         0.2244898   0.2244898
+  0.24        0.27777778  0.27777778  0.24        0.24489796  0.13333333
+  0.13333333  0.21568627  0.19565217]
+[EVOLUTION] rnn probs: [ 0.35135135  0.40540541  0.30434783  0.4         0.38461538]
+Loading partition: 23/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 9240
+ |end line 9660
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7759
+size of char vocabulary: 51
+number of tokens in train: 9835
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_4 Tour_0 Individual_3 fitness: 3.360111, loss: 7.451132, size: 14422615
+[EVOLUTION] Epoch_4 Tour_0 Individual_7 fitness: 1.689908, loss: 7.016739, size: 37179289
+[EVOLUTION] Epoch_4 Tour_0 Individual_0 fitness: 1.877667, loss: 7.021767, size: 39481525
+[EVOLUTION] Epoch_4 Tour_0 Individual_8 fitness: 3.725950, loss: 7.054477, size: 64007025
+[EVOLUTION] Epoch_4 Tour_0 Individual_4 fitness: 2.936393, loss: 7.098974, size: 47042510
+[EVOLUTION] Epoch_4 Tour_0 Individual_2 fitness: 2.924772, loss: 7.011501, size: 56571205
+[EVOLUTION] Epoch_4 Tour_0 Individual_5 fitness: 3.168783, loss: 6.992385, size: 62409320
+[EVOLUTION] Epoch_4 Tour_0 Individual_1 fitness: 3.391510, loss: 7.021605, size: 62559979
+[EVOLUTION] Epoch_4 Tour_0 Individual_6 fitness: 3.269320, loss: 6.989830, size: 64224238
+[EVOLUTION] fitness ranking: [7, 0, 2, 4, 5, 6, 3, 1, 8] fitness: [1.6899077463184868, 1.8776672655138607, 2.9247715002846055, 2.9363925353760267, 3.1687831699156663, 3.2693202772507974, 3.3601114356369237, 3.3915101347718535, 3.7259497971089002]
+Loading partition: 13/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 5040
+ |end line 5460
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7772
+size of char vocabulary: 51
+number of tokens in train: 9676
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_4 Tour_1 Individual_7 fitness: 1.493904, loss: 6.981254, size: 37179289
+[EVOLUTION] Epoch_4 Tour_1 Individual_0 fitness: 3.581879, loss: 7.127237, size: 39481525
+[EVOLUTION] Epoch_4 Tour_1 Individual_2 fitness: 3.239466, loss: 7.016870, size: 56571205
+[EVOLUTION] Epoch_4 Tour_1 Individual_4 fitness: 2.837866, loss: 7.033748, size: 47042510
+[EVOLUTION] Epoch_4 Tour_1 Individual_5 fitness: 4.006346, loss: 7.045785, size: 62409320
+[EVOLUTION] Epoch_4 Tour_1 Individual_6 fitness: 3.471454, loss: 6.996489, size: 64224238
+[EVOLUTION] Epoch_4 Tour_1 Individual_3 fitness: 2.567223, loss: 7.174750, size: 14422615
+[EVOLUTION] Epoch_4 Tour_1 Individual_1 fitness: 3.695223, loss: 7.021589, size: 62559979
+[EVOLUTION] Epoch_4 Tour_1 Individual_8 fitness: 6.144767, loss: 7.199056, size: 64007025
+[EVOLUTION] fitness ranking: [7, 3, 4, 2, 6, 0, 1, 5, 8] fitness: [1.4939042398474849, 2.5672231643274821, 2.8378660181528854, 3.2394658350356624, 3.4714539420319666, 3.5818794482303891, 3.6952228756361247, 4.0063461166608683, 6.1447667281362026]
+[EVOLUTION] score ranking: [7, 4, 2, 0, 3, 6, 5, 1, 8] score: [18.0, 3.5150903575661481, 2.4320594943238021, -1.7870645066658071, -4.7278917781490239, -12.232417154381853, -22.719555496288741, -27.911908197219724, -60.965732201960819]
+[EVOLUTION] 0 and 7 distance: 8.544004
+[EVOLUTION] Loser_0 and Winner_7 distance: 8.544004
+[EVOLUTION] 0 and 4 distance: 9.380832
+[EVOLUTION] Loser_0 and Winner_4 distance: 9.380832
+[EVOLUTION] 0 and 2 distance: 7.483315
+[EVOLUTION] Individual_0 learn from Individual_4: 
+[EVOLUTION] - Conv:  {'11': [11, 57], '10': [10, 107], '13': [13, 232], '12': [12, 208], '15': [15, 229], '14': [14, 147], '17': [17, 287], '16': [16, 197], '18': [18, 67], '1': [1, 152], '3': [3, 239], '2': [2, 216], '5': [5, 256], '4': [4, 82], '7': [7, 193], '6': [6, 99], '9': [9, 109], '20': [20, 185], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 1, 4, 5, 6, 7, 14, 8, 12, 16, 9, 10, 15, 11, 17, 19], [0, 1, 3]]]
+[EVOLUTION] 3 and 7 distance: 8.717798
+[EVOLUTION] Loser_3 and Winner_7 distance: 8.717798
+[EVOLUTION] 3 and 4 distance: 9.591663
+[EVOLUTION] Loser_3 and Winner_4 distance: 9.591663
+[EVOLUTION] 3 and 2 distance: 9.591663
+[EVOLUTION] Individual_3 learn from Individual_4: 
+[EVOLUTION] - Conv:  {'11': [11, 57], '10': [10, 107], '13': [13, 232], '12': [12, 208], '15': [15, 229], '14': [14, 147], '17': [17, 287], '16': [16, 197], '19': [19, 57], '18': [18, 67], '1': [1, 152], '3': [3, 239], '2': [2, 216], '5': [5, 256], '4': [4, 82], '7': [7, 193], '6': [6, 99], '9': [9, 109], '20': [20, 185], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 1, 4, 5, 6, 7, 14, 8, 12, 16, 9, 10, 15, 11, 17, 19], [0, 1, 3]]]
+[EVOLUTION] 6 and 7 distance: 9.591663
+[EVOLUTION] Loser_6 and Winner_7 distance: 9.591663
+[EVOLUTION] 6 and 4 distance: 7.211103
+[EVOLUTION] 6 and 2 distance: 4.472136
+[EVOLUTION] Individual_6 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 64], '10': [10, 81], '13': [13, 143], '12': [12, 165], '15': [15, 172], '14': [14, 300], '17': [17, 300], '16': [16, 191], '19': [19, 246], '18': [18, 297], '21': [21, 170], '1': [1, 299], '3': [3, 176], '2': [2, 154], '5': [5, 242], '4': [4, 63], '7': [7, 193], '6': [6, 53], '9': [9, 135], '20': [20, 257], '8': [8, 123]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [453], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 4, 5, 7, 14, 8, 12, 16, 9, 10, 15, 11, 19], [1, 3]]]
+[EVOLUTION] 5 and 7 distance: 9.591663
+[EVOLUTION] Loser_5 and Winner_7 distance: 9.591663
+[EVOLUTION] 5 and 4 distance: 7.483315
+[EVOLUTION] 5 and 2 distance: 4.898979
+[EVOLUTION] Individual_5 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 64], '10': [10, 81], '13': [13, 143], '12': [12, 165], '15': [15, 172], '14': [14, 300], '17': [17, 300], '16': [16, 191], '19': [19, 290], '18': [18, 221], '21': [21, 113], '1': [1, 299], '3': [3, 176], '5': [5, 242], '4': [4, 63], '7': [7, 193], '6': [6, 53], '9': [9, 135], '20': [20, 257], '8': [8, 123]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [931], '2': [100], '5': [713], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 4, 5, 7, 14, 8, 12, 16, 9, 10, 15, 11, 19], [1, 3]]]
+[EVOLUTION] 1 and 7 distance: 9.591663
+[EVOLUTION] Loser_1 and Winner_7 distance: 9.591663
+[EVOLUTION] 1 and 4 distance: 7.211103
+[EVOLUTION] 1 and 2 distance: 4.472136
+[EVOLUTION] Individual_1 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 64], '10': [10, 81], '13': [13, 143], '12': [12, 165], '15': [15, 172], '14': [14, 300], '17': [17, 300], '16': [16, 191], '19': [19, 131], '18': [18, 243], '21': [21, 59], '1': [1, 299], '3': [3, 176], '2': [2, 293], '5': [5, 242], '4': [4, 63], '7': [7, 193], '6': [6, 53], '9': [9, 135], '20': [20, 257], '8': [8, 123]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [897], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 4, 5, 7, 14, 8, 12, 16, 9, 10, 15, 11, 19], [1, 3]]]
+[EVOLUTION] 8 and 7 distance: 9.643651
+[EVOLUTION] Loser_8 and Winner_7 distance: 9.643651
+[EVOLUTION] 8 and 4 distance: 9.797959
+[EVOLUTION] Loser_8 and Winner_4 distance: 9.797959
+[EVOLUTION] 8 and 2 distance: 8.000000
+[EVOLUTION] Individual_8 learn from Individual_4: 
+[EVOLUTION] - Conv:  {'11': [11, 57], '10': [10, 107], '13': [13, 232], '12': [12, 208], '15': [15, 229], '14': [14, 147], '17': [17, 287], '16': [16, 197], '19': [19, 78], '18': [18, 67], '21': [21, 124], '1': [1, 152], '3': [3, 239], '2': [2, 216], '5': [5, 256], '4': [4, 82], '7': [7, 193], '6': [6, 99], '9': [9, 109], '20': [20, 185], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [422], '2': [100], '5': [926], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 1, 4, 5, 6, 7, 14, 8, 12, 16, 9, 10, 15, 11, 17, 19], [0, 1, 3]]]
+[EVOLUTION] Individual_2 EXP_-1 Conv:
+ [247 206 239  82 277  66 193  50 160 104  60 208 232 147 229 181 287 170
+ 108 239 172]
+[EVOLUTION] Individual_2 EXP_-1 Recu:
+ [100 100   0 100   0]
+==================================================================================================================================
+[EVOLUTION] Epoch_5 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.24528302  0.09302326  0.27868852  0.3         0.21153846  0.23913043
+  0.22807018  0.29032258  0.26666667  0.24528302  0.26315789  0.25862069
+  0.27118644  0.3015873   0.3015873   0.27586207  0.27586207  0.15686275
+  0.15384615  0.25423729  0.22641509]
+[EVOLUTION] rnn probs: [ 0.36363636  0.42222222  0.25925926  0.41025641  0.33333333]
+Loading partition: 12/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 4620
+ |end line 5040
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7773
+size of char vocabulary: 51
+number of tokens in train: 9463
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_5 Tour_0 Individual_7 fitness: 2.028061, loss: 6.951766, size: 32131254
+[EVOLUTION] Epoch_5 Tour_0 Individual_4 fitness: 3.041287, loss: 6.978426, size: 28214867
+[EVOLUTION] Epoch_5 Tour_0 Individual_2 fitness: 4.765857, loss: 6.964696, size: 56572619
+[EVOLUTION] Epoch_5 Tour_0 Individual_0 fitness: 1.129887, loss: 6.918242, size: 41463684
+[EVOLUTION] Epoch_5 Tour_0 Individual_3 fitness: 2.746109, loss: 6.947742, size: 42935082
+[EVOLUTION] Epoch_5 Tour_0 Individual_6 fitness: 3.631047, loss: 6.931637, size: 62854970
+[EVOLUTION] Epoch_5 Tour_0 Individual_5 fitness: 3.713513, loss: 6.936187, size: 61125588
+[EVOLUTION] Epoch_5 Tour_0 Individual_1 fitness: 5.810807, loss: 6.977496, size: 61240343
+[EVOLUTION] Epoch_5 Tour_0 Individual_8 fitness: 2.901483, loss: 6.935611, size: 51945024
+[EVOLUTION] fitness ranking: [0, 7, 3, 8, 4, 6, 5, 2, 1] fitness: [1.1298869250195056, 2.0280612550503543, 2.7461087322235755, 2.9014834395442408, 3.0412865574480796, 3.6310472868618455, 3.7135128407541913, 4.765856632032758, 5.8108069171429193]
+Loading partition: 41/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 16800
+ |end line 17220
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7776
+size of char vocabulary: 51
+number of tokens in train: 9692
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_5 Tour_1 Individual_0 fitness: 1.449201, loss: 6.919301, size: 41463684
+[EVOLUTION] Epoch_5 Tour_1 Individual_7 fitness: 2.281265, loss: 6.970687, size: 32131254
+[EVOLUTION] Epoch_5 Tour_1 Individual_3 fitness: 3.746005, loss: 6.987838, size: 42935082
+[EVOLUTION] Epoch_5 Tour_1 Individual_8 fitness: 5.232874, loss: 7.010516, size: 51945024
+[EVOLUTION] Epoch_5 Tour_1 Individual_4 fitness: 1.833819, loss: 6.967106, size: 28214867
+[EVOLUTION] Epoch_5 Tour_1 Individual_6 fitness: 4.937003, loss: 6.971809, size: 62854970
+[EVOLUTION] Epoch_5 Tour_1 Individual_5 fitness: 4.642973, loss: 6.967183, size: 61125588
+[EVOLUTION] Epoch_5 Tour_1 Individual_2 fitness: 2.418409, loss: 6.909223, size: 56572619
+[EVOLUTION] Epoch_5 Tour_1 Individual_1 fitness: 3.394584, loss: 6.927470, size: 61240343
+[EVOLUTION] fitness ranking: [0, 4, 7, 2, 1, 3, 5, 6, 8] fitness: [1.4492007571545291, 1.833818770460089, 2.2812646287362952, 2.4184086177464543, 3.3945842034746221, 3.7460046237101485, 4.6429733956254884, 4.9370028664073438, 5.2328743446452997]
+[EVOLUTION] score ranking: [0, 7, 4, 3, 2, 5, 8, 6, 1] score: [18.0, 11.409409487477056, 4.001034999747592, -6.2222405829978946, -22.616222277468669, -32.138917418278076, -32.567445075795121, -34.714256499160641, -42.064792151041843]
+[EVOLUTION] 3 and 0 distance: 2.000000
+[EVOLUTION] Loser_3 and Winner_0 distance: 2.000000
+[EVOLUTION] 3 and 7 distance: 9.219544
+[EVOLUTION] Loser_3 and Winner_7 distance: 9.219544
+[EVOLUTION] 3 and 4 distance: 9.219544
+[EVOLUTION] Individual_3 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 58], '10': [10, 71], '13': [13, 80], '12': [12, 120], '15': [15, 227], '14': [14, 261], '17': [17, 236], '16': [16, 157], '19': [19, 57], '18': [18, 67], '1': [1, 300], '3': [3, 148], '2': [2, 216], '5': [5, 189], '4': [4, 50], '7': [7, 116], '6': [6, 50], '9': [9, 111], '20': [20, 300], '8': [8, 137]}
+[EVOLUTION] - Recu:  {'1': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 4, 5, 7, 14, 6, 8, 12, 15, 9, 10, 16, 11, 19], [1, 3]]]
+[EVOLUTION] 2 and 0 distance: 6.928203
+[EVOLUTION] Loser_2 and Winner_0 distance: 6.928203
+[EVOLUTION] 2 and 7 distance: 9.380832
+[EVOLUTION] Loser_2 and Winner_7 distance: 9.380832
+[EVOLUTION] 2 and 4 distance: 9.219544
+[EVOLUTION] Individual_2 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 58], '10': [10, 71], '13': [13, 80], '12': [12, 120], '15': [15, 227], '14': [14, 261], '17': [17, 236], '16': [16, 157], '19': [19, 108], '18': [18, 170], '21': [21, 172], '1': [1, 300], '3': [3, 148], '2': [2, 206], '5': [5, 189], '4': [4, 50], '7': [7, 116], '6': [6, 50], '9': [9, 111], '20': [20, 300], '8': [8, 137]}
+[EVOLUTION] - Recu:  {'1': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 4, 5, 7, 14, 6, 8, 12, 15, 9, 10, 16, 11, 19], [1, 3]]]
+[EVOLUTION] 5 and 0 distance: 9.380832
+[EVOLUTION] Loser_5 and Winner_0 distance: 9.380832
+[EVOLUTION] 5 and 7 distance: 9.273618
+[EVOLUTION] 5 and 4 distance: 9.643651
+[EVOLUTION] Loser_5 and Winner_4 distance: 9.643651
+[EVOLUTION] Individual_5 learn from Individual_4: 
+[EVOLUTION] - Conv:  {'11': [11, 63], '10': [10, 79], '13': [13, 181], '12': [12, 165], '15': [15, 300], '14': [14, 300], '17': [17, 286], '16': [16, 157], '19': [19, 82], '18': [18, 57], '21': [21, 127], '1': [1, 144], '3': [3, 278], '2': [2, 165], '5': [5, 207], '4': [4, 50], '7': [7, 191], '6': [6, 123], '9': [9, 135], '20': [20, 257], '8': [8, 54]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [931], '2': [100], '5': [713], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 14, 1, 4, 5, 7, 6, 9, 10, 12, 15, 16, 17, 20, 18], [0, 3]]]
+[EVOLUTION] 8 and 0 distance: 4.000000
+[EVOLUTION] Loser_8 and Winner_0 distance: 4.000000
+[EVOLUTION] 8 and 7 distance: 9.643651
+[EVOLUTION] Loser_8 and Winner_7 distance: 9.643651
+[EVOLUTION] 8 and 4 distance: 9.643651
+[EVOLUTION] Individual_8 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 58], '10': [10, 71], '13': [13, 80], '12': [12, 120], '15': [15, 227], '14': [14, 261], '17': [17, 236], '16': [16, 157], '19': [19, 78], '18': [18, 67], '21': [21, 124], '1': [1, 300], '3': [3, 148], '2': [2, 216], '5': [5, 189], '4': [4, 50], '7': [7, 116], '6': [6, 50], '9': [9, 111], '20': [20, 300], '8': [8, 137]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [422], '2': [100], '5': [926], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 4, 5, 7, 14, 6, 8, 12, 15, 9, 10, 16, 11, 19], [1, 3]]]
+[EVOLUTION] 6 and 0 distance: 9.165151
+[EVOLUTION] Loser_6 and Winner_0 distance: 9.165151
+[EVOLUTION] 6 and 7 distance: 9.433981
+[EVOLUTION] Loser_6 and Winner_7 distance: 9.433981
+[EVOLUTION] 6 and 4 distance: 9.433981
+[EVOLUTION] Individual_6 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 58], '10': [10, 71], '13': [13, 80], '12': [12, 120], '15': [15, 227], '14': [14, 261], '17': [17, 236], '16': [16, 157], '19': [19, 246], '18': [18, 297], '21': [21, 170], '1': [1, 300], '3': [3, 148], '2': [2, 154], '5': [5, 189], '4': [4, 50], '7': [7, 116], '6': [6, 50], '9': [9, 111], '20': [20, 300], '8': [8, 137]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [453], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 4, 5, 7, 14, 6, 8, 12, 15, 9, 10, 16, 11, 19], [1, 3]]]
+[EVOLUTION] 1 and 0 distance: 9.165151
+[EVOLUTION] Loser_1 and Winner_0 distance: 9.165151
+[EVOLUTION] 1 and 7 distance: 9.433981
+[EVOLUTION] Loser_1 and Winner_7 distance: 9.433981
+[EVOLUTION] 1 and 4 distance: 9.433981
+[EVOLUTION] Individual_1 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 58], '10': [10, 71], '13': [13, 80], '12': [12, 120], '15': [15, 227], '14': [14, 261], '17': [17, 236], '16': [16, 157], '19': [19, 131], '18': [18, 243], '21': [21, 59], '1': [1, 300], '3': [3, 148], '2': [2, 293], '5': [5, 189], '4': [4, 50], '7': [7, 116], '6': [6, 50], '9': [9, 111], '20': [20, 300], '8': [8, 137]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [897], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 4, 5, 7, 14, 6, 8, 12, 15, 9, 10, 16, 11, 19], [1, 3]]]
+==================================================================================================================================
+[EVOLUTION] Epoch_6 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.27419355  0.14        0.3         0.31884058  0.24590164  0.27272727
+  0.25757576  0.30985915  0.27941176  0.27419355  0.28787879  0.27272727
+  0.29411765  0.30985915  0.31944444  0.29850746  0.29850746  0.18644068
+  0.16949153  0.26865672  0.23333333]
+[EVOLUTION] rnn probs: [ 0.36538462  0.41509434  0.22580645  0.41666667  0.29411765]
+Loading partition: 27/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 10920
+ |end line 11340
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7745
+size of char vocabulary: 51
+number of tokens in train: 9700
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_6 Tour_0 Individual_0 fitness: 2.678032, loss: 6.974693, size: 43405201
+[EVOLUTION] Epoch_6 Tour_0 Individual_7 fitness: 1.531741, loss: 7.022456, size: 10115164
+[EVOLUTION] Epoch_6 Tour_0 Individual_4 fitness: 3.479937, loss: 7.057765, size: 23169286
+[EVOLUTION] Epoch_6 Tour_0 Individual_3 fitness: 2.425301, loss: 6.981434, size: 37481389
+[EVOLUTION] Epoch_6 Tour_0 Individual_2 fitness: 4.831294, loss: 7.046553, size: 45565146
+[EVOLUTION] Epoch_6 Tour_0 Individual_5 fitness: 3.411535, loss: 6.967569, size: 55949305
+[EVOLUTION] Epoch_6 Tour_0 Individual_8 fitness: 5.179007, loss: 7.057288, size: 46238451
+[EVOLUTION] Epoch_6 Tour_0 Individual_6 fitness: 4.366992, loss: 7.011091, size: 52559859
+[EVOLUTION] Epoch_6 Tour_0 Individual_1 fitness: 3.059549, loss: 6.967226, size: 51335520
+[EVOLUTION] fitness ranking: [7, 3, 0, 1, 5, 4, 6, 2, 8] fitness: [1.5317407265912528, 2.4253014741424672, 2.6780315421309662, 3.0595494991773968, 3.4115348306233408, 3.4799373355495167, 4.3669919636031267, 4.8312941737689439, 5.1790073546634021]
+Loading partition: 54/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 22260
+ |end line 22680
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7695
+size of char vocabulary: 51
+number of tokens in train: 9855
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_6 Tour_1 Individual_7 fitness: 2.072064, loss: 6.845295, size: 10115164
+[EVOLUTION] Epoch_6 Tour_1 Individual_3 fitness: 2.773941, loss: 6.831115, size: 37481389
+[EVOLUTION] Epoch_6 Tour_1 Individual_0 fitness: 3.763065, loss: 6.836976, size: 43405201
+[EVOLUTION] Epoch_6 Tour_1 Individual_1 fitness: 3.477738, loss: 6.827653, size: 51335520
+[EVOLUTION] Epoch_6 Tour_1 Individual_5 fitness: 5.124652, loss: 6.841568, size: 55949305
+[EVOLUTION] Epoch_6 Tour_1 Individual_4 fitness: 3.973511, loss: 6.855242, size: 23169286
+[EVOLUTION] Epoch_6 Tour_1 Individual_6 fitness: 3.150425, loss: 6.823192, size: 52559859
+[EVOLUTION] Epoch_6 Tour_1 Individual_2 fitness: 2.784586, loss: 6.824828, size: 45565146
+[EVOLUTION] Epoch_6 Tour_1 Individual_8 fitness: 5.089407, loss: 6.848881, size: 46238451
+[EVOLUTION] fitness ranking: [7, 3, 2, 6, 1, 0, 4, 8, 5] fitness: [2.0720637189881801, 2.7739407230288147, 2.7845860030653005, 3.150425128060208, 3.4777377265676201, 3.7630648232672259, 3.9735111778386183, 5.0894067271153087, 5.1246522861973247]
+[EVOLUTION] score ranking: [7, 3, 1, 0, 6, 2, 4, 5, 8] score: [18.0, 12.800757802828718, -5.0895994038026711, -6.1713872005980619, -17.653227165799386, -21.388231222513205, -23.24075374477929, -36.643357612071959, -59.057905927114376]
+[EVOLUTION] 0 and 7 distance: 9.591663
+[EVOLUTION] Loser_0 and Winner_7 distance: 9.591663
+[EVOLUTION] 0 and 3 distance: 9.380832
+[EVOLUTION] 0 and 1 distance: 9.380832
+[EVOLUTION] Individual_0 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 65], '13': [13, 91], '12': [12, 174], '15': [15, 161], '14': [14, 188], '17': [17, 222], '16': [16, 157], '19': [19, 83], '18': [18, 50], '21': [21, 165], '1': [1, 165], '3': [3, 123], '2': [2, 236], '5': [5, 300], '4': [4, 50], '7': [7, 139], '6': [6, 117], '9': [9, 87], '20': [20, 272], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [454], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 3, 6, 8, 10, 12, 13, 9, 15, 16, 19], [1, 3]]]
+[EVOLUTION] 6 and 7 distance: 9.165151
+[EVOLUTION] Loser_6 and Winner_7 distance: 9.165151
+[EVOLUTION] 6 and 3 distance: 4.472136
+[EVOLUTION] 6 and 1 distance: 4.472136
+[EVOLUTION] Individual_6 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 65], '13': [13, 91], '12': [12, 120], '15': [15, 227], '14': [14, 188], '17': [17, 222], '16': [16, 157], '19': [19, 246], '18': [18, 297], '21': [21, 170], '1': [1, 300], '3': [3, 123], '2': [2, 154], '5': [5, 189], '4': [4, 50], '7': [7, 139], '6': [6, 50], '9': [9, 87], '20': [20, 272], '8': [8, 137]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [453], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 3, 6, 8, 10, 12, 13, 9, 15, 16, 19], [1, 3]]]
+[EVOLUTION] 2 and 7 distance: 8.944272
+[EVOLUTION] Loser_2 and Winner_7 distance: 8.944272
+[EVOLUTION] 2 and 3 distance: 4.000000
+[EVOLUTION] 2 and 1 distance: 4.472136
+[EVOLUTION] Individual_2 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 65], '13': [13, 91], '12': [12, 120], '15': [15, 227], '14': [14, 188], '17': [17, 222], '16': [16, 157], '19': [19, 108], '18': [18, 170], '21': [21, 172], '1': [1, 300], '3': [3, 123], '2': [2, 206], '5': [5, 189], '4': [4, 50], '7': [7, 139], '6': [6, 50], '9': [9, 87], '20': [20, 272], '8': [8, 137]}
+[EVOLUTION] - Recu:  {'1': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 3, 6, 8, 10, 12, 13, 9, 15, 16, 19], [1, 3]]]
+[EVOLUTION] 4 and 7 distance: 8.717798
+[EVOLUTION] Loser_4 and Winner_7 distance: 8.717798
+[EVOLUTION] 4 and 3 distance: 9.380832
+[EVOLUTION] Loser_4 and Winner_3 distance: 9.380832
+[EVOLUTION] 4 and 1 distance: 9.591663
+[EVOLUTION] Loser_4 and Winner_1 distance: 9.591663
+[EVOLUTION] Individual_4 learn from Individual_1: 
+[EVOLUTION] - Conv:  {'11': [11, 58], '10': [10, 71], '13': [13, 80], '12': [12, 120], '15': [15, 227], '14': [14, 261], '17': [17, 236], '16': [16, 157], '19': [19, 85], '18': [18, 243], '21': [21, 97], '1': [1, 300], '3': [3, 148], '2': [2, 293], '5': [5, 189], '4': [4, 50], '7': [7, 116], '6': [6, 50], '9': [9, 111], '20': [20, 300], '8': [8, 137]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [897], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 14, 1, 4, 5, 7, 6, 8, 10, 12, 13, 9, 15, 11, 16, 17, 19], [0, 1, 3, 2]]]
+[EVOLUTION] 5 and 7 distance: 9.380832
+[EVOLUTION] Loser_5 and Winner_7 distance: 9.380832
+[EVOLUTION] 5 and 3 distance: 9.165151
+[EVOLUTION] 5 and 1 distance: 9.165151
+[EVOLUTION] Individual_5 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 65], '13': [13, 91], '12': [12, 165], '15': [15, 300], '14': [14, 188], '17': [17, 222], '16': [16, 157], '19': [19, 82], '18': [18, 57], '21': [21, 127], '1': [1, 144], '3': [3, 123], '2': [2, 165], '5': [5, 207], '4': [4, 50], '7': [7, 139], '6': [6, 123], '9': [9, 87], '20': [20, 272], '8': [8, 54]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [931], '2': [100], '5': [713], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 3, 6, 8, 10, 12, 13, 9, 15, 16, 19], [1, 3]]]
+[EVOLUTION] 8 and 7 distance: 9.380832
+[EVOLUTION] Loser_8 and Winner_7 distance: 9.380832
+[EVOLUTION] 8 and 3 distance: 4.000000
+[EVOLUTION] 8 and 1 distance: 4.898979
+[EVOLUTION] Individual_8 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 65], '13': [13, 91], '12': [12, 120], '15': [15, 227], '14': [14, 188], '17': [17, 222], '16': [16, 157], '19': [19, 78], '18': [18, 67], '21': [21, 124], '1': [1, 300], '3': [3, 123], '2': [2, 216], '5': [5, 189], '4': [4, 50], '7': [7, 139], '6': [6, 50], '9': [9, 87], '20': [20, 272], '8': [8, 137]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [422], '2': [100], '5': [926], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 3, 6, 8, 10, 12, 13, 9, 15, 16, 19], [1, 3]]]
+[EVOLUTION] Individual_1 EXP_-1 Conv:
+ [300 293 148  50 189  50 116 137 111  71  58 120  80 261 227 157 236 243
+ 131 300  59]
+[EVOLUTION] Individual_1 EXP_-1 Recu:
+ [100 100 897 100   0]
+==================================================================================================================================
+[EVOLUTION] Epoch_7 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.28571429  0.17241379  0.3164557   0.33333333  0.26086957  0.28571429
+  0.28        0.3164557   0.30263158  0.29577465  0.30666667  0.28767123
+  0.31168831  0.32911392  0.32911392  0.31578947  0.31578947  0.20895522
+  0.19402985  0.29333333  0.23880597]
+[EVOLUTION] rnn probs: [ 0.37288136  0.42622951  0.25        0.42105263  0.26315789]
+Loading partition: 47/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 19320
+ |end line 19740
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7693
+size of char vocabulary: 51
+number of tokens in train: 8083
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_7 Tour_0 Individual_7 fitness: 3.450871, loss: 7.245028, size: 9441002
+[EVOLUTION] Epoch_7 Tour_0 Individual_3 fitness: 3.098931, loss: 7.054638, size: 41524589
+[EVOLUTION] Epoch_7 Tour_0 Individual_1 fitness: 4.200230, loss: 7.068724, size: 51330268
+[EVOLUTION] Epoch_7 Tour_0 Individual_0 fitness: 2.772690, loss: 7.051074, size: 38504513
+[EVOLUTION] Epoch_7 Tour_0 Individual_6 fitness: 3.452170, loss: 7.038710, size: 48543250
+[EVOLUTION] Epoch_7 Tour_0 Individual_2 fitness: 3.361570, loss: 7.068931, size: 41791609
+[EVOLUTION] Epoch_7 Tour_0 Individual_4 fitness: 3.771548, loss: 7.044243, size: 51112576
+[EVOLUTION] Epoch_7 Tour_0 Individual_5 fitness: 3.393274, loss: 7.068214, size: 42286630
+[EVOLUTION] Epoch_7 Tour_0 Individual_8 fitness: 3.785602, loss: 7.089689, size: 42661906
+[EVOLUTION] fitness ranking: [0, 3, 2, 5, 7, 6, 4, 8, 1] fitness: [2.7726903041265234, 3.0989313183352891, 3.3615700159574873, 3.3932739776385086, 3.4508712479035579, 3.4521697647963374, 3.7715484710341696, 3.7856019793913891, 4.2002303949133655]
+Loading partition: 43/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 17640
+ |end line 18060
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7747
+size of char vocabulary: 51
+number of tokens in train: 9235
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_7 Tour_1 Individual_0 fitness: 3.082567, loss: 7.045259, size: 38504513
+[EVOLUTION] Epoch_7 Tour_1 Individual_3 fitness: 3.203151, loss: 7.028300, size: 41524589
+[EVOLUTION] Epoch_7 Tour_1 Individual_2 fitness: 2.856096, loss: 6.985262, size: 41791609
+[EVOLUTION] Epoch_7 Tour_1 Individual_5 fitness: 3.548436, loss: 7.060582, size: 42286630
+[EVOLUTION] Epoch_7 Tour_1 Individual_7 fitness: 3.461884, loss: 7.387257, size: 9441002
+[EVOLUTION] Epoch_7 Tour_1 Individual_6 fitness: 4.123859, loss: 7.063259, size: 48543250
+[EVOLUTION] Epoch_7 Tour_1 Individual_4 fitness: 3.941902, loss: 7.015790, size: 51112576
+[EVOLUTION] Epoch_7 Tour_1 Individual_8 fitness: 3.368594, loss: 7.035851, size: 42661906
+[EVOLUTION] Epoch_7 Tour_1 Individual_1 fitness: 3.708148, loss: 6.986415, size: 51330268
+[EVOLUTION] fitness ranking: [2, 0, 3, 8, 7, 5, 1, 4, 6] fitness: [2.8560963389677427, 3.082566673635958, 3.2031509708563681, 3.3685936851520704, 3.4618843061032982, 3.5484362988032752, 3.7081482088990176, 3.9419015446550572, 4.1238585744383487]
+[EVOLUTION] score ranking: [0, 2, 3, 7, 5, 8, 4, 6, 1] score: [14.917433326364042, 11.276859968085025, 8.4947667399519737, -9.6510222160274246, -9.9220034269319015, -18.604994911195938, -32.222601638790422, -32.251717419488472, -37.850732412701028]
+[EVOLUTION] 7 and 0 distance: 9.380832
+[EVOLUTION] Loser_7 and Winner_0 distance: 9.380832
+[EVOLUTION] 7 and 2 distance: 9.165151
+[EVOLUTION] 7 and 3 distance: 8.944272
+[EVOLUTION] Individual_7 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 65], '13': [13, 91], '12': [12, 174], '15': [15, 161], '14': [14, 188], '17': [17, 222], '16': [16, 157], '18': [18, 50], '1': [1, 165], '3': [3, 123], '2': [2, 236], '5': [5, 300], '4': [4, 50], '7': [7, 139], '6': [6, 117], '9': [9, 87], '20': [20, 272], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [454], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 1, 4, 5, 7, 13, 6, 8, 10, 12, 14, 9, 15, 11, 16, 17, 19], [0, 1, 2, 3]]]
+[EVOLUTION] 5 and 0 distance: 6.708204
+[EVOLUTION] Loser_5 and Winner_0 distance: 6.708204
+[EVOLUTION] 5 and 2 distance: 6.928203
+[EVOLUTION] Loser_5 and Winner_2 distance: 6.928203
+[EVOLUTION] 5 and 3 distance: 8.944272
+[EVOLUTION] Loser_5 and Winner_3 distance: 8.944272
+[EVOLUTION] Individual_5 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 50], '13': [13, 81], '12': [12, 121], '15': [15, 254], '14': [14, 287], '17': [17, 222], '16': [16, 120], '19': [19, 82], '18': [18, 90], '21': [21, 127], '1': [1, 300], '3': [3, 187], '2': [2, 167], '5': [5, 199], '4': [4, 50], '7': [7, 149], '6': [6, 51], '9': [9, 93], '20': [20, 300], '8': [8, 119]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [931], '2': [100], '5': [713], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 1, 4, 5, 7, 13, 6, 8, 10, 12, 14, 9, 15, 11, 16, 17, 19], [0, 1, 3]]]
+[EVOLUTION] 8 and 0 distance: 6.928203
+[EVOLUTION] Loser_8 and Winner_0 distance: 6.928203
+[EVOLUTION] 8 and 2 distance: 4.898979
+[EVOLUTION] 8 and 3 distance: 8.366600
+[EVOLUTION] Loser_8 and Winner_3 distance: 8.366600
+[EVOLUTION] Individual_8 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 50], '13': [13, 81], '12': [12, 121], '15': [15, 254], '14': [14, 287], '17': [17, 222], '16': [16, 120], '19': [19, 78], '18': [18, 90], '21': [21, 124], '1': [1, 300], '3': [3, 187], '2': [2, 167], '5': [5, 199], '4': [4, 50], '7': [7, 149], '6': [6, 51], '9': [9, 93], '20': [20, 300], '8': [8, 119]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [422], '2': [100], '5': [926], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 1, 4, 5, 7, 13, 6, 8, 10, 12, 14, 9, 15, 11, 16, 17, 19], [0, 1, 3]]]
+[EVOLUTION] 4 and 0 distance: 8.944272
+[EVOLUTION] Loser_4 and Winner_0 distance: 8.944272
+[EVOLUTION] 4 and 2 distance: 7.483315
+[EVOLUTION] 4 and 3 distance: 8.185353
+[EVOLUTION] Individual_4 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 65], '13': [13, 91], '12': [12, 174], '15': [15, 161], '14': [14, 188], '17': [17, 222], '16': [16, 157], '19': [19, 85], '18': [18, 50], '21': [21, 97], '1': [1, 165], '3': [3, 123], '2': [2, 236], '5': [5, 300], '4': [4, 50], '7': [7, 139], '6': [6, 117], '9': [9, 87], '20': [20, 272], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [454], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 1, 4, 5, 7, 13, 6, 8, 10, 12, 14, 9, 15, 11, 16, 17, 19], [0, 1, 2, 3]]]
+[EVOLUTION] 6 and 0 distance: 6.403124
+[EVOLUTION] Loser_6 and Winner_0 distance: 6.403124
+[EVOLUTION] 6 and 2 distance: 4.472136
+[EVOLUTION] 6 and 3 distance: 8.124038
+[EVOLUTION] Loser_6 and Winner_3 distance: 8.124038
+[EVOLUTION] Individual_6 learn from Individual_3: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 50], '13': [13, 81], '12': [12, 121], '15': [15, 254], '14': [14, 287], '17': [17, 222], '16': [16, 120], '19': [19, 246], '18': [18, 90], '21': [21, 170], '1': [1, 300], '3': [3, 187], '2': [2, 167], '5': [5, 199], '4': [4, 50], '7': [7, 149], '6': [6, 51], '9': [9, 93], '20': [20, 300], '8': [8, 119]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [453], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 1, 4, 5, 7, 13, 6, 8, 10, 12, 14, 9, 15, 11, 16, 17, 19], [0, 1, 3]]]
+[EVOLUTION] 1 and 0 distance: 8.944272
+[EVOLUTION] Loser_1 and Winner_0 distance: 8.944272
+[EVOLUTION] 1 and 2 distance: 7.483315
+[EVOLUTION] 1 and 3 distance: 8.185353
+[EVOLUTION] Individual_1 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 65], '13': [13, 91], '12': [12, 174], '15': [15, 161], '14': [14, 188], '17': [17, 222], '16': [16, 157], '19': [19, 131], '18': [18, 50], '21': [21, 59], '1': [1, 165], '3': [3, 123], '2': [2, 236], '5': [5, 300], '4': [4, 50], '7': [7, 139], '6': [6, 117], '9': [9, 87], '20': [20, 272], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [454], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 1, 4, 5, 7, 13, 6, 8, 10, 12, 14, 9, 15, 11, 16, 17, 19], [0, 1, 2, 3]]]
+[EVOLUTION] Individual_3 EXP_-1 Conv:
+ [300 167 187  50 199  51 149 119  93  50  50 121  81 287 254 120 222  90
+  61 300 162]
+[EVOLUTION] Individual_3 EXP_-1 Recu:
+ [100 100   0 100   0]
+==================================================================================================================================
+[EVOLUTION] Epoch_8 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.29487179  0.1969697   0.32954545  0.34482759  0.27272727  0.29577465
+  0.29761905  0.32183908  0.31764706  0.30379747  0.32142857  0.2962963
+  0.31764706  0.34090909  0.33333333  0.32941176  0.32941176  0.22666667
+  0.21333333  0.30952381  0.25333333]
+[EVOLUTION] rnn probs: [ 0.37313433  0.42857143  0.23809524  0.41538462  0.23809524]
+Loading partition: 50/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 20580
+ |end line 21000
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7755
+size of char vocabulary: 51
+number of tokens in train: 9193
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_8 Tour_0 Individual_0 fitness: 0.865886, loss: 7.004913, size: 20601141
+[EVOLUTION] Epoch_8 Tour_0 Individual_2 fitness: 1.656233, loss: 6.995729, size: 33718389
+[EVOLUTION] Epoch_8 Tour_0 Individual_3 fitness: 3.667728, loss: 7.006601, size: 41530851
+[EVOLUTION] Epoch_8 Tour_0 Individual_7 fitness: 2.236671, loss: 7.003198, size: 32737841
+[EVOLUTION] Epoch_8 Tour_0 Individual_5 fitness: 7.020340, loss: 7.033613, size: 47914565
+[EVOLUTION] Epoch_8 Tour_0 Individual_8 fitness: 5.323355, loss: 7.017990, size: 46140033
+[EVOLUTION] Epoch_8 Tour_0 Individual_4 fitness: 3.638899, loss: 7.012463, size: 36925659
+[EVOLUTION] Epoch_8 Tour_0 Individual_6 fitness: 3.835265, loss: 7.000030, size: 47764777
+[EVOLUTION] Epoch_8 Tour_0 Individual_1 fitness: 3.222691, loss: 7.007796, size: 37114551
+[EVOLUTION] fitness ranking: [0, 2, 7, 1, 4, 3, 6, 8, 5] fitness: [0.86588631286861317, 1.6562326936443268, 2.2366712199729752, 3.2226911466611088, 3.6388985871135717, 3.6677279908531788, 3.8352649254390974, 5.3233547747572683, 7.0203395964324802]
+Loading partition: 49/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 20160
+ |end line 20580
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7739
+size of char vocabulary: 51
+number of tokens in train: 9343
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_8 Tour_1 Individual_0 fitness: 0.313223, loss: 6.835146, size: 20601141
+[EVOLUTION] Epoch_8 Tour_1 Individual_2 fitness: 1.656233, loss: 6.819069, size: 33718389
+[EVOLUTION] Epoch_8 Tour_1 Individual_7 fitness: 1.820586, loss: 6.833860, size: 32737841
+[EVOLUTION] Epoch_8 Tour_1 Individual_1 fitness: 5.509172, loss: 6.994829, size: 37114551
+[EVOLUTION] Epoch_8 Tour_1 Individual_4 fitness: 2.299115, loss: 6.831281, size: 36925659
+[EVOLUTION] Epoch_8 Tour_1 Individual_3 fitness: 3.420426, loss: 6.858991, size: 41530851
+[EVOLUTION] Epoch_8 Tour_1 Individual_6 fitness: 3.587907, loss: 6.827185, size: 47764777
+[EVOLUTION] Epoch_8 Tour_1 Individual_8 fitness: 3.762131, loss: 6.846658, size: 46140033
+[EVOLUTION] Epoch_8 Tour_1 Individual_5 fitness: 3.654186, loss: 6.829617, size: 47914565
+[EVOLUTION] fitness ranking: [0, 2, 7, 4, 3, 6, 5, 8, 1] fitness: [0.3132226527775791, 1.6562326936443268, 1.8205858819202776, 2.2991146172539936, 3.4204261568291274, 3.5879070467023335, 3.6541858119653456, 3.762131360442424, 5.5091717270188401]
+[EVOLUTION] score ranking: [0, 2, 7, 4, 3, 6, 1, 8, 5] score: [18.0, 14.687534612711346, 9.8854857962134943, -3.4529382002162681, -14.020344581582403, -22.951124786146249, -35.741447256134045, -45.59840294639784, -60.087831643251917]
+[EVOLUTION] 4 and 0 distance: 9.000000
+[EVOLUTION] Loser_4 and Winner_0 distance: 9.000000
+[EVOLUTION] 4 and 2 distance: 8.717798
+[EVOLUTION] 4 and 7 distance: 2.828427
+[EVOLUTION] Individual_4 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 59], '13': [13, 91], '12': [12, 160], '15': [15, 205], '14': [14, 170], '17': [17, 222], '16': [16, 157], '19': [19, 89], '18': [18, 51], '21': [21, 97], '1': [1, 165], '3': [3, 150], '2': [2, 241], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 128], '9': [9, 87], '20': [20, 276], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 13, 1, 4, 5, 6, 9, 14, 11, 19, 17, 18], [0, 1, 2]]]
+[EVOLUTION] 3 and 0 distance: 9.591663
+[EVOLUTION] Loser_3 and Winner_0 distance: 9.591663
+[EVOLUTION] 3 and 2 distance: 8.246211
+[EVOLUTION] 3 and 7 distance: 8.717798
+[EVOLUTION] Individual_3 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 59], '13': [13, 81], '12': [12, 160], '15': [15, 205], '14': [14, 170], '17': [17, 222], '16': [16, 120], '19': [19, 89], '18': [18, 51], '21': [21, 162], '1': [1, 165], '3': [3, 150], '2': [2, 241], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 128], '9': [9, 93], '20': [20, 276], '8': [8, 119]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 13, 1, 4, 5, 6, 9, 14, 11, 19, 17, 18], [0, 1, 2]]]
+[EVOLUTION] 6 and 0 distance: 9.591663
+[EVOLUTION] Loser_6 and Winner_0 distance: 9.591663
+[EVOLUTION] 6 and 2 distance: 8.485281
+[EVOLUTION] 6 and 7 distance: 8.544004
+[EVOLUTION] Individual_6 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 59], '13': [13, 81], '12': [12, 160], '15': [15, 205], '14': [14, 170], '17': [17, 222], '16': [16, 120], '19': [19, 89], '18': [18, 51], '21': [21, 170], '1': [1, 165], '3': [3, 150], '2': [2, 241], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 128], '9': [9, 93], '20': [20, 276], '8': [8, 119]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 13, 1, 4, 5, 6, 9, 14, 11, 19, 17, 18], [0, 1, 2]]]
+[EVOLUTION] 1 and 0 distance: 9.000000
+[EVOLUTION] Loser_1 and Winner_0 distance: 9.000000
+[EVOLUTION] 1 and 2 distance: 8.717798
+[EVOLUTION] 1 and 7 distance: 2.828427
+[EVOLUTION] Individual_1 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 59], '13': [13, 91], '12': [12, 160], '15': [15, 205], '14': [14, 170], '17': [17, 222], '16': [16, 157], '19': [19, 89], '18': [18, 51], '21': [21, 59], '1': [1, 165], '3': [3, 150], '2': [2, 241], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 128], '9': [9, 87], '20': [20, 276], '8': [8, 50]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 13, 1, 4, 5, 6, 9, 14, 11, 19, 17, 18], [0, 1, 2]]]
+[EVOLUTION] 8 and 0 distance: 9.797959
+[EVOLUTION] Loser_8 and Winner_0 distance: 9.797959
+[EVOLUTION] 8 and 2 distance: 8.544004
+[EVOLUTION] 8 and 7 distance: 8.944272
+[EVOLUTION] Individual_8 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 59], '13': [13, 81], '12': [12, 160], '15': [15, 205], '14': [14, 170], '17': [17, 222], '16': [16, 120], '19': [19, 89], '18': [18, 51], '21': [21, 124], '1': [1, 165], '3': [3, 150], '2': [2, 241], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 128], '9': [9, 93], '20': [20, 276], '8': [8, 119]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '5': [926], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 13, 1, 4, 5, 6, 9, 14, 11, 19, 17, 18], [0, 1, 2]]]
+[EVOLUTION] 5 and 0 distance: 9.797959
+[EVOLUTION] Loser_5 and Winner_0 distance: 9.797959
+[EVOLUTION] 5 and 2 distance: 8.717798
+[EVOLUTION] 5 and 7 distance: 8.944272
+[EVOLUTION] Individual_5 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 59], '13': [13, 81], '12': [12, 160], '15': [15, 205], '14': [14, 170], '17': [17, 222], '16': [16, 120], '19': [19, 89], '18': [18, 51], '21': [21, 127], '1': [1, 165], '3': [3, 150], '2': [2, 241], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 128], '9': [9, 93], '20': [20, 276], '8': [8, 119]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '5': [713], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 13, 1, 4, 5, 6, 9, 14, 11, 19, 17, 18], [0, 1, 2]]]
+[EVOLUTION] Individual_7 EXP_-1 Conv:
+ [165 236 123  50 300 117 139  50  87  65  50 174  91 188 161 157 222  50
+   0 272   0]
+[EVOLUTION] Individual_7 EXP_-1 Recu:
+ [100 100 454 100   0]
+==================================================================================================================================
+[EVOLUTION] Epoch_9 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.31034483  0.22666667  0.34020619  0.34736842  0.29069767  0.3125
+  0.31182796  0.32631579  0.32258065  0.31818182  0.32608696  0.31111111
+  0.32258065  0.35051546  0.33684211  0.33333333  0.32608696  0.25
+  0.22891566  0.32258065  0.25609756]
+[EVOLUTION] rnn probs: [ 0.38157895  0.43037975  0.26530612  0.4109589   0.2173913 ]
+Loading partition: 90/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 37380
+ |end line 37800
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7727
+size of char vocabulary: 51
+number of tokens in train: 8824
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_9 Tour_0 Individual_0 fitness: 5.059702, loss: 7.066181, size: 31510438
+[EVOLUTION] Epoch_9 Tour_0 Individual_2 fitness: 1.258104, loss: 7.012911, size: 23901763
+[EVOLUTION] Epoch_9 Tour_0 Individual_7 fitness: 2.547998, loss: 7.005324, size: 32735013
+[EVOLUTION] Epoch_9 Tour_0 Individual_4 fitness: 3.197394, loss: 6.999907, size: 37571086
+[EVOLUTION] Epoch_9 Tour_0 Individual_3 fitness: 3.615730, loss: 6.999820, size: 39857626
+[EVOLUTION] Epoch_9 Tour_0 Individual_6 fitness: 3.782740, loss: 7.002708, size: 40058458
+[EVOLUTION] Epoch_9 Tour_0 Individual_1 fitness: 2.354643, loss: 6.984946, size: 36652398
+[EVOLUTION] Epoch_9 Tour_0 Individual_8 fitness: 5.341728, loss: 7.025102, size: 43045074
+[EVOLUTION] Epoch_9 Tour_0 Individual_5 fitness: 5.124277, loss: 7.026399, size: 41551734
+[EVOLUTION] fitness ranking: [2, 1, 7, 4, 3, 6, 0, 5, 8] fitness: [1.2581040683200817, 2.3546430649371266, 2.5479978553740117, 3.1973940293370515, 3.6157297952743086, 3.7827398060194608, 5.0597022159328606, 5.1242771419329767, 5.3417277537689616]
+Loading partition: 83/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 34440
+ |end line 34860
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7718
+size of char vocabulary: 51
+number of tokens in train: 8743
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_9 Tour_1 Individual_2 fitness: 0.997342, loss: 7.162422, size: 23901763
+[EVOLUTION] Epoch_9 Tour_1 Individual_1 fitness: 3.977365, loss: 7.325057, size: 36652398
+[EVOLUTION] Epoch_9 Tour_1 Individual_7 fitness: 1.631225, loss: 6.903056, size: 32735013
+[EVOLUTION] Epoch_9 Tour_1 Individual_4 fitness: 5.689081, loss: 7.726082, size: 37571086
+[EVOLUTION] Epoch_9 Tour_1 Individual_3 fitness: 3.694493, loss: 7.097565, size: 39857626
+[EVOLUTION] Epoch_9 Tour_1 Individual_6 fitness: 3.049025, loss: 6.920061, size: 40058458
+[EVOLUTION] Epoch_9 Tour_1 Individual_0 fitness: 1.475354, loss: 6.921330, size: 31510438
+[EVOLUTION] Epoch_9 Tour_1 Individual_5 fitness: 3.320580, loss: 6.918967, size: 41551734
+[EVOLUTION] Epoch_9 Tour_1 Individual_8 fitness: 3.668951, loss: 6.937847, size: 43045074
+[EVOLUTION] fitness ranking: [2, 0, 7, 6, 5, 8, 3, 1, 4] fitness: [0.9973415921751061, 1.4753544664123712, 1.631224707895401, 3.0490253129871059, 3.3205802005335041, 3.6689509798148792, 3.6944931810286983, 3.9773647026816681, 5.6890807939585146]
+[EVOLUTION] score ranking: [2, 7, 6, 1, 0, 3, 5, 4, 8] score: [18.0, 9.6415548734611747, -10.060774969058624, -12.196195983708803, -13.833567762009535, -18.629878267269426, -31.152260795664851, -37.104828439679274, -43.078576929226088]
+[EVOLUTION] 1 and 2 distance: 8.944272
+[EVOLUTION] Loser_1 and Winner_2 distance: 8.944272
+[EVOLUTION] 1 and 7 distance: 7.000000
+[EVOLUTION] 1 and 6 distance: 4.472136
+[EVOLUTION] Individual_1 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 69], '13': [13, 91], '12': [12, 138], '15': [15, 205], '14': [14, 241], '17': [17, 222], '16': [16, 159], '19': [19, 89], '18': [18, 122], '21': [21, 153], '1': [1, 277], '3': [3, 145], '2': [2, 168], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 61], '9': [9, 60], '20': [20, 300], '8': [8, 221]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 1, 5, 7, 15, 8, 10, 9, 19, 11, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 0 and 2 distance: 9.380832
+[EVOLUTION] Loser_0 and Winner_2 distance: 9.380832
+[EVOLUTION] 0 and 7 distance: 9.380832
+[EVOLUTION] 0 and 6 distance: 9.165151
+[EVOLUTION] Individual_0 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 69], '12': [12, 138], '15': [15, 165], '14': [14, 241], '17': [17, 129], '16': [16, 159], '19': [19, 93], '18': [18, 122], '21': [21, 153], '1': [1, 277], '3': [3, 145], '2': [2, 168], '5': [5, 242], '4': [4, 50], '7': [7, 153], '6': [6, 61], '9': [9, 60], '20': [20, 300], '8': [8, 221]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 1, 5, 7, 15, 8, 10, 9, 19, 11, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 3 and 2 distance: 8.944272
+[EVOLUTION] Loser_3 and Winner_2 distance: 8.944272
+[EVOLUTION] 3 and 7 distance: 8.062258
+[EVOLUTION] 3 and 6 distance: 2.000000
+[EVOLUTION] Individual_3 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 69], '13': [13, 81], '12': [12, 138], '15': [15, 205], '14': [14, 241], '17': [17, 222], '16': [16, 159], '19': [19, 89], '18': [18, 122], '21': [21, 153], '1': [1, 277], '3': [3, 145], '2': [2, 168], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 61], '9': [9, 60], '20': [20, 300], '8': [8, 221]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 1, 5, 7, 15, 8, 10, 9, 19, 11, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 5 and 2 distance: 9.165151
+[EVOLUTION] Loser_5 and Winner_2 distance: 9.165151
+[EVOLUTION] 5 and 7 distance: 8.306624
+[EVOLUTION] 5 and 6 distance: 2.828427
+[EVOLUTION] Individual_5 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 69], '13': [13, 81], '12': [12, 138], '15': [15, 205], '14': [14, 241], '17': [17, 222], '16': [16, 159], '19': [19, 89], '18': [18, 122], '21': [21, 153], '1': [1, 277], '3': [3, 145], '2': [2, 168], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 61], '9': [9, 60], '20': [20, 300], '8': [8, 221]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '5': [713], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 1, 5, 7, 15, 8, 10, 9, 19, 11, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 4 and 2 distance: 8.944272
+[EVOLUTION] Loser_4 and Winner_2 distance: 8.944272
+[EVOLUTION] 4 and 7 distance: 7.000000
+[EVOLUTION] 4 and 6 distance: 4.472136
+[EVOLUTION] Individual_4 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 69], '13': [13, 91], '12': [12, 138], '15': [15, 205], '14': [14, 241], '17': [17, 222], '16': [16, 159], '19': [19, 89], '18': [18, 122], '21': [21, 153], '1': [1, 277], '3': [3, 145], '2': [2, 168], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 61], '9': [9, 60], '20': [20, 300], '8': [8, 221]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 1, 5, 7, 15, 8, 10, 9, 19, 11, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 8 and 2 distance: 9.165151
+[EVOLUTION] Loser_8 and Winner_2 distance: 9.165151
+[EVOLUTION] 8 and 7 distance: 8.306624
+[EVOLUTION] 8 and 6 distance: 2.828427
+[EVOLUTION] Individual_8 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 69], '13': [13, 81], '12': [12, 138], '15': [15, 205], '14': [14, 241], '17': [17, 222], '16': [16, 159], '19': [19, 89], '18': [18, 122], '21': [21, 153], '1': [1, 277], '3': [3, 145], '2': [2, 168], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 61], '9': [9, 60], '20': [20, 300], '8': [8, 221]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '5': [926], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 13, 1, 5, 7, 15, 8, 10, 9, 19, 11, 17, 20], [0, 1, 3]]]
+[EVOLUTION] Individual_6 EXP_-1 Conv:
+ [165 241 150  50 300 128 153 119  93  59  50 160  81 170 205 120 222  51
+  89 276 170]
+[EVOLUTION] Individual_6 EXP_-1 Recu:
+ [100 100 100 100   0]
+==================================================================================================================================
+[EVOLUTION] Epoch_10 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.32291667  0.25        0.3490566   0.3592233   0.29787234  0.3258427
+  0.31683168  0.33980583  0.33663366  0.32989691  0.33663366  0.32323232
+  0.33        0.35849057  0.33980583  0.34313725  0.33        0.2688172
+  0.24175824  0.33333333  0.26966292]
+[EVOLUTION] rnn probs: [ 0.38823529  0.43181818  0.28070175  0.41975309  0.2       ]
+Loading partition: 94/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 39060
+ |end line 39480
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7725
+size of char vocabulary: 51
+number of tokens in train: 9145
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_10 Tour_0 Individual_2 fitness: 0.313815, loss: 6.858925, size: 24984149
+[EVOLUTION] Epoch_10 Tour_0 Individual_7 fitness: 1.625647, loss: 6.895199, size: 30096836
+[EVOLUTION] Epoch_10 Tour_0 Individual_6 fitness: 2.093846, loss: 6.847530, size: 40058256
+[EVOLUTION] Epoch_10 Tour_0 Individual_1 fitness: 3.983305, loss: 6.911776, size: 45811449
+[EVOLUTION] Epoch_10 Tour_0 Individual_0 fitness: 2.499033, loss: 6.880818, size: 38672949
+[EVOLUTION] Epoch_10 Tour_0 Individual_3 fitness: 6.146428, loss: 7.036387, size: 45543929
+[EVOLUTION] Epoch_10 Tour_0 Individual_5 fitness: 3.357595, loss: 6.859178, size: 48110657
+[EVOLUTION] Epoch_10 Tour_0 Individual_4 fitness: 2.737138, loss: 6.841136, size: 45811449
+[EVOLUTION] Epoch_10 Tour_0 Individual_8 fitness: 4.664916, loss: 6.921606, size: 49678337
+[EVOLUTION] fitness ranking: [2, 7, 6, 0, 4, 5, 1, 8, 3] fitness: [0.31381509025229237, 1.6256469342477793, 2.0938460213484889, 2.499033421613134, 2.7371378045058452, 3.3575953433818424, 3.9833054677610287, 4.664916258895528, 6.1464284699464251]
+Loading partition: 71/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 29400
+ |end line 29820
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7722
+size of char vocabulary: 51
+number of tokens in train: 9285
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_10 Tour_1 Individual_2 fitness: 0.618390, loss: 6.938419, size: 24984149
+[EVOLUTION] Epoch_10 Tour_1 Individual_7 fitness: 1.686891, loss: 6.946727, size: 30096836
+[EVOLUTION] Epoch_10 Tour_1 Individual_6 fitness: 4.419047, loss: 6.976540, size: 40058256
+[EVOLUTION] Epoch_10 Tour_1 Individual_0 fitness: 3.429885, loss: 6.959631, size: 38672949
+[EVOLUTION] Epoch_10 Tour_1 Individual_4 fitness: 2.737138, loss: 6.925463, size: 45811449
+[EVOLUTION] Epoch_10 Tour_1 Individual_5 fitness: 6.107673, loss: 6.989746, size: 48110657
+[EVOLUTION] Epoch_10 Tour_1 Individual_1 fitness: 4.734127, loss: 6.967300, size: 45811449
+[EVOLUTION] Epoch_10 Tour_1 Individual_8 fitness: 5.491192, loss: 6.972514, size: 49678337
+[EVOLUTION] Epoch_10 Tour_1 Individual_3 fitness: 2.943362, loss: 6.930520, size: 45543929
+[EVOLUTION] fitness ranking: [2, 7, 4, 3, 0, 6, 1, 8, 5] fitness: [0.61839002044076885, 1.6868905175503919, 2.7371378045058452, 2.9433618037661069, 3.429884670952096, 4.4190467256260257, 4.7341268059765262, 5.4911918930445669, 6.1076726843733891]
+[EVOLUTION] score ranking: [2, 7, 4, 0, 6, 1, 3, 5, 8] score: [18.0, 14.687462548201829, 1.5771731729649288, -3.2166389486477858, -8.2829256708271046, -34.304593642425331, -40.001513170869721, -47.649358191896326, -53.092757063580663]
+[EVOLUTION] 0 and 2 distance: 8.944272
+[EVOLUTION] Loser_0 and Winner_2 distance: 8.944272
+[EVOLUTION] 0 and 7 distance: 8.717798
+[EVOLUTION] 0 and 4 distance: 4.472136
+[EVOLUTION] Individual_0 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 84], '12': [12, 173], '15': [15, 165], '14': [14, 217], '17': [17, 129], '16': [16, 144], '19': [19, 93], '18': [18, 119], '21': [21, 174], '1': [1, 300], '3': [3, 137], '2': [2, 118], '5': [5, 242], '4': [4, 54], '7': [7, 153], '6': [6, 76], '9': [9, 80], '20': [20, 280], '8': [8, 270]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 1, 5, 7, 13, 8, 15, 9, 10, 11, 19, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 6 and 2 distance: 9.165151
+[EVOLUTION] Loser_6 and Winner_2 distance: 9.165151
+[EVOLUTION] 6 and 7 distance: 8.774964
+[EVOLUTION] 6 and 4 distance: 7.483315
+[EVOLUTION] Individual_6 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 84], '13': [13, 81], '12': [12, 173], '15': [15, 205], '14': [14, 217], '17': [17, 222], '16': [16, 144], '19': [19, 89], '18': [18, 119], '21': [21, 174], '1': [1, 300], '3': [3, 137], '2': [2, 118], '5': [5, 300], '4': [4, 54], '7': [7, 153], '6': [6, 76], '9': [9, 80], '20': [20, 280], '8': [8, 270]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 1, 5, 7, 13, 8, 15, 9, 10, 11, 19, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 1 and 2 distance: 9.165151
+[EVOLUTION] Loser_1 and Winner_2 distance: 9.165151
+[EVOLUTION] 1 and 7 distance: 8.717798
+[EVOLUTION] 1 and 4 distance: 0.000000
+[EVOLUTION] Individual_1 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 84], '13': [13, 91], '12': [12, 173], '15': [15, 205], '14': [14, 217], '17': [17, 222], '16': [16, 144], '19': [19, 89], '18': [18, 119], '21': [21, 174], '1': [1, 300], '3': [3, 137], '2': [2, 118], '5': [5, 300], '4': [4, 54], '7': [7, 153], '6': [6, 76], '9': [9, 80], '20': [20, 280], '8': [8, 270]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 1, 5, 7, 13, 8, 15, 9, 10, 11, 19, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 3 and 2 distance: 9.165151
+[EVOLUTION] Loser_3 and Winner_2 distance: 9.165151
+[EVOLUTION] 3 and 7 distance: 8.717798
+[EVOLUTION] 3 and 4 distance: 2.000000
+[EVOLUTION] Individual_3 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 84], '13': [13, 81], '12': [12, 173], '15': [15, 205], '14': [14, 217], '17': [17, 222], '16': [16, 144], '19': [19, 89], '18': [18, 119], '21': [21, 174], '1': [1, 300], '3': [3, 137], '2': [2, 118], '5': [5, 300], '4': [4, 54], '7': [7, 153], '6': [6, 76], '9': [9, 80], '20': [20, 280], '8': [8, 270]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 1, 5, 7, 13, 8, 15, 9, 10, 11, 19, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 5 and 2 distance: 9.380832
+[EVOLUTION] Loser_5 and Winner_2 distance: 9.380832
+[EVOLUTION] 5 and 7 distance: 8.717798
+[EVOLUTION] 5 and 4 distance: 2.828427
+[EVOLUTION] Individual_5 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 84], '13': [13, 81], '12': [12, 173], '15': [15, 205], '14': [14, 217], '17': [17, 222], '16': [16, 144], '19': [19, 89], '18': [18, 119], '21': [21, 174], '1': [1, 300], '3': [3, 137], '2': [2, 118], '5': [5, 300], '4': [4, 54], '7': [7, 153], '6': [6, 76], '9': [9, 80], '20': [20, 280], '8': [8, 270]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '5': [713], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 1, 5, 7, 13, 8, 15, 9, 10, 11, 19, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 8 and 2 distance: 9.380832
+[EVOLUTION] Loser_8 and Winner_2 distance: 9.380832
+[EVOLUTION] 8 and 7 distance: 8.717798
+[EVOLUTION] 8 and 4 distance: 2.828427
+[EVOLUTION] Individual_8 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 50], '10': [10, 84], '13': [13, 81], '12': [12, 173], '15': [15, 205], '14': [14, 217], '17': [17, 222], '16': [16, 144], '19': [19, 89], '18': [18, 119], '21': [21, 174], '1': [1, 300], '3': [3, 137], '2': [2, 118], '5': [5, 300], '4': [4, 54], '7': [7, 153], '6': [6, 76], '9': [9, 80], '20': [20, 280], '8': [8, 270]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '5': [926], '4': [100]}
+[EVOLUTION] - learned:  [[[0, 2, 3, 1, 5, 7, 13, 8, 15, 9, 10, 11, 19, 17, 20], [0, 1, 3]]]
+[EVOLUTION] Individual_4 EXP_-1 Conv:
+ [277 168 145  50 300  61 153 221  60  69  50 138  91 241 205 159 222 122
+  89 300 153]
+[EVOLUTION] Individual_4 EXP_-1 Recu:
+ [100 100 100 100   0]
+==================================================================================================================================
+[EVOLUTION] Epoch_11 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.33333333  0.2688172   0.35652174  0.36607143  0.30392157  0.33673469
+  0.32110092  0.34821429  0.34545455  0.33962264  0.34545455  0.33333333
+  0.3271028   0.36521739  0.33636364  0.35135135  0.33333333  0.28431373
+  0.25252525  0.34234234  0.27835052]
+[EVOLUTION] rnn probs: [ 0.39361702  0.43298969  0.29230769  0.42222222  0.21428571]
+Loading partition: 52/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 21420
+ |end line 21840
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7763
+size of char vocabulary: 51
+number of tokens in train: 9720
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_11 Tour_0 Individual_2 fitness: 0.106831, loss: 6.874995, size: 12930229
+[EVOLUTION] Epoch_11 Tour_0 Individual_7 fitness: 0.679806, loss: 6.880318, size: 18669373
+[EVOLUTION] Epoch_11 Tour_0 Individual_4 fitness: 2.584619, loss: 6.870330, size: 45815287
+[EVOLUTION] Epoch_11 Tour_0 Individual_0 fitness: 3.100114, loss: 6.912071, size: 40211659
+[EVOLUTION] Epoch_11 Tour_0 Individual_6 fitness: 2.814932, loss: 6.875581, size: 47215567
+[EVOLUTION] Epoch_11 Tour_0 Individual_1 fitness: 3.057679, loss: 6.885246, size: 47488047
+[EVOLUTION] Epoch_11 Tour_0 Individual_3 fitness: 3.317209, loss: 6.897514, size: 47215567
+[EVOLUTION] Epoch_11 Tour_0 Individual_5 fitness: 4.258687, loss: 6.929815, size: 49782295
+[EVOLUTION] Epoch_11 Tour_0 Individual_8 fitness: 6.371164, loss: 7.016679, size: 51349975
+[EVOLUTION] fitness ranking: [2, 7, 4, 6, 1, 0, 3, 5, 8] fitness: [0.10683120386945869, 0.6798055389827502, 2.5846194202886852, 2.8149324606648034, 3.0576792057630526, 3.1001142238224775, 3.3172092666221484, 4.2586870456481334, 6.371164478972636]
+Loading partition: 31/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 12600
+ |end line 13020
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7719
+size of char vocabulary: 51
+number of tokens in train: 9858
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_11 Tour_1 Individual_2 fitness: 1.717364, loss: 6.966576, size: 12930229
+[EVOLUTION] Epoch_11 Tour_1 Individual_7 fitness: 1.172160, loss: 6.894792, size: 18669373
+[EVOLUTION] Epoch_11 Tour_1 Individual_4 fitness: 2.986091, loss: 6.871763, size: 45815287
+[EVOLUTION] Epoch_11 Tour_1 Individual_6 fitness: 5.139909, loss: 7.019020, size: 47215567
+[EVOLUTION] Epoch_11 Tour_1 Individual_1 fitness: 2.716091, loss: 6.842836, size: 47488047
+[EVOLUTION] Epoch_11 Tour_1 Individual_0 fitness: 4.433371, loss: 7.007775, size: 40211659
+[EVOLUTION] Epoch_11 Tour_1 Individual_3 fitness: 6.009949, loss: 7.081708, size: 47215567
+[EVOLUTION] Epoch_11 Tour_1 Individual_5 fitness: 4.229174, loss: 6.938865, size: 49782295
+[EVOLUTION] Epoch_11 Tour_1 Individual_8 fitness: 4.296371, loss: 6.934828, size: 51349975
+[EVOLUTION] fitness ranking: [7, 2, 1, 4, 5, 8, 0, 6, 3] fitness: [1.1721598585443895, 1.7173637614604389, 2.7160909226798959, 2.9860913619290059, 4.2291736400532409, 4.2963705337295615, 4.4333710437833611, 5.139908969100528, 6.0099489357655553]
+[EVOLUTION] score ranking: [7, 2, 4, 1, 0, 6, 5, 3, 8] score: [17.320194461017248, 16.28263623853956, 3.872487073635611, 0.3371013315879976, -24.100797381812555, -26.424160165698105, -28.727503879749896, -49.98284708585733, -54.451168500428892]
+[EVOLUTION] 1 and 7 distance: 9.165151
+[EVOLUTION] Loser_1 and Winner_7 distance: 9.165151
+[EVOLUTION] 1 and 2 distance: 9.380832
+[EVOLUTION] Loser_1 and Winner_2 distance: 9.380832
+[EVOLUTION] 1 and 4 distance: 7.483315
+[EVOLUTION] Individual_1 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 58], '10': [10, 81], '13': [13, 91], '12': [12, 256], '15': [15, 205], '14': [14, 178], '17': [17, 222], '16': [16, 177], '19': [19, 89], '18': [18, 68], '21': [21, 179], '1': [1, 300], '3': [3, 148], '2': [2, 98], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 65], '9': [9, 80], '20': [20, 280], '8': [8, 300]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[1, 2, 3, 5, 7, 13, 9, 10, 15, 11, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 0 and 7 distance: 9.165151
+[EVOLUTION] Loser_0 and Winner_7 distance: 9.165151
+[EVOLUTION] 0 and 2 distance: 9.165151
+[EVOLUTION] 0 and 4 distance: 8.717798
+[EVOLUTION] Individual_0 learn from Individual_7: 
+[EVOLUTION] - Conv:  {'11': [11, 54], '10': [10, 68], '12': [12, 116], '15': [15, 165], '14': [14, 227], '17': [17, 157], '16': [16, 61], '19': [19, 93], '18': [18, 119], '21': [21, 174], '1': [1, 300], '3': [3, 141], '2': [2, 194], '5': [5, 300], '4': [4, 54], '7': [7, 148], '6': [6, 97], '9': [9, 107], '20': [20, 189], '8': [8, 67]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[1, 2, 3, 4, 5, 7, 13, 6, 8, 15, 9, 10, 11, 19, 16], [0, 1, 2]]]
+[EVOLUTION] 6 and 7 distance: 9.165151
+[EVOLUTION] Loser_6 and Winner_7 distance: 9.165151
+[EVOLUTION] 6 and 2 distance: 9.380832
+[EVOLUTION] Loser_6 and Winner_2 distance: 9.380832
+[EVOLUTION] 6 and 4 distance: 7.745967
+[EVOLUTION] Individual_6 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 58], '10': [10, 81], '13': [13, 81], '12': [12, 256], '15': [15, 205], '14': [14, 178], '17': [17, 222], '16': [16, 177], '19': [19, 89], '18': [18, 68], '21': [21, 179], '1': [1, 300], '3': [3, 148], '2': [2, 98], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 65], '9': [9, 80], '20': [20, 280], '8': [8, 300]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[1, 2, 3, 5, 7, 13, 9, 10, 15, 11, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 5 and 7 distance: 9.165151
+[EVOLUTION] Loser_5 and Winner_7 distance: 9.165151
+[EVOLUTION] 5 and 2 distance: 9.591663
+[EVOLUTION] Loser_5 and Winner_2 distance: 9.591663
+[EVOLUTION] 5 and 4 distance: 8.000000
+[EVOLUTION] Individual_5 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 58], '10': [10, 81], '13': [13, 81], '12': [12, 256], '15': [15, 205], '14': [14, 178], '17': [17, 222], '16': [16, 177], '19': [19, 89], '18': [18, 68], '21': [21, 179], '1': [1, 300], '3': [3, 148], '2': [2, 98], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 65], '9': [9, 80], '20': [20, 280], '8': [8, 300]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '5': [713], '4': [100]}
+[EVOLUTION] - learned:  [[[1, 2, 3, 5, 7, 13, 9, 10, 15, 11, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 3 and 7 distance: 9.165151
+[EVOLUTION] Loser_3 and Winner_7 distance: 9.165151
+[EVOLUTION] 3 and 2 distance: 9.380832
+[EVOLUTION] Loser_3 and Winner_2 distance: 9.380832
+[EVOLUTION] 3 and 4 distance: 7.745967
+[EVOLUTION] Individual_3 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 58], '10': [10, 81], '13': [13, 81], '12': [12, 256], '15': [15, 205], '14': [14, 178], '17': [17, 222], '16': [16, 177], '19': [19, 89], '18': [18, 68], '21': [21, 179], '1': [1, 300], '3': [3, 148], '2': [2, 98], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 65], '9': [9, 80], '20': [20, 280], '8': [8, 300]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[1, 2, 3, 5, 7, 13, 9, 10, 15, 11, 17, 20], [0, 1, 3]]]
+[EVOLUTION] 8 and 7 distance: 9.165151
+[EVOLUTION] Loser_8 and Winner_7 distance: 9.165151
+[EVOLUTION] 8 and 2 distance: 9.591663
+[EVOLUTION] Loser_8 and Winner_2 distance: 9.591663
+[EVOLUTION] 8 and 4 distance: 8.000000
+[EVOLUTION] Individual_8 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 58], '10': [10, 81], '13': [13, 81], '12': [12, 256], '15': [15, 205], '14': [14, 178], '17': [17, 222], '16': [16, 177], '19': [19, 89], '18': [18, 68], '21': [21, 179], '1': [1, 300], '3': [3, 148], '2': [2, 98], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 65], '9': [9, 80], '20': [20, 280], '8': [8, 300]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '5': [926], '4': [100]}
+[EVOLUTION] - learned:  [[[1, 2, 3, 5, 7, 13, 9, 10, 15, 11, 17, 20], [0, 1, 3]]]
+[EVOLUTION] Individual_4 EXP_-1 Conv:
+ [277 168 145  50 300  61 153 221  60  69  50 138  91 241 205 159 222 122
+  89 300 153]
+[EVOLUTION] Individual_4 EXP_-1 Recu:
+ [100 100 100 100   0]
+==================================================================================================================================
+[EVOLUTION] Epoch_12 started
+==================================================================================================================================
+[EVOLUTION] cnn probs: [ 0.33035714  0.28431373  0.36290323  0.37190083  0.30909091  0.34579439
+  0.32478632  0.3553719   0.34745763  0.34782609  0.35294118  0.34188034
+  0.32743363  0.37096774  0.33333333  0.35833333  0.3362069   0.2972973
+  0.25471698  0.34453782  0.28571429]
+[EVOLUTION] rnn probs: [ 0.39805825  0.43396226  0.30136986  0.41836735  0.22580645]
+Loading partition: 69/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 28560
+ |end line 28980
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7740
+size of char vocabulary: 51
+number of tokens in train: 9720
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_12 Tour_0 Individual_7 fitness: 4.989029, loss: 6.947550, size: 27237893
+[EVOLUTION] Epoch_12 Tour_0 Individual_2 fitness: 0.065164, loss: 6.808230, size: 5735556
+[EVOLUTION] Epoch_12 Tour_0 Individual_4 fitness: 2.905381, loss: 6.805532, size: 45812964
+[EVOLUTION] Epoch_12 Tour_0 Individual_1 fitness: 3.308641, loss: 6.813753, size: 48636296
+[EVOLUTION] Epoch_12 Tour_0 Individual_0 fitness: 3.102048, loss: 6.847006, size: 34707669
+[EVOLUTION] Epoch_12 Tour_0 Individual_6 fitness: 3.957578, loss: 6.841449, size: 48360456
+[EVOLUTION] Epoch_12 Tour_0 Individual_5 fitness: 3.928730, loss: 6.832550, size: 50927184
+[EVOLUTION] Epoch_12 Tour_0 Individual_3 fitness: 3.261278, loss: 6.812620, size: 48360456
+[EVOLUTION] Epoch_12 Tour_0 Individual_8 fitness: 3.892205, loss: 6.826333, size: 52494864
+[EVOLUTION] fitness ranking: [2, 4, 0, 3, 1, 8, 5, 6, 7] fitness: [0.065163725533727235, 2.9053805018454764, 3.1020481690087633, 3.2612779274537105, 3.3086413841573306, 3.8922052985421569, 3.9287300399916143, 3.9575784321831908, 4.9890289426242864]
+Loading partition: 72/100
+reading train
+ |total lines: 42068
+ |partition size 420
+ |start line 29820
+ |end line 30240
+reading valid
+ |total lines: 3370
+reading test
+ |total lines: 3761
+
+actual longest token length is: 21
+size of word vocabulary: 7760
+size of char vocabulary: 51
+number of tokens in train: 9349
+number of tokens in valid: 73760
+number of tokens in test: 82430
+[EVOLUTION] Epoch_12 Tour_1 Individual_2 fitness: 0.522374, loss: 6.903601, size: 5735556
+[EVOLUTION] Epoch_12 Tour_1 Individual_4 fitness: 3.275811, loss: 6.893432, size: 45812964
+[EVOLUTION] Epoch_12 Tour_1 Individual_0 fitness: 2.826830, loss: 6.917264, size: 34707669
+[EVOLUTION] Epoch_12 Tour_1 Individual_3 fitness: 3.155475, loss: 6.873018, size: 48360456
+[EVOLUTION] Epoch_12 Tour_1 Individual_1 fitness: 3.110056, loss: 6.868640, size: 48636296
+[EVOLUTION] Epoch_12 Tour_1 Individual_8 fitness: 5.358151, loss: 7.000377, size: 52494864
+[EVOLUTION] Epoch_12 Tour_1 Individual_5 fitness: 4.098745, loss: 6.923695, size: 50927184
+[EVOLUTION] Epoch_12 Tour_1 Individual_6 fitness: 3.493122, loss: 6.895616, size: 48360456
+[EVOLUTION] Epoch_12 Tour_1 Individual_7 fitness: 4.834992, loss: 7.087906, size: 27237893
+[EVOLUTION] fitness ranking: [2, 0, 1, 3, 4, 6, 5, 7, 8] fitness: [0.52237425515359937, 2.8268296659563061, 3.1100557578659354, 3.1554753140589646, 3.2758108588686747, 3.493122223307219, 4.0987453444492656, 4.8349924746074517, 5.3581507508443389]
+[EVOLUTION] score ranking: [2, 0, 4, 3, 1, 6, 5, 8, 7] score: [18.0, 8.9690739960261681, 1.9913760626798247, -1.2502597245380258, -1.4546770523611929, -27.168660141818432, -30.16485230664528, -44.326232499465497, -55.757178863246452]
+[EVOLUTION] 3 and 2 distance: 9.380832
+[EVOLUTION] Loser_3 and Winner_2 distance: 9.380832
+[EVOLUTION] 3 and 0 distance: 8.717798
+[EVOLUTION] 3 and 4 distance: 7.745967
+[EVOLUTION] Individual_3 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 55], '10': [10, 66], '13': [13, 81], '12': [12, 198], '15': [15, 205], '14': [14, 178], '17': [17, 222], '16': [16, 150], '19': [19, 89], '18': [18, 95], '21': [21, 179], '1': [1, 300], '3': [3, 120], '2': [2, 98], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 74], '9': [9, 80], '20': [20, 280], '8': [8, 264]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 5, 7, 15, 9, 10, 11, 17], [0, 1, 3]]]
+[EVOLUTION] 1 and 2 distance: 9.380832
+[EVOLUTION] Loser_1 and Winner_2 distance: 9.380832
+[EVOLUTION] 1 and 0 distance: 8.717798
+[EVOLUTION] 1 and 4 distance: 7.483315
+[EVOLUTION] Individual_1 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 55], '10': [10, 66], '13': [13, 91], '12': [12, 198], '15': [15, 205], '14': [14, 178], '17': [17, 222], '16': [16, 150], '19': [19, 89], '18': [18, 95], '21': [21, 179], '1': [1, 300], '3': [3, 120], '2': [2, 98], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 74], '9': [9, 80], '20': [20, 280], '8': [8, 264]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 5, 7, 15, 9, 10, 11, 17], [0, 1, 3]]]
+[EVOLUTION] 6 and 2 distance: 9.380832
+[EVOLUTION] Loser_6 and Winner_2 distance: 9.380832
+[EVOLUTION] 6 and 0 distance: 8.717798
+[EVOLUTION] 6 and 4 distance: 7.745967
+[EVOLUTION] Individual_6 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 55], '10': [10, 66], '13': [13, 81], '12': [12, 198], '15': [15, 205], '14': [14, 178], '17': [17, 222], '16': [16, 150], '19': [19, 89], '18': [18, 95], '21': [21, 179], '1': [1, 300], '3': [3, 120], '2': [2, 98], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 74], '9': [9, 80], '20': [20, 280], '8': [8, 264]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 5, 7, 15, 9, 10, 11, 17], [0, 1, 3]]]
+[EVOLUTION] 5 and 2 distance: 9.591663
+[EVOLUTION] Loser_5 and Winner_2 distance: 9.591663
+[EVOLUTION] 5 and 0 distance: 8.944272
+[EVOLUTION] 5 and 4 distance: 8.000000
+[EVOLUTION] Individual_5 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 55], '10': [10, 66], '13': [13, 81], '12': [12, 198], '15': [15, 205], '14': [14, 178], '17': [17, 222], '16': [16, 150], '19': [19, 89], '18': [18, 95], '21': [21, 179], '1': [1, 300], '3': [3, 120], '2': [2, 98], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 74], '9': [9, 80], '20': [20, 280], '8': [8, 264]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '5': [713], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 5, 7, 15, 9, 10, 11, 17], [0, 1, 3]]]
+[EVOLUTION] 8 and 2 distance: 9.591663
+[EVOLUTION] Loser_8 and Winner_2 distance: 9.591663
+[EVOLUTION] 8 and 0 distance: 8.944272
+[EVOLUTION] 8 and 4 distance: 8.000000
+[EVOLUTION] Individual_8 learn from Individual_2: 
+[EVOLUTION] - Conv:  {'11': [11, 55], '10': [10, 66], '13': [13, 81], '12': [12, 198], '15': [15, 205], '14': [14, 178], '17': [17, 222], '16': [16, 150], '19': [19, 89], '18': [18, 95], '21': [21, 179], '1': [1, 300], '3': [3, 120], '2': [2, 98], '5': [5, 300], '4': [4, 50], '7': [7, 153], '6': [6, 74], '9': [9, 80], '20': [20, 280], '8': [8, 264]}
+[EVOLUTION] - Recu:  {'1': [100], '3': [100], '2': [100], '5': [926], '4': [100]}
+[EVOLUTION] - learned:  [[[2, 5, 7, 15, 9, 10, 11, 17], [0, 1, 3]]]
+[EVOLUTION] 7 and 2 distance: 8.944272
+[EVOLUTION] Loser_7 and Winner_2 distance: 8.944272
+[EVOLUTION] 7 and 0 distance: 9.380832
+[EVOLUTION] Loser_7 and Winner_0 distance: 9.380832
+[EVOLUTION] 7 and 4 distance: 9.165151
+[EVOLUTION] Individual_7 learn from Individual_0: 
+[EVOLUTION] - Conv:  {'11': [11, 54], '10': [10, 68], '12': [12, 116], '15': [15, 165], '14': [14, 227], '17': [17, 157], '16': [16, 61], '19': [19, 162], '18': [18, 119], '1': [1, 300], '3': [3, 141], '2': [2, 194], '5': [5, 300], '4': [4, 54], '7': [7, 148], '6': [6, 97], '9': [9, 107], '20': [20, 189], '8': [8, 67]}
+[EVOLUTION] - Recu:  {'

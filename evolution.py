@@ -23,7 +23,7 @@ flags.DEFINE_integer('num_cpus', 4, 'number of CPUs on the system')
 flags.DEFINE_integer('num_gpus', 1, 'number of GPUs on the system')
 
 # data
-flags.DEFINE_integer('num_partitions',  300,  'total number of partitions for fitness training')
+flags.DEFINE_integer('num_partitions',  100,  'total number of partitions for fitness training')
 flags.DEFINE_string ('data_dir',        'data',   'data directory. Should contain train.txt/valid.txt/test.txt with input data')
 flags.DEFINE_string ('population_dir',  'population', 'evolution history, information for generations')
 
@@ -33,9 +33,9 @@ flags.DEFINE_float  ('dropout',         0.5,                            'dropout
 flags.DEFINE_integer('highway_layers',  2,                              'number of highway layers')
 
 # evolution configuration
-flags.DEFINE_integer('num_winners',             1, 'number of winners of each generation')
-flags.DEFINE_integer('population_size',         3, 'number of individuals of each generation')
-flags.DEFINE_integer('num_touraments',          1, 'number of tourament rounds of each generation')
+flags.DEFINE_integer('num_winners',             3, 'number of winners of each generation')
+flags.DEFINE_integer('population_size',         9, 'number of individuals of each generation')
+flags.DEFINE_integer('num_touraments',          2, 'number of tourament rounds of each generation')
 flags.DEFINE_integer('max_evo_epochs',          20, 'max number of evolution iterations')
 flags.DEFINE_float  ('neighborhood_radius',     10, 'similarity threshold for teacher selection')
 flags.DEFINE_float  ('prob_mutation_struct',    0.1, 'probability of mutation for individual structures')
