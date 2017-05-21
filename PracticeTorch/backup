@@ -1,0 +1,447 @@
+\documentclass{article}
+% FINAL project report template
+% Originate from nips16 paper template
+% Refactored by Hongyang Li
+% Date: Feb 8 2017
+
+%\usepackage[nonatbib]{eleg5491_fp}
+%NOTE: to compile a camera-ready version, add the [final] option, e.g.:
+\usepackage[final,nonatbib]{eleg5491_fp}
+
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}    
+\usepackage[pdftex,colorlinks]{hyperref} 
+\usepackage{url}            
+\usepackage{booktabs}       
+\usepackage{amsfonts}       
+\usepackage{nicefrac}       
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+
+\title{Evolving Complex Neural Networks for Natural Language Model using Memetic Algorithm}
+
+\author{
+  GUO Yinpeng \\
+  % Department of Computer Science and Engineering \\
+  The Chinese University of Hong Kong\\
+  \texttt{ypguo@cse.cuhk.edu.hk} \\
+  %% examples of more authors
+   \And
+  SUN Yutian \\
+  % Department of Computer Science and Engineering \\
+  The Chinese University of Hong Kong\\
+  \texttt{ytsun@cse.cuhk.edu.hk} \\
+}
+
+\def\PaperID{1155081867} % *** Enter your assigned Paper ID here
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Natural language model (NLM) is a critical subsection of natural language processing (NLP), based on which a range of applications can be established. Recently, besides conventional linguistic and statistical methods, neural networks (NN) based NLM is arising. But criteria for designing the architecture and parameters of NN is still an unresolved problem. Here in this paper, we propose a novel method using Evolutionary Algorithm (EA) to generate and optimize the structure of complex NN for NLM. NN structures can be modified randomly and evaluated automatically. Furthermore, individual NN with high fitness is able to deliver its excellent structure randomly to other individuals.
+\end{abstract}
+
+
+\section{Introduction}
+Natural language model (NLM) is a critical subsection of natural language processing (NLP), which is difficult to study due to its complex and dynamical nature. While traditional methods for modeling natural language highly depend on domain-knowledge, e.g. linguistics, many researchers do not obtain a professional background in this field. Although the strong adaptivity of NN in NLM is well-accepted, criteria for designing the architecture and parameters of NN for specific problems is still an unresolved problem. On the other hand, considering its ability to achieve global optimal solution without thinking much about domain-knowledge, Evolutionary Algorithms (EA) is becoming popular in automatically generating both the architecture and parameters of neural networks. However, while previous studies mostly focus on constructing multilayer perceptron (MLP), deep and complex networks are not drawing enough attention even though more and more NN-based language models are designed to be complex. \par
+Based on what mentioned above, in this paper, we proposed a novel framework which is able to optimize the architecture of complex NN automatically. Major contributions of our work are as follows: \par 
+1) To the best knowledge of the authors, it is the first time that Memetic Algorithm, even Evolutionary Algorithm, is applied on complex neural networks, i.e. networks with multiple types of components, rather than simple MLP or networks with single type of components which are usually discussed in previous works. \par 
+2) We proposed a probability-based incremental method to extract beneficial network components, which makes more sense than conventional blind crossover in Genetic Algorithms (GA). \par 
+3) An alternative parent selection method for deep neural networks is proposed to reduce the well-known expensive computation of evolving neural networks. \par
+
+Following contents of this paper are arranged as: 1) Some recent related works will be introduced in Section \ref{section:related_work}, 2) followed is description of our proposed algorithm in details in Section \ref{section:methodology}. 3) Section \ref{section:experiments} gives the information about experiments including settings, results and analysis. 4) Finally, conclusions are made in Section \ref{section:discussions}.
+
+\section{Related Work}
+\label{section:related_work}
+Formalizing natural language into computable models has always been a fundamental and important field of artificial intelligence. \par
+
+\subsection{Neural networks for modeling natural language}
+Compared to traditional statistical natural language models, rising neural networks methods learning distributed representation for words get rid of problems related to sample sparsity to a huge extent. Bengio et al firstly propose a neural network solution to characterize natural language in probabilistic model \cite{bengio2003neural}. Recently, more complex networks are introduced to model natural language. Mikolov et al perform researches in constructing natural language model using recurrent neural networks (RNN) \cite{mikolov2010recurrent}. Meanwhile, another popular network structure, convectional neural networks (CNN), has been explored in \cite{collobert2008unified}.  In addition, it is worthy to mention that Word2Vec, one of the most successful natural language model there days, is also based on neural networks \cite{mikolov2013distributed}. Nevertheless, traditional gradient descent based optimization method for NN is well-known as lack of capability to achieve the global optimal solution. 
+
+\subsection{Evolutionary neural networks (ENN)}
+Evolutionary algorithms (EA) are a cluster of random search algorithms inspired by Darwinism which simulating the natural evolution. It mainly covers Evolutionary Strategy (ES), Evolutionary Programming (EP), Genetic Algorithm (GA), Genetic Programming (GP) and Memetic Algorithm (MA) \cite{ding2013evolutionary}. EA is a population-based method which encodes individuals into identical representation and mimics evolutionism through performing evolutionary operators, i.e. heredity, crossover and mutation. It has been proved as a way to approach to the global optimal solution. Based on what mentioned above, it is natural to take NN and EA into account together in order to construct a natural language model with its global optimal. Some methods for constructing NN using evolutionary algorithms are discussed in \cite{angeline1994evolutionary}, \cite{han2005evolutionary}, \cite{leung2003tuning} and \cite{eberhart1995new}, which nevertheless are all conducted several years ago, in another word, few relevant research has been performed after 2013. Besides, it is reported in \cite{ding2013evolutionary} that problems such as expensive computation and non-standard methodology exist in ENN, which will be valued in this project. Furthermore, previous works mostly focus on classical MLP rather than complex NN. 
+\par 
+
+\subsection{Memetic Algorithm (MA)}
+Memetic Algorithm is a kind of EA which focus more on searching for local optimal. It is reported efficient in discrete optimization in \cite{hao2012memetic}. Since the representation of neural network architecture is discrete, Memetic Algorithm is considered naturally. Besides, adopting Memetic Algorithm is inspired by \cite{hou2017evolutionary}, where MA is used to optimize actions of reinforcement learning of neural network individuals. 
+In addition, allowing for crossover-like evolutionary operators in conventional EAs do not make much sense among NN-based individuals due to each NN is trained as a whole system corresponding to its own environment. In this work, we introduce MA to bridge local and global search. From the perspective of diversity management, Memetic Algorithm is also a way for the synergy between global and local search \cite{moscato1989evolution}. To the best knowledge of us, it is the first time that MA is introduced to optimize neural networks. \par
+
+\section{Methodology}
+
+\label{section:methodology}
+As mentioned above, from the view of high-level concept, our goal is to search an optimal solution in a discrete space of network structure, which is shown in Figure \ref{fig:search_space}. To name a few, hyper-parameters of the network includes types of convolution filters, the number of each type of convolution filters, the number of recurrent layers and the number of cells on each recurrent layer.
+
+\begin{figure}[!htb]
+\begin{minipage}{0.48\textwidth}
+\centering
+\includegraphics[width=1\linewidth]{./figures/search_space.jpg}
+\caption{A sketch showing that we aim to find the optimal network structure through evaluate various combinations among different types of layers.}
+\label{fig:search_space}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\centering
+\includegraphics[width=1\linewidth]{./figures/structure_representation.jpg}
+\caption{1) The gray boxes stand for vectors representing convolution layers, while 2) the blue boxes stand for vectors representing LSTM layers.}
+\label{fig:structure_representation}
+\end{minipage}
+\end{figure}
+
+\subsection{Overview of proposed algorithm}
+This proposed algorithm is basically inspired by Universal Darwinism \cite{dawkins201029} that concentrates more on local search (neighborhood search) and claims a cultural evolution among individuals. In this project, we represent the network structure directly as vectors of its structure settings so that these concrete concepts can be abstracted for computing and transferring. Overview of the algorithm is described as Algorithm \ref{alg:overview}. \par
+\begin{algorithm}
+ \caption{Overview}
+ \label{alg:overview}
+ \begin{algorithmic}[1]
+ \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+ \renewcommand{\algorithmicensure}{\textbf{Output:}}
+ \REQUIRE Configuration  /* setting search space */
+ \ENSURE  Network Structures
+ \\ \textit{Initialisation} :
+  \STATE Initialize individual network based on Uniform distribution.
+ \\ \textit{Loop step 2 - 17 for $N$ generations}
+  \STATE Select \underline{top $p$ individuals} using \textit{Tournament} as \textit{Winners} while the others are \textit{Losers}.  \\ 
+  /* $p$ is a configured proportion, details in Algorithm \ref{alg:tournament} */
+  \FOR {Each \textit{Loser}}
+  \STATE Find a \textit{Winner} based on structure similarity as \textit{Teacher}.  /* \underline{details in Algorithm \ref{alg:learn}} */
+  \IF {\textit{Teacher} found in \textit{Neighborhood}}
+  \STATE Learn beneficial structure from the \textit{Teacher}.  /* \underline{details in Algorithm \ref{alg:absorb}} */
+  \ELSE 
+  \STATE Perform individual mutation. /* \underline{details in Algorithm \ref{alg:mutation}} */
+  \ENDIF
+  \ENDFOR
+  \FOR{Each \textit{Winner}}
+  \FOR{Each \textit{Winner}}
+  \IF{\textit{Winners} are in \textit{Neiborhood}}
+  \STATE The \textit{Winner} with less fitness perform mutation. /* \underline{details in Algorithm \ref{alg:mutation}} */
+  \ENDIF
+  \ENDFOR
+  \ENDFOR  
+ \RETURN Final \textit{Winners}  /* The best network structures. */
+ \end{algorithmic} 
+\end{algorithm}
+\par
+Detailed descriptions of some basic concepts, local search and diversity management are given in Section \ref{section:basic_concepts}, Section \ref{section:local_search} and \ref{section:diversity_management} respectively. \par 
+
+
+\subsubsection{Basic concepts}
+\label{section:basic_concepts}
+\paragraph{Network structure Encoding}
+\label{section:encoding}
+Since as shown in Figure \ref{fig:encoded_space}, encoding implies a mapping from original search space on a distorted search space. If the procedure of mapping can not be defined clearly, mapping noise can not be controlled. Besides, structure components of complex neural networks are closely connected, in another word, they can not be considered fully separately only depending on encoded representation. Hence, in order to reduce these noise and unreasonable separation, we adopted a direct structure representation method as depicted in Figure \ref{fig:structure_representation}.
+
+
+\begin{figure}[!htb]
+\begin{minipage}{0.48\textwidth}
+\centering
+\includegraphics[width=1\linewidth]{./figures/encoded_space.jpg}
+\caption{An example for mapping of convolution filter components from original search space on encoded search space.}
+\label{fig:encoded_space}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\centering
+\includegraphics[width=1\linewidth]{./figures/neighborhood.jpg}
+\caption{Red cycles stand for the radius of of \textit{Neighborhood} areas. Smile faces stand for \textit{Individual} networks.}
+\label{fig:neighborhood}
+\end{minipage}
+\end{figure}
+
+\paragraph{Distance and Neighborhood}
+\label{section:distance_neighborhood}
+On the basis of vectorized structure representation, we can compute the distance between individual networks in the search space. But it is worth to note that because we adopt direct representation scales of different types of components are not identical, e.g. convolution filter types $in [a, b]$ while 
+recurrent layers $in [c, d]$. Therefore, we adopted \textit{normalized Euclidean distance} as the metrics, which also given as Equation \ref{eq:seuclidean},
+\begin{equation}
+\label{eq:seuclidean}
+    d_{\vec{x}, \vec{y}} = \sqrt{\sum_{i=1}^{D}{\frac{(\vec{x}_i-\vec{y}_i)^2}{\sigma_i}}} 
+\end{equation}
+where \\
+$d_{x, y}$ is the distance between \textit{Individual x} and \textit{Individual y}. \\
+$D$ is the dimention of the structure representation vector. \\
+$\sigma_i$ is the variance of $x$ and $y$ on dimention $i$. \par 
+With the definition of distance between \textit{Individuals}, a \textit{Neighborhood} area can be characterized for the local searching and diversity management of Memetic Algorithm which we will introduce later. It is also illustrated in Figure \ref{fig:neighborhood}.
+
+\paragraph{Fitness Approximation}
+\label{section:fitness}
+Since for the sake of increasing the probability of finding the optimal structure solution, the population size should not be too small. Nevertheless, this necessary introduces a critical problem that searching procedure is supposed to be extremely computationally expensive. To alleviate this problem, we evaluate individual fitness on a \underline{mini partition (randomly sample $\frac{1}{100}$ full training set)} while validation set is kept entirely. It is acceptable because at the evolution stage, we do not care about individuals' absolute loss. Instead, the only thing drawing our attention is the relative loss level between individuals, which implies their structure capacity. 
+
+\paragraph{Winner selection}
+\label{section:selection}
+Tourament
+
+\paragraph{Network components selection}
+
+\subsubsection{Local search}
+\label{section:local_search}
+
+\paragraph*{Losers search neighborhood}
+\paragraph*{Losers learn from Winners}
+
+As shown in Algorithm \ref{alg:inter} and Figure \ref{fig:inter}, individuals (\textit{Losers}) who are not the \textit{Winners} of current generation will first compute its similarity with \textit{Winners} in order to select out the best teacher for it. The similarity is computed based on individuals' structure history, which is characterized as 2 dynamic matrices for CNN and RNN history respectively, as shown in Figure \ref{fig:sim_mat}. \par 
+Then after choosing a teacher, the \textit{Loser} will learn useful \textit{knowledge} from the teacher, which procedure consists of 2 steps: \textit{1) teacher express its entire knowledge (encoded structure and parameter information), 2) \textit{Loser} select out useful information to merge into its own knowledge.} \par
+
+\begin{algorithm}
+ \caption{Inter Evolution}
+ \label{alg:inter}
+ \begin{algorithmic}[1]
+ \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+ \renewcommand{\algorithmicensure}{\textbf{Output:}}
+ \REQUIRE \textit{Winners} and \textit{Losers}
+ \ENSURE  Structure transfer
+  \FOR {Each \textit{Loser}}
+   \FOR {Each \textit{Winner}}
+    \STATE Compute similarity based on structure   history, based on \underline{Euclidean distance as Equation \ref{eq:similarity}, \ref{eq:layer_sim} between history structure vectors introduced in Figure \ref{fig:structure_representation}}
+    \IF {similarity $>$ threshold (\underline{empirical setting})}
+    \STATE Teacher expresses its knowledge, \underline{output its encoded structure vectors}
+    \STATE \textit{Loser} select out useful structure, \underline{empirically}
+    \STATE \textit{Loser} absorb useful structure, that is, \underline{modify its structure according to the useful structure}
+    \ENDIF
+   \ENDFOR
+  \ENDFOR
+ \end{algorithmic} 
+\end{algorithm}
+\par
+
+Similarity between \textit{Winner a} and \textit{Loser b} is computed as
+\begin{equation}
+\label{eq:similarity}
+    S_{t,(a,b)} = \sum_{l}{S_{l,t,(a,b)}}
+\end{equation}
+where \\
+$l$ - a specific type of layer, i.e. convolution or LSTM layer in this paper; \\
+$t$ - a specific timestep. \\
+\begin{equation}
+\label{eq:layer_sim}
+    S_{l,t,(a,b)} = \sum_{t}{||v_a-v_b||+\gamma \times S_{l,t-1,(a,b)}}
+\end{equation}
+where \\
+$v_{\{a,b\}}$ - structure vector introduced in Figure \ref{fig:structure_representation}; \\
+$\gamma$ - timestep discount coefficient.
+
+
+\begin{figure}[!htb]
+
+\begin{minipage}{0.48\textwidth}
+\centering
+\includegraphics[width=1\linewidth]{./figures/inter.jpg}
+\caption{Inter Evolution. 1) Smiling faces (\textit{Winners}), 2) Sad faces (\textit{Losers}), 3) Red lines (unsuitable similarity), 4) Green line (suitable similarity). \textit{Losers} will find the best \textit{Winner} for themselves and learn knowledge from this \textit{Winner}.}
+\label{fig:inter}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\centering
+\includegraphics[width=1\linewidth]{./figures/inner.jpg}
+\caption{The sad face stands for a \textit{Loser}. Inner mutation of network structure occurs inside \textit{Loser} individuals.}
+\label{fig:inner}
+\end{minipage}
+
+\end{figure}
+
+\subsubsection{Diversity Management}
+\label{section:diversity_management}
+\paragraph*{Winners competition in neighborhood}
+If there is no suitable teacher for a specific loser , then the loser will perform inner mutation in order to ensure exploration in the search space of network structures. Algorithm is described as Figure \ref{fig:inner} and Algorithm \ref{alg:inner}. \par
+
+
+\begin{algorithm}
+ \caption{Inner Evolution}
+ \label{alg:inner}
+ \begin{algorithmic}[1]
+ \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+ \renewcommand{\algorithmicensure}{\textbf{Output:}}
+ \REQUIRE Original Structure
+ \ENSURE  New Structure
+  \FOR {Each Loser}
+  \STATE Mutate number of CNN filters, \underline{ randomly}
+  \STATE Add or Remove CNN filter types, \underline{add or remove 1 type randomly}
+  \STATE Mutate number of LSTM units, \underline{ randomly}
+  \STATE Add or Remove RNN layers, \underline{add or remove 1 layer randomly}
+  \ENDFOR
+ \RETURN New network structure
+ \end{algorithmic} 
+\end{algorithm}
+
+based on \underline{Uniform distribution}.
+
+
+\section{Experiments}
+
+\label{section:experiments}
+
+\subsection{Datasets}
+\label{section:datasets}
+Penn Treebank (PTB) is a popular English corpus for training and verify natural language model, which containing more than 4.5 million words. It is annotated with part-of-speech (POS) and partially with  skeletal syntactic structure \cite{marcus1993building}. This dataset is adopted in our baseline work \cite{kim2015character}. Therefore, for the sake of conducting a suitable comparison between original NN and our newly proposed ENN, we will adopt this dataset as well. 
+
+\subsection{Evaluation and settings}
+In this section, experiment settings are given. Table \ref{table:baseline} in \hyperlink{appendix}{Appendix} shows our baseline network structure, which is used for comparisons.
+
+\subsection{Results}
+\subsubsection{Generation loss}
+Generation average fitness during structure searching is given in Figure \ref{fig:avg_fitness} in \hyperlink{appendix}{Appendix}, which keeps oscillating. It is reasonable and as expected, because we only feed a random mini training set (1/100 volume) to individuals for fast exploring structure capacity, as mentioned in Section \ref{section:approximate}. For each evolution epoch, the training set is different while the validation set is always the same. \par
+
+\subsubsection{Beneficial network components}
+
+\subsubsection{Evolutionary history}
+As shown in Figure \ref{fig:winner} in \hyperlink{appendix}{Appendix}, we can tell clearly that several individual structures, i.e 6, 10 and 13, perform better than others along the entire evolution procedure, which implies that there should be some excellent structure features hidden inside them. Subsequently, we extract structures of individual 6, 10 and 13 as displayed in Figure \ref{fig:structures} in \hyperlink{appendix}{Appendix}. In addition, considering the parameter size for computation efficiency, we fully trained the final structure of individual 6 and results are given in Table \ref{table:trained} and Figure \ref{fig:training} in \hyperlink{appendix}{Appendix}. The training results illustrate that our model finally converges to the same loss level with the state-of-the-art baseline model, while our model size is only 72\% of baseline.  On the test set, we even achieve a slightly less loss value, which means our automatically generated model has a strong generality. 
+
+\subsubsection{Performance of generated network}
+
+\section{Discussions}
+\label{section:discussions}
+On the basis of experiment results, we demonstrate that the proposed novel algorithm is a promising method for seeking optimal network structure for specific problem. However, as time is extremely limited, a range of works are still waited to be conducted. Potential problems include but not limited in formalizing knowledge encoding and selection, constructing mutation probability based on statistical inference, exploring more accurate fast searching methods, all of which give us meaningful directions to continue our works. 
+
+\section*{Contributions of authors}
+Authors contributed to this project fully equivalently at all stages including high-level design, implementation and experiments. \par
+
+\section*{Acknowledgments}
+\label{section:acknowledgement}
+We feel very grateful to Prof. LEUNG, Kwong-Sak and Mr. LIU Pengfei who give us numerous valuable advices and first-hand experience. In addition, thanks to our friendly and warm-hearted classmates and all the people caring about us.
+
+\bibliographystyle{ieee.bst}
+\bibliography{eleg5491.bib}
+
+
+\clearpage
+\section*{\hypertarget{appendix}{Appendix}}
+\label{appendix}
+
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.3}
+\caption{Baseline architecture \cite{kim2015character}}
+\label{table:baseline}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{Baseline Network} \\
+\hline
+\multicolumn{3}{|c|}{input [batch\_size, num\_unroll\_steps, max\_word\_length]} \\
+\hline
+\multicolumn{3}{|c|}{embedding} \\
+\hline
+layers & filter size & number of filters/units \\
+\hline
+conv\_1 & 1 & 50 \\
+conv\_1 & 2 & 100 \\
+conv\_1 & 3 & 150 \\
+conv\_1 & 4 & 200 \\
+conv\_1 & 5 & 200 \\
+conv\_1 & 6 & 200 \\
+conv\_1 & 7 & 200 \\
+\hline
+\multicolumn{3}{|c|}{max pooling} \\
+\hline
+LSTM\_1 & & 650 \\
+\hline
+LSTM\_2 & & 650 \\
+\hline
+\multicolumn{3}{|c|}{FC} \\
+\hline
+\multicolumn{3}{|c|}{softmax} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.3}
+\caption{Experiment Settings}
+\label{table:settings}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+% \multicolumn{2}{|c|}{Parameters}&\multicolumn{2}{|c|}{Baseline}\\
+%\hline
+Name & Value & Remarks \\
+\hline
+num\_winners & 5 & number of \textit{Winners} of each generation\\
+\hline
+population\_size & 15 & number of individuals of each generation \\
+\hline
+max\_evo\_epochs & 15 & max times of evolution iterations \\
+\hline
+learning\_threshold & 0.2 & similarity threshold for teacher selection \\
+\hline
+max\_cnn\_filter\_types & 30 & max number of cnn filter types \\
+\hline
+max\_cnn\_type\_filters & 300 & max number of cnn filters for a specific type \\
+\hline
+max\_rnn\_layers & 3 & max number of rnn layers \\
+\hline
+\end{tabular}
+\end{table}
+\par
+
+\begin{figure}[!h]
+\centering\includegraphics[width=5.5in]{./figures/avg_fitness.jpg}
+\caption{Population average fitness along epochs.}
+\label{fig:avg_fitness}
+\end{figure}
+\par
+
+\begin{figure}[!h]
+\centering\includegraphics[width=5.5in]{./figures/winner_history.jpg}
+\caption{\textit{Winner} history after 15 evolution epochs.}
+\label{fig:winner}
+\end{figure}
+\par
+
+\begin{figure}[!h]
+\centering\includegraphics[width=5.5in]{./figures/structures.jpg}
+\caption{Randomly initialized structures and final structures of individual 6, 10 and 13. And the baseline structure \cite{kim2015character}.}
+\label{fig:structures}
+\end{figure}
+\par
+
+\begin{figure}[!h]
+\centering\includegraphics[width=5.5in]{./figures/training.jpg}
+\caption{Training results of our automatically generated model and baseline models.}
+\label{fig:training}
+\end{figure}
+\par
+
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.3}
+\caption{Model results}
+\label{table:trained}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+ \multicolumn{3}{|c|}{Validation Loss}\\
+\hline
+Epoch & Ours & Baseline \\
+\hline
+1 & 5.448 & 5.385 \\
+\hline
+5 & 4.608 & 4.667 \\
+\hline
+10 & 4.500 & 4.537 \\
+\hline
+15 & 4.441 & 4.425 \\
+\hline
+20 & 4.424 &4.402 \\
+\hline
+25 & 4.420 & 4.398 \\
+\hline
+\hline
+ \multicolumn{3}{|c|}{Test Loss} \\
+\hline
+& Ours & Baseline \\
+\hline
+& 4.388 & 4.395 \\
+\hline
+\hline
+ \multicolumn{3}{|c|}{Model size} \\
+\hline
+Ours/Baseline & Ours & Baseline \\
+\hline
+72\% & 14019865 & 19367965 \\
+\hline
+\end{tabular}
+\end{table}
+\par
+
+\end{document}
