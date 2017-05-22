@@ -4,6 +4,7 @@ Evolve Complex Neural Networks for Natural Language Model
 =====
 # Introduction
 The final project for ENGG5189 Advanced Topics in Artificial Intelligence at the Chinese University of Hong Kong.
+
 Baseline network structure is designed by [Yoon Kim](https://github.com/yoonkim/lstm-char-cnn) and neural network codes are partially borrowed from [mkroutikov](https://github.com/mkroutikov/tf-lstm-char-cnn).
 
 # Dataset
