@@ -13,7 +13,7 @@ Baseline network structure is designed by [Yoon Kim](https://github.com/yoonkim/
 # Requirement
 * Ubuntu 14.04 LTS
 * Python 3.4.3 -> Python 2.7.6
-* Tensorflow 1.0.0 -> Tensorflow 1.0.1
+* Tensorflow 1.0.0 -> Tensorflow 1.0.1 -> Tensorflow 1.1.0
 
 # Usage
 ## perform evolution
