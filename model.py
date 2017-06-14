@@ -171,7 +171,8 @@ def individual_graph(char_vocab_size, word_vocab_size,
           num_highway_layers=2,
           cnn_layer=None,
           rnn_layers=None,
-          dropout=0.0):
+          dropout=0.0,
+          reuse=False):
   input_ = tf.placeholder(tf.int32, shape=[batch_size, num_unroll_steps, max_word_length], name="input")
   ''' First, embed characters '''
   with tf.variable_scope('Embedding'):
@@ -190,9 +191,9 @@ def individual_graph(char_vocab_size, word_vocab_size,
   ''' Finally, do LSTM '''
   with tf.variable_scope('LSTM'):
     cells = list()
-    for rnn_layer_i in rnn_layers[0]:
+    for rnn_layer_i in range(rnn_layers[0]):
       with tf.variable_scope("layer_%d" % int(rnn_layer_i)):
-        cell = tf.contrib.rnn.BasicLSTMCell(rnn_layers[1], state_is_tuple=True, forget_bias=0.0)
+        cell = tf.contrib.rnn.BasicLSTMCell(rnn_layers[1], state_is_tuple=True, forget_bias=0.0, reuse=reuse)
         if dropout > 0.0:
           cell = tf.contrib.rnn.DropoutWrapper(cell, output_keep_prob=1.-dropout)
         cells.append(cell)

@@ -33,22 +33,20 @@ flags.DEFINE_float  ('dropout',     0.5,              'dropout. 0 = no dropout')
 flags.DEFINE_integer('highway_layers',  2,                'number of highway layers')
 
 # evolution configuration
-flags.DEFINE_integer('num_winners',       3, 'number of winners of each generation')
-flags.DEFINE_integer('population_size',     9, 'number of individuals of each generation')
-flags.DEFINE_integer('num_touraments',      2, 'number of tourament rounds of each generation')
-flags.DEFINE_integer('max_evo_epochs',      20, 'max number of evolution iterations')
+flags.DEFINE_integer('num_winners',       10, 'number of winners of each generation')
+flags.DEFINE_integer('population_size',     30, 'number of individuals of each generation')
+flags.DEFINE_integer('num_touraments',      3, 'number of tourament rounds of each generation')
+flags.DEFINE_integer('max_evo_epochs',      30, 'max number of evolution iterations')
 flags.DEFINE_float  ('neighborhood_radius',   10, 'similarity threshold for teacher selection')
-flags.DEFINE_float  ('prob_mutation_struct',  0.1, 'probability of mutation for individual structures')
-flags.DEFINE_float  ('prob_mutation_param',   0.1, 'probability of mutation for individual parameters')
 flags.DEFINE_integer('max_cnn_filter_types',  21, 'max number of cnn filter types')
-flags.DEFINE_integer('min_cnn_filter_types',  5, 'max number of cnn filter types')
+flags.DEFINE_integer('min_cnn_filter_types',  1, 'max number of cnn filter types')
 flags.DEFINE_integer('max_cnn_type_filters',  500, 'max number of cnn filters for a specific type')
 flags.DEFINE_integer('min_cnn_type_filters',  10, 'max number of cnn filters for a specific type')
 flags.DEFINE_integer('cnn_mutate_unit',  10, 'precision unit of mutation')
 flags.DEFINE_integer('max_rnn_layers',      5, 'max number of rnn layers')
 flags.DEFINE_integer('min_rnn_layers',      1, 'max number of rnn layers')
 flags.DEFINE_integer('max_rnn_layer_cells',   1000, 'max number of rnn layer cells')
-flags.DEFINE_integer('min_rnn_layer_cells',   100, 'max number of rnn layer cells')
+flags.DEFINE_integer('min_rnn_layer_cells',   10, 'max number of rnn layer cells')
 flags.DEFINE_integer('rnn_mutate_unit',  10, 'precision unit of mutation')
 flags.DEFINE_integer('if_train_winner',     0, '1-train the winner; 0-do not train')
 flags.DEFINE_integer('local_std_rate',      0.2, '')
@@ -192,7 +190,8 @@ class Individual:
                       num_highway_layers=2,
                       cnn_layer=self._cnn_layer,
                       rnn_layers=self._rnn_layers,
-                      dropout=self._knowledge.dropout[-1])
+                      dropout=self._knowledge.dropout[-1],
+                      reuse=False)
           my_model.update(model.loss_graph(my_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
           my_model.update(model.training_graph(my_model.loss * FLAGS.num_unroll_steps, FLAGS.learning_rate, FLAGS.max_grad_norm))
 
@@ -209,7 +208,8 @@ class Individual:
                       num_highway_layers=2,
                       cnn_layer=self._cnn_layer,
                       rnn_layers=self._rnn_layers,
-                      dropout=self._knowledge.dropout[-1])
+                      dropout=self._knowledge.dropout[-1],
+                      reuse=True)
           valid_model.update(model.loss_graph(valid_model.logits, FLAGS.batch_size, FLAGS.num_unroll_steps))
     return my_model, valid_model, saver
 
@@ -479,41 +479,39 @@ class Population:
     for f in range(len(cnn_filters)):
       if cnn_filters[f] > 0:
         self._cnn_filter_stat[f] += 1
-    for l in range(len(rnn_layers)):
-      if rnn_layers[l] > 0:
-        self._rnn_layers_stat[l] += 1
+    for l in range(rnn_layers[0]):
+      self._rnn_layers_stat[l] += 1
 
   def update_struct_wins(self, cnn_filters, rnn_layers):
     for f in range(len(cnn_filters)):
       if cnn_filters[f] > 0:
         self._cnn_filter_wins[f] += 1
-    for l in range(len(rnn_layers)):
-      if rnn_layers[l] > 0:
-        self._rnn_layers_wins[l] += 1
+    for l in range(rnn_layers[0]):
+      self._rnn_layers_wins[l] += 1
 
   def final_winner(self):
+    # TODO: a method to decide the final winner
     return self._population[:self._num_winners]
 
   def generate(self, id_number):
     cnn_layer = {}
-    rnn_layers = {}
+    rnn_layers = []
     # generate cnn layer
-    # len: 5 - 21
+    # len: 1 - 21
     num_filter_types = np.random.randint(FLAGS.min_cnn_filter_types, FLAGS.max_cnn_filter_types+1)
     available_filter_types = [i for i in range(1, FLAGS.max_cnn_filter_types+1)]
     for i in range(num_filter_types):
       filter_type = np.random.choice(available_filter_types)
       available_filter_types.remove(filter_type)
-      # num: 50 - 300
-      num_type_filters = np.random.randint(FLAGS.min_cnn_type_filters, FLAGS.max_cnn_type_filters)
+      # num: 10 - 500
+      num_type_filters = int(round(np.random.randint(FLAGS.min_cnn_type_filters, FLAGS.max_cnn_type_filters) / FLAGS.cnn_mutate_unit) * FLAGS.cnn_mutate_unit)
       cnn_layer['%d' % filter_type] = [filter_type, num_type_filters]
     # generate rnn layers
     # 1 - 5
     num_rnn_layers = np.random.randint(FLAGS.min_rnn_layers, FLAGS.max_rnn_layers+1)
-    for layer in range(1, num_rnn_layers+1):
-      # 100 - 1000
-      num_units = np.random.randint(FLAGS.min_rnn_layer_cells, FLAGS.max_rnn_layer_cells+1)
-      rnn_layers['%d' % layer] = [num_units]
+    # 10 - 1000
+    num_units = int(round(np.random.randint(FLAGS.min_rnn_layer_cells, FLAGS.max_rnn_layer_cells+1) / FLAGS.rnn_mutate_unit) * FLAGS.rnn_mutate_unit)
+    rnn_layers = [num_rnn_layers, num_units]
     individual = Individual(id_number=id_number,
                 cnn_layer=cnn_layer,
                 rnn_layers=rnn_layers)
@@ -524,8 +522,15 @@ class Population:
     self.update_probs()
     for individual in self._population:
       individual._score = self._population_size * FLAGS.num_touraments
+    arenas = []
     for t in range(FLAGS.num_touraments):
-      arena = np.random.randint(1, FLAGS.num_partitions+1)
+      while True:
+        arena = np.random.randint(1, FLAGS.num_partitions+1)
+        if arena in arenas:
+          continue
+        else:
+          arenas.append(arena)
+          break
       ranking = self.tourament(epoch, t, arena)
       print("[EVOLUTION] fitness ranking:", [individual._id_number for individual in self._population], "fitness:", [individual.get_fitness() for individual in self._population])
       for rank in range(len(ranking)):
@@ -542,7 +547,9 @@ class Population:
   def fitness(self, loss, losses, model_size, model_sizes):
     reg_size = (model_size - np.min(model_sizes)) / np.std(model_sizes)
     reg_loss = (loss - np.min(losses)) / np.std(losses)
-    fitness = 1.05 * reg_size + reg_loss
+    weight_size = 1
+    weight_loss = 1
+    fitness = weight_size * reg_size + weight_loss * reg_loss
     return fitness
 
   def tourament(self, epoch, t, partition):
@@ -589,11 +596,13 @@ class Population:
     struct_2 = np.concatenate((exp2[-1][0], exp2[-1][1]))
     return self.seuclidean(struct_1, struct_2)
 
+  '''
   def dissim_norm(self, td, steps):
     if steps > 1:
       return 1 + td * self.dissim_norm(td, steps-1)
     else:
       return 1
+  '''
 
   def find_teacher(self, loser):
     further_dist = 0
