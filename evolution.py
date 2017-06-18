@@ -383,9 +383,13 @@ class Individual:
   def absorb(self, struct_exp, cnn_probs, rnn_probs):
     cnn_last = struct_exp[-1][0]
     rnn_last = struct_exp[-1][1]
+    cnn_my_last = self._knowledge.struct_exp[-1][0]
+    cnn_my_last = self._knowledge.struct_exp[-1][0]
     beneficial_exp = []
     cnn_selected = []
     rnn_selected = []
+    # learn convolution components
+    ''' deprecated
     for i in range(int(FLAGS.max_cnn_filter_types * 0.3)):
       prob = 0
       for cnn_i in range(len(cnn_last)):
@@ -396,6 +400,8 @@ class Individual:
             print('')
           else:
             self._knowledge.struct_exp[-1][0][cnn_i] = cnn_last[cnn_i]
+    '''
+    # TODO: learn lstm components
     for i in range(int(FLAGS.max_rnn_layers * 0.4)):
       prob = 0
       for rnn_i in range(len(rnn_last)):
